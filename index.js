@@ -1,10 +1,10 @@
 const discord = require('discord.js');
 const bot = new discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
-const token = 'NzMwNDQwNDU0ODM1MDExNjc0.Xwg0lg.lUFNkX9vMaV6vz45-xvcnNtgn9g';
+const token = 'NzMwNDQwNDU0ODM1MDExNjc0.XwXhrw.qFsSGlNxfJUNGzNUK1_jUIE5qAE';
 const prefix = '*';
 const fs = require('fs');
-const { brotliCompress } = require('zlib');
-const { error } = require('console');
+
+
 
 bot.commands = new discord.Collection();
 
