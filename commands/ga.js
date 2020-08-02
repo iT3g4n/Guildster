@@ -35,7 +35,7 @@ module.exports = {
         setTimeout(() => {
             let winner = giveaway.reactions.cache.get("🎁")
             let thing = winner.users.cache.filter(u => !u.bot).random()
-            if(thing === null) return message.channel.send("Nobody won the giveaway. How sad.")
+            if(winner === 1) return message.channel.send("Nobody won the giveaway. How sad.")
             message.channel.send(`**CONGRATULATIONS** ${thing}**!** You won **${prize}**`)
         }, ms(args[0]));
 
