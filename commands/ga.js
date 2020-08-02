@@ -7,6 +7,8 @@ module.exports = {
     usage: "*give <time> <prize>",
     async run(bot, message, args) {
 
+        message.delete({ timeout: 0 })
+
         if (!args[0]) return message.channel.send(this.usage).then(msg => { msg.delete({ timeout: 10000 }) })
         if (!args[0].endsWith("d") && !args[0].endsWith("h") && !args[0].endsWith("m")) return message.channel.send("Please specify the amount of time before the giveaway ends.").then(msg => { msg.delete({ timeout: 6000 }) })
         if (isNaN(args[0][0])) return message.channel.send("That is not a number!").then(msg => { msg.delete({ timeout: 5000 }) })
@@ -33,7 +35,7 @@ module.exports = {
         setTimeout(() => {
             let winner = giveaway.reactions.cache.get("🎁")
             let thing = winner.users.cache.filter(u => !u.bot).random()
-            if(thing === "undefined") return message.channel.send("Nobody won the giveaway. How sae.")
+            if(thing === null) return message.channel.send("Nobody won the giveaway. How sad.")
             message.channel.send(`**CONGRATULATIONS** ${thing}**!** You won **${prize}**`)
         }, ms(args[0]));
 
