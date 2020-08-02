@@ -1,0 +1,23 @@
+{
+  "name": "discord-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "T3g4n",
+  "license": "ISC",
+  "dependencies": {
+    "bufferutil": "^4.0.1",
+    "discord-giveaways": "^4.2.1",
+    "discord.js": "^12.2.0",
+    "fortnite": "^4.3.2",
+    "ms": "^2.1.2",
+    "pm2": "^4.4.0",
+    "python": "0.0.4",
+    "quick.db": "^7.1.1",
+    "random-color": "^1.0.1",
+    "random-puppy": "^1.1.0"
+  }
+}
