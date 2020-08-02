@@ -24,16 +24,16 @@ module.exports = {
             .setColor(randomColor)
             .setTitle("🎁  GIVEAWAY TIME  🎁")
             .setDescription(`Prize: ${prize}\nTime of the giveaway: ${args[0]}`)
-            .setFooter(`Giveaway Started By: ${message.author.username}. Ends`)
+            .setFooter(`Giveaway Started By: ${message.author.username}. ends`)
             .setTimestamp(Date.now() + ms(args[0]))
 
         await giveaway.edit(embed);
         await giveaway.edit("")
-        await giveaway.react("🎁")
+        await giveaway.react(":WKlogo:")
         await giveaway.edit("@everyone")
         await giveaway.edit("")
         setTimeout(() => {
-            let winner = giveaway.reactions.cache.get("🎁")
+            let winner = giveaway.reactions.cache.get(":WKlogo:")
             let thing = winner.users.cache.filter(u => !u.bot).random()
             if(winner === 1) return message.channel.send("Nobody won the giveaway. How sad.")
             message.channel.send(`**CONGRATULATIONS** ${thing}**!** You won **${prize}**`)
