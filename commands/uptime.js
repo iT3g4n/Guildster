@@ -18,5 +18,6 @@ module.exports= {
         .setColor(randomColor)
 
         await m.edit(e)
+        await m.edit("")
     }
 }
