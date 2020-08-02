@@ -1,7 +1,5 @@
 const rp = require("random-puppy")
 const { MessageEmbed } = require("discord.js")
-const randomPuppy = require("random-puppy")
-
 
 
 module.exports = {
