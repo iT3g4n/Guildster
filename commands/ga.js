@@ -33,6 +33,7 @@ module.exports = {
         setTimeout(() => {
             let winner = giveaway.reactions.cache.get("🎁")
             let thing = winner.users.cache.filter(u => !u.bot).random()
+            if(thing === "undefined") return message.channel.send("Nobody won the giveaway. How sae.")
             message.channel.send(`**CONGRATULATIONS** ${thing}**!** You won **${prize}**`)
         }, ms(args[0]));
 
