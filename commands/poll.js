@@ -20,9 +20,10 @@ module.exports = {
 
             let rlmessage = await message.channel.send("@everyone")
 
-            rlmessage.edit(embed)
+            await rlmessage.edit(embed)
+            await rlmessage.edit("")
             await rlmessage.react("✔️")
-            rlmessage.react("❌")
+            await rlmessage.react("❌")
 
         } else return message.reply("YOU DO NOT HAVE ENOUGH PERMISSIONS")
 
