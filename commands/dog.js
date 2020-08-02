@@ -1,6 +1,5 @@
 const rp = require("random-puppy")
 const { MessageEmbed } = require("discord.js")
-const bufferutil = require("bufferutil")
 const randomPuppy = require("random-puppy")
 
 
