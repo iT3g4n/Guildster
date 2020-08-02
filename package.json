@@ -7,12 +7,11 @@
     "start": "node index.js"
   },
   "engines": {
-    "node": "12.18.2"
+    "node": "12.x"
   },
   "author": "T3g4n",
   "license": "ISC",
   "dependencies": {
-    "bufferutil": "^4.0.1",
     "discord.js": "^12.2.0",
     "fortnite": "^4.3.2",
     "ms": "^2.1.2",
