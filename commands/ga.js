@@ -10,7 +10,7 @@ module.exports = {
         message.delete({ timeout: 0 })
 
         if (!args[0]) return message.channel.send(this.usage).then(msg => { msg.delete({ timeout: 10000 }) })
-        if (!args[0].endsWith("d") && !args[0].endsWith("h") && !args[0].endsWith("m")) return message.channel.send("Please specify the amount of time before the giveaway ends.").then(msg => { msg.delete({ timeout: 6000 }) })
+        if (!args[0].endsWith("d") && !args[0].endsWith("h") && !args[0].endsWith("m") && !args[0].endsWith("s")) return message.channel.send("Please specify the amount of time before the giveaway ends.").then(msg => { msg.delete({ timeout: 6000 }) })
         if (isNaN(args[0][0])) return message.channel.send("That is not a number!").then(msg => { msg.delete({ timeout: 5000 }) })
 
         let prize = args.slice(1).join(" ")
