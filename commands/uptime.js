@@ -1,5 +1,6 @@
 const { MessageEmbed } = require("discord.js")
 const ms = require("ms")
+const randomColor = require(`../essentials/randomcolor`)
 
 module.exports= {
     name: "uptime",
@@ -14,6 +15,7 @@ module.exports= {
         const e = new MessageEmbed()
         .setTitle("Uptime")
         .setDescription(`I have been online for:\n${ms(bot.uptime)}`)
+        .setColor(randomColor)
 
         await m.edit(e)
     }
