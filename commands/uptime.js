@@ -1,4 +1,5 @@
 const { MessageEmbed } = require("discord.js")
+const ms = require("ms")
 
 module.exports= {
     name: "uptime",
@@ -12,7 +13,7 @@ module.exports= {
 
         const e = new MessageEmbed()
         .setTitle("Uptime")
-        .setDescription(`I have been online for:\n${this.bot.uptime}`)
+        .setDescription(`I have been online for:\n${ms(bot.uptime)}`)
 
         await m.edit(e)
     }
