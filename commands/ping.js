@@ -11,7 +11,7 @@ const { MessageEmbed } = require("discord.js")
 
     const embed = new MessageEmbed()
     .setTitle("🏓 Pong! 🏓")
-    .addField(`Bot`, message.createdTimestamp - Date.now() + " ms")
+    .addField(`Bot`, Date.now() - message.createdTimestamp + " ms")
     .addField("API", bot.ws.ping + " ms")
     .setColor(randomColor)
 
