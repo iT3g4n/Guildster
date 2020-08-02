@@ -10,5 +10,7 @@ module.exports= {
         const e = new MessageEmbed()
         .setTitle("Uptime")
         .setDescription(`I have been online for:\n${this.bot.uptime}`)
+
+        await m.edit(e)
     }
 }
