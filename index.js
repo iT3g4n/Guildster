@@ -1,5 +1,5 @@
 const discord = require('discord.js');
-const bot = new discord.Client();
+const bot = new discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 const token = 'NzMwNDQwNDU0ODM1MDExNjc0.Xwg0lg.lUFNkX9vMaV6vz45-xvcnNtgn9g';
 const prefix = '*';
 const fs = require('fs');
@@ -95,6 +95,46 @@ bot.on('message', message => {
         message.channel.send(`Noice ${message.author.username}. I am a bot. I have no feelings.`);
     }
 
+})
+
+bot.on("messageReactionAdd", async (reaction, user) => {
+
+    const randomcolour =  "#" + Math.floor(Math.random() * 16777215).toString(16);
+
+    try {
+        await reaction.fetch();
+    } catch (error) {
+        console.log(error)
+        return;
+    }
+
+    const embed = new discord.MessageEmbed()
+    .setTitle("Create a Ticket  🎫")
+    .setDescription(`What is your suggestion ${user.username}?\n\n**PLEASE START YOUR MESSAGE WITH \`!TICKET\``)
+    .setColor(randomcolour)
+
+    if (reaction.message.channel.id === "739480654109999185") {
+        user.send(embed)
+    } else return
+
+})
+
+bot.on('message', async (message) => {
+
+    const logchannelid = "739480654109999185"
+
+    if (!message.type === "dm") return;
+    if (message.content.startsWith("!ticket")) {
+
+        const thingyprefix = "!"
+
+        const args = message.content.slice(thingyprefix.length).split(" ");
+
+        const msgArgs = args.slice().join(" ")
+
+        bot.guilds.cache.get("714809218024079430").send(`test: ${msgArgs}`)
+
+    } else return
 })
 
 bot.login(token);
