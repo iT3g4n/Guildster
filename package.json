@@ -7,8 +7,7 @@
     "start": "node index.js"
   },
   "engines": {
-    "node": "12.x",
-    "npm": "6.x"
+    "node": "12.x"
   },
   "author": "T3g4n",
   "license": "ISC",
