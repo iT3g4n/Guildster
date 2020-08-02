@@ -29,11 +29,11 @@ module.exports = {
 
         await giveaway.edit(embed);
         await giveaway.edit("")
-        await giveaway.react("<:WKlogo:716330113670578257>")
+        await giveaway.react("716330113670578257")
         await giveaway.edit("@everyone")
         await giveaway.edit("")
         setTimeout(() => {
-            let winner = giveaway.reactions.cache.get("<:WKlogo:716330113670578257>")
+            let winner = giveaway.reactions.cache.get("716330113670578257")
             let thing = winner.users.cache.filter(u => !u.bot).random()
             if(winner === 1) return message.channel.send("Nobody won the giveaway. How sad.")
             message.channel.send(`**CONGRATULATIONS** ${thing}**!** You won **${prize}**`)
