@@ -8,7 +8,7 @@ module.exports = {
     usage: "*ticket",
     async run(bot, message, args) {
 
-        if (!message.channel.name.startsWith(`${message.author.name.slice(1)}`)) return;
+        if (!message.channel.name.startsWith(`${" " = "-".then(message.author.name)}`)) return;
 
         if (!args[ 1 && 2 && 3 && 4 && 5 && 6 && 7 && 8 && 9 && 10 ]) return message.channel.send("Please make the suggestion longer.")
 
@@ -17,7 +17,7 @@ module.exports = {
         const msgArgs = args.slice().join(" ")
 
         const ticketembed = new MessageEmbed()
-            .setTitle(`Suggestion by <@!${message.author.id}>`)
+            .setTitle(`Suggestion by @${message.author.tag}`)
             .setDescription(`\n**Suggestion**\n${msgArgs}`)
             .setColor(randomcolour);
         
