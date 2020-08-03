@@ -3,6 +3,7 @@ const bot = new discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] })
 const token = 'NzMwNDQwNDU0ODM1MDExNjc0.XwXhrw.qFsSGlNxfJUNGzNUK1_jUIE5qAE';
 const prefix = '*';
 const fs = require('fs');
+const { send } = require('process');
 
 
 
@@ -99,7 +100,7 @@ bot.on('message', message => {
 
 bot.on("messageReactionAdd", async (reaction, user) => {
 
-    if (!reaction.channel.id === "739480654109999185") return
+  if (!reaction._emoji === "🎫") return
 
   const randomcolour = "#" + Math.floor(Math.random() * 16777215).toString(16);
 
@@ -114,12 +115,16 @@ bot.on("messageReactionAdd", async (reaction, user) => {
     return;
   }
 
+  console.log(`reaction: ${reaction._emoji.name}`)
+
   const embed = new discord.MessageEmbed()
     .setTitle("Create a Ticket  🎫")
-    .setDescription(`What is your suggestion ${user.username}?\n\n**Please start your message with \`!ticket\``)
-    .setColor(randomcolour)
+    .setDescription(`What is your suggestion ${user.username}?\n\nPlease start your message with ***ticket**`)
+    .setColor(randomcolour);
 
-    reaction.guild.createChannel
+  let m = (await reaction.message.guild.channels.create(`${user.username}-ticket`)).send(embed)
+  await (await m).edit(`<@${user.id}>`)
+  await (await m).edit("")
 
 })
 

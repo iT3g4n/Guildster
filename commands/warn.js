@@ -21,7 +21,7 @@ module.exports = {
             let warnings = db.get(`warnings_${message.guild.id}_${user.id}`);
             
             let warnEmbed = new discord.MessageEmbed()
-            .setTitle(`<@${user.id}> has been warned`)
+            .setTitle(`<@!${user.id}> has been warned`)
             .setDescription(`Reason: ${reason}`)
             .setFooter(`Moderator ID: ${message.author.id}`)
             .setColor('#ff7b00')

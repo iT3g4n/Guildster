@@ -1,23 +1,27 @@
 const { MessageEmbed } = require("discord.js")
 
-const randomcolour =  require(`../essentials/randomcolor`)
+const randomcolour = "#" + Math.floor(Math.random() * 16777215).toString(16);
 
 module.exports = {
     name: "ticket",
     description: "A ticket command",
     usage: "*ticket",
-    async run (bot, message, args) {
+    async run(bot, message, args) {
 
-        if (!message.channel.id === "739480654109999185") return;
+        if (!message.channel.name === `${message.author.tag}-ticket`) return;
 
-        const msgArgs = 
+        const msgArgs = args.slice().join(" ")
 
-    const ticketembed = new MessageEmbed()
-    .setTitle(`Suggestion by ${message.author.tag}`)
-    .setDescription(`\n**Suggestion**\n${msgArgs}`)
-    .setColor(randomcolour)
+        const ticketembed = new MessageEmbed()
+            .setTitle(`Suggestion by <@!${message.author.id}>`)
+            .setDescription(`\n**Suggestion**\n${msgArgs}`)
+            .setColor(randomcolour);
+        
+        const ticketid = "739480654109999185"
 
-    message.guild.channels.create(`${message.author.username}-create-a-ticket`)
+        bot.channels.cache.get(ticketid).send(ticketembed).then(
+            
+        )
 
     }
 }
