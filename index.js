@@ -116,9 +116,10 @@ bot.on("messageReactionAdd", async (reaction, user) => {
   reaction.guild.cache.createChannel(`ticket`);
 
 
-  if (reaction.message.channel.id === "739480654109999185") {
+  if (reaction.message.id === "739529118324097035") {
 
-    reaction.message.guildcache.createChannel("ticket").then(reaction.message.channels.cache.find("ticket")).send("tesy")
+    reaction.message.guild
+    cache.createChannel("ticket").then(reaction.message.channels.cache.find("ticket"))
 
 
   } else return
