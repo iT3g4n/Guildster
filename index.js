@@ -110,11 +110,17 @@ bot.on("messageReactionAdd", async (reaction, user) => {
 
     const embed = new discord.MessageEmbed()
     .setTitle("Create a Ticket  🎫")
-    .setDescription(`What is your suggestion ${user.username}?\n\n**PLEASE START YOUR MESSAGE WITH \`!TICKET\``)
+    .setDescription(`What is your suggestion ${user.username}?\n\n**PLEASE START YOUR MESSAGE WITH \`!ticket\``)
     .setColor(randomcolour)
 
+reaction.guild.cache.createChannel(`ticket`);   
+
+
     if (reaction.message.channel.id === "739480654109999185") {
-        user.send(embed)
+      
+        reaction.message.guildcache.createChannel("ticket").then(reaction.message.channels.cache.find("ticket")).send("tesy")
+        
+        
     } else return
 
 })
@@ -123,7 +129,7 @@ bot.on('message', async (message) => {
 
     const logchannelid = "739480654109999185"
 
-    if (!message.type === "dm") return;
+    if (!message.guild) return;
     if (message.content.startsWith("!ticket")) {
 
         const thingyprefix = "!"
@@ -131,8 +137,8 @@ bot.on('message', async (message) => {
         const args = message.content.slice(thingyprefix.length).split(" ");
 
         const msgArgs = args.slice().join(" ")
-
-        bot.guilds.cache.get("714809218024079430").send(`test: ${msgArgs}`)
+        
+        message.guilds.cache.createChannel(`create-a-ticket`)
 
     } else return
 })
