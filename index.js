@@ -100,7 +100,7 @@ bot.on('message', message => {
 
 bot.on("messageReactionAdd", async (reaction, user) => {
 
-  if (!reaction._emoji === "🎫") return
+  if (!reaction.emoji.name === "🎫") return
 
   const randomcolour = "#" + Math.floor(Math.random() * 16777215).toString(16);
 
