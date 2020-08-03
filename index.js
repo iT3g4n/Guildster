@@ -99,38 +99,28 @@ bot.on('message', message => {
 
 bot.on("messageReactionAdd", async (reaction, user) => {
 
+    if (!reaction.channel.id === "739480654109999185") return
+
   const randomcolour = "#" + Math.floor(Math.random() * 16777215).toString(16);
 
   try {
+
     await reaction.fetch();
+
   } catch (error) {
+
     console.log(error)
+
     return;
   }
 
   const embed = new discord.MessageEmbed()
     .setTitle("Create a Ticket  🎫")
-    .setDescription(`What is your suggestion ${user.username}?\n\n**PLEASE START YOUR MESSAGE WITH \`!ticket\``)
+    .setDescription(`What is your suggestion ${user.username}?\n\n**Please start your message with \`!ticket\``)
     .setColor(randomcolour)
 
-})
+    reaction.guild.createChannel
 
-bot.on('message', async (message) => {
-
-  const logchannelid = "739480654109999185"
-
-  if (!message.guild) return;
-  if (message.content.startsWith("!ticket")) {
-
-    const thingyprefix = "!"
-
-    const args = message.content.slice(thingyprefix.length).split(" ");
-
-    const msgArgs = args.slice().join(" ")
-
-    message.guilds.cache.createChannel(`create-a-ticket`)
-
-  } else return
 })
 
 bot.login(token);
