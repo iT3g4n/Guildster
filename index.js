@@ -113,17 +113,6 @@ bot.on("messageReactionAdd", async (reaction, user) => {
     .setDescription(`What is your suggestion ${user.username}?\n\n**PLEASE START YOUR MESSAGE WITH \`!ticket\``)
     .setColor(randomcolour)
 
-  reaction.guild.cache.createChannel(`ticket`);
-
-
-  if (reaction.message.id === "739529118324097035") {
-
-    reaction.message.guild
-    cache.createChannel("ticket").then(reaction.message.channels.cache.find("ticket"))
-
-
-  } else return
-
 })
 
 bot.on('message', async (message) => {
