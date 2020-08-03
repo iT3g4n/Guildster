@@ -10,7 +10,7 @@ module.exports = {
 
         if (!message.channel.name.startsWith(`${" " = "-".then(message.author.name)}`)) return;
 
-        if (!args[ 1 && 2 && 3 && 4 && 5 && 6 && 7 && 8 && 9 && 10 ]) return message.channel.send("Please make the suggestion longer.")
+        if (!args[ 1 && 2 && 3 && 4 && 5 && 6 && 7 && 8 && 9 ]) return message.channel.send("Please make the suggestion longer.")
 
         if (!message.channel.name === `${message.author.tag}-ticket`) return;
 
