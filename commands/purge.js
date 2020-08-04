@@ -9,6 +9,6 @@ module.exports = {
 
         if(isNaN(args[0][0])) return message.channel.send("That is not a number!")
 
-        message.channel.bulkDelete(Math.floor(1 + args[0]))
-        .catch(console.error)}
+        message.channel.bulkDelete(args[0])
+        .catch(console.error)} else return message.reply("YOU DO NOT HAVE PERMISSIONS TO DO THAT").then(m => m.delete({ timeout: 5000 }))
     }}
