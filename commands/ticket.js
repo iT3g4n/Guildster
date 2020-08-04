@@ -12,8 +12,6 @@ module.exports = {
 
         const msgArgs = args.slice().join(" ")
 
-        const mrname = message.author.username.slice(1).join(" ")
-
         const ticketembed = new MessageEmbed()
             .setTitle(`Suggestion by @${message.author.tag}`)
             .setDescription(`\n**Suggestion**\n${msgArgs}`)
@@ -21,9 +19,8 @@ module.exports = {
         
         const ticketid = "739480654109999185"
 
-        bot.channels.cache.get(ticketid).send(ticketembed).then(
-            yourchannel = bot.guilds.channels.find(channel => channel.name.startsWith(mrname) === "General")
-        )
+        bot.channels.cache.get(ticketid).send(ticketembed)
+        bot.channels.cache.get(`${message.author.id}-ticket`).delete
 
     }
 }
