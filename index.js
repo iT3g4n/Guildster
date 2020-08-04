@@ -36,7 +36,7 @@ bot.on("message", async message => {
     console.log(`${command} command used`)
   }
   catch {
-    console.log(error)
+    console.log(Error)
   }
 
   // if (command === "warn") {
@@ -75,9 +75,6 @@ bot.on('message', message => {
   } else if (command === "ban") {
     bot.commands.get("ban").execute(bot, message, args);
     console.log("ban command used")
-  } else if (command === "purge") {
-    bot.commands.get("purge").execute(bot, message, args);
-    console.log("purge command used")
   }
 
 })
@@ -100,7 +97,9 @@ bot.on('message', message => {
 
 bot.on("messageReactionAdd", async (reaction, user) => {
 
-  if (reaction.channel.id != "739480654109999185") return;
+  
+
+  if (reaction.message.channel.id != "739480654109999185") return;
 
   if (reaction.emoji.name != "🎫") return;
 
@@ -124,10 +123,14 @@ bot.on("messageReactionAdd", async (reaction, user) => {
     .setDescription(`What is your suggestion ${user.username}?\n\nPlease start your message with ***ticket**`)
     .setColor(randomcolour);
 
-  let m = (await reaction.message.guild.channels.create(`${user.id}-ticket`)).send(embed)
+  let m = (await reaction.message.guild.channels.create(`${user.id}-ticket`))
+  await (await m).send(embed)
   await (await m).edit(`<@${user.id}>`)
   await (await m).edit("")
-
+  setTimeout(() => {
+    m.delete();
+    console.log(m.name = " was deleted because it timed out.")
+  }, 60000);
 })
 
 bot.login(token);

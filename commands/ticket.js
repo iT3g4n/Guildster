@@ -8,11 +8,11 @@ module.exports = {
     usage: "*ticket",
     async run(bot, message, args) {
 
-        message.delete({ timeout: 0 })
+        message.delete()
 
         if (message.channel.name != `${message.author.id}-ticket`) return;
 
-        if (!args[1 && 2 && 3 && 4 && 5 && 6 && 7 && 8 && 9]) return message.channel.send("Please make the suggestion longer.")
+        if (!args[1 && 2 && 3 && 4 && 5 && 6 && 7 && 8 && 9]) return message.channel.send("Please make the suggestion longer.").then(m => m.delete({ timout: 5000 }))
 
         const msgArgs = args.slice().join(" ")
 
@@ -23,11 +23,10 @@ module.exports = {
 
         const ticketid = "739480654109999185"
 
-        let fetchedChannel = message.guild.channels.cache.some(r => r.name === `${message.author.id}-ticket`);
+        // let fetchedChannel = message.guild.channels.cache.some(c => c.name === `${message.author.id}-ticket`);
 
-        bot.channels.cache.get(ticketid).send(ticketembed)//.then(
-        //bot.channels.cache.some(ch => ch.name(`${message.author.id}-ticket`)))
-        //fetchedChannel.delete())
+        await bot.channels.cache.get(ticketid).send(ticketembed)
+        await message.channel.delete();
 
     }
 }
