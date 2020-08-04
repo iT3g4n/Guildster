@@ -23,8 +23,11 @@ module.exports = {
 
         const ticketid = "739480654109999185"
 
-        bot.channels.cache.get(ticketid).send(ticketembed).then(
-        bot.channels.cache.get(`${message.author.id}-ticket`).delete())
+        let fetchedChannel = message.guild.channels.cache.some(r => r.name === `${message.author.id}-ticket`);
+
+        bot.channels.cache.get(ticketid).send(ticketembed)//.then(
+        //bot.channels.cache.some(ch => ch.name(`${message.author.id}-ticket`)))
+        //fetchedChannel.delete())
 
     }
 }
