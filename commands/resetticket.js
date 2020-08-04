@@ -1,9 +1,10 @@
 const { MessageEmbed } = require("discord.js")
 
+const randomcolour = "#" + Math.floor(Math.random() * 16777215).toString(16)
+
 module.exports = {
     name: "resetticket",
     async run(bot, message, args) {
-
 
         const embed = new MessageEmbed()
             .setColor(randomcolour)
