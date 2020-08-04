@@ -127,7 +127,6 @@ bot.on("messageReactionAdd", async (reaction, user) => {
   await (await m).send(embed)
   await (await m).edit(`<@${user.id}>`)
   await (await m).edit("")
-  await (await reaction.users.fetch(user.id)).filter(u => !u.bot).delete();
   setTimeout(() => {
     m.delete();
     console.log(m.name = " was deleted because it timed out.")
