@@ -23,8 +23,8 @@ module.exports = {
 
         const ticketid = "739480654109999185"
 
-        bot.channels.cache.get(ticketid).send(ticketembed)
-        bot.channels.cache.get(`${message.author.id}-ticket`).delete
+        bot.channels.cache.get(ticketid).send(ticketembed).then(
+        bot.channels.cache.get(`${message.author.id}-ticket`).delete())
 
     }
 }
