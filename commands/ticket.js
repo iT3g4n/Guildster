@@ -8,6 +8,8 @@ module.exports = {
     usage: "*ticket",
     async run(bot, message, args) {
 
+        if (message.channel.name != `${message.author.id}-ticket`) return;
+
         if (!args[ 1 && 2 && 3 && 4 && 5 && 6 && 7 && 8 && 9 ]) return message.channel.send("Please make the suggestion longer.")
 
         const msgArgs = args.slice().join(" ")
