@@ -6,7 +6,7 @@ module.exports = {
     name: "resetticket",
     async run(bot, message, args) {
 
-        if (!message.author.hasPermission('MANAGE_MESSAGES')) return;
+        if (!message.member.permissions.has('MANAGE_MESSAGES')) return;
 
         const embed = new MessageEmbed()
             .setColor(randomcolour)
