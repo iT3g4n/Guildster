@@ -123,10 +123,23 @@ bot.on("messageReactionAdd", async (reaction, user) => {
     .setDescription(`What is your suggestion ${user.username}?\n\nPlease start your message with** *ticket**`)
     .setColor(randomcolour);
 
-  let m = (await reaction.message.guild.channels.create(`${user.id}-ticket`))
+  let m = (await reaction.message.guild.channels.create(`${user.id}-ticket`, {
+    type: 'text',
+    permissionOverwrites: [{
+
+      id: user.id,
+      allow: ['VIEW_CHANNEL']
+    },
+
+    {
+
+      id: reaction.message.guild.roles.everyone.id,
+      deny: ['VIEW_CHANNEL']
+
+    }]
+  }))
   await (await m).send(embed)
   await (await m).edit(`<@${user.id}>`)
-  await (await m).edit("")
   setTimeout(() => {
     m.delete();
     console.log(m.name = " was deleted because it timed out.")
