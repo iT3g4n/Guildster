@@ -120,7 +120,7 @@ bot.on("messageReactionAdd", async (reaction, user) => {
 
   const embed = new discord.MessageEmbed()
     .setTitle("Create a Ticket  🎫")
-    .setDescription(`What is your suggestion ${user.username}?\n\nPlease start your message with ***ticket**`)
+    .setDescription(`What is your suggestion ${user.username}?\n\nPlease start your message with** *ticket**`)
     .setColor(randomcolour);
 
   let m = (await reaction.message.guild.channels.create(`${user.id}-ticket`))
