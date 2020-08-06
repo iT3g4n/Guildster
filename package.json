@@ -19,5 +19,8 @@
     "python": "0.0.4",
     "quick.db": "^7.1.1",
     "random-puppy": "^1.1.0"
+  },
+  "devDependencies": {
+    "prettier": "2.0.5"
   }
 }

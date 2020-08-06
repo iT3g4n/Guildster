@@ -3,7 +3,7 @@ const randomcolor = "#" + Math.floor(Math.random() * 16777215).toString(16)
 
 module.exports = {
     name: "avatar",
-    deacription: "gets an avatar for a mentioned user",
+    description: "gets an avatar for a mentioned user",
     async run (bot, message, args) {
 
         message.delete();
