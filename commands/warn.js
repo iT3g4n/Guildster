@@ -6,7 +6,7 @@ module.exports = {
     description: "this is a warn command!",
     async run (bot, message, args) {
 
-        if (message.member.roles.cache.has("728443375778529400") || (message.member.roles.cache.has("71628940296349302")) || (message.member.roles.cache.has("728443657140830299")) || (message.member.roles.cache.has("716238674089476116"))) {
+        if (message.member.permissions.has("MANAGE_MEMBERS")) {
 
             const user = message.mentions.users.first() || message.guild.members.cache.get(args[0])
 
@@ -37,7 +37,7 @@ module.exports = {
             
         } else {
 
-            message.reply("YOU DO NOT HAVE ENOUGH PERMISIONS");
+            return message.reply("YOU DO NOT HAVE ENOUGH PERMISIONS");
 
         }
     }}

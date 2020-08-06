@@ -101,7 +101,7 @@ bot.on("messageReactionAdd", async (reaction, user) => {
 
   if (reaction.message.channel.id != "739480654109999185") return;
 
-  if (reaction.emoji.name != "🎫") return;
+  if (reaction.emoji.name != "🎫" || reaction.bot) return;
 
   const randomcolour = "#" + Math.floor(Math.random() * 16777215).toString(16);
 
@@ -142,7 +142,7 @@ bot.on("messageReactionAdd", async (reaction, user) => {
   await (await m).edit(`<@${user.id}>`)
   setTimeout(() => {
     m.delete();
-    console.log(m.name = " was deleted because it timed out.")
+    console.log(m.id = " was deleted because it timed out.")
   }, 60000);
 })
 
