@@ -12,7 +12,7 @@ module.exports = {
 
         if (message.channel.name != `${message.author.id}-ticket`) return;
 
-        if (!args[1 && 2 && 3 && 4 && 5 && 6 && 7 && 8 && 9]) return message.channel.send("Please make the suggestion longer.").then(m => m.delete({ timout: 5000 }))
+        if (!args[1 && 2 && 3 && 4]) return message.channel.send("Please make the suggestion longer.").then(m => m.delete({ timout: 10000 }))
 
         const msgArgs = args.slice().join(" ")
 
