@@ -23,6 +23,7 @@ bot.on("ready", () => {
 });
 
 bot.on("message", async (message) => {
+
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
   const args = message.content.slice(prefix.length).split(" ");
@@ -102,52 +103,55 @@ bot.on("message", (message) => {
 
 bot.on("messageReactionAdd", async (reaction, user) => {
 
-  console.log("RECIEVED REACTION")
-
   if (reaction.message.channel.id != "739480654109999185") return;
 
-  if (reaction.emoji.name != "🎫") return;
+        if (reaction.emoji.name != "🎫") return;
 
-  await reaction.emoji.delete
+        if (user.bot) return;
 
-  const randomcolour = "#" + Math.floor(Math.random() * 16777215).toString(16);
+        await reaction.remove()
+        await reaction.message.react("🎫")
 
-  try {
-      await reaction.fetch();
-  } catch (error) {
-      console.log(error);
-      return;
-  }
+        const randomcolour = "#" + Math.floor(Math.random() * 16777215).toString(16);
 
-  console.log(`reaction: ${reaction.emoji.name}`);
+        try {
+            await reaction.fetch();
+        } catch (error) {
+            console.log(error);
+            return;
+        }
 
-  const embed = new discord.MessageEmbed()
-      .setTitle("Create a Ticket  🎫")
-      .setDescription(
-          `What is your suggestion ${user.tag}?\n\nPlease start your message with** *ticket**`
-      )
-      .setColor(randomcolour);
+        console.log(`reaction: ${reaction._emoji.name}`);
 
-  let m = await reaction.message.guild.channels.create(`${user.id}-ticket`, {
-      type: "text",
-      permissionOverwrites: [
-          {
-              id: user.id,
-              allow: ["VIEW_CHANNEL"],
-          },
+        const embed = new discord.MessageEmbed()
+            .setTitle("Create a Ticket  🎫")
+            .setDescription(
+                `What is your suggestion <@${user.id}>?\n\nPlease start your message with *ticket`
+            )
+            .setColor(randomcolour);
 
-          {
-              id: reaction.message.guild.roles.everyone.id,
-              deny: ["VIEW_CHANNEL"],
-          },
-      ],
-  });
-  await (await m).send(embed);
-  await (await m).edit(`<@${user.id}>`);
-  setTimeout(() => {
-      m.delete();
-      console.log((m.id = " was deleted because it timed out."));
-  }, 60000);
+        let m = await reaction.message.guild.channels.create(`${user.id}-ticket`, {
+            type: "text",
+            permissionOverwrites: [
+                {
+                    id: user.id,
+                    allow: ["VIEW_CHANNEL"],
+                },
+
+                {
+                    id: reaction.message.guild.roles.everyone.id,
+                    deny: ["VIEW_CHANNEL"],
+                },
+            ]
+        });
+        let th = await (await m).send(`<@${user.id}>`);
+        await (await th).edit(embed);
+        setTimeout(() => {
+          if(m.deletable) {
+            m.delete();
+            console.log((m.id = " was deleted because it timed out."))
+          } else return;
+        }, 60000);      
 });
 
 bot.login(token);

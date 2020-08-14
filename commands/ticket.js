@@ -12,12 +12,12 @@ module.exports = {
 
         if (message.channel.name != `${message.author.id}-ticket`) return;
 
-        if (!args[1 && 2 && 3 && 4]) return message.channel.send("Please make the suggestion longer.").then(m => m.delete({ timout: 10000 }))
+        if (!args[2]) return message.channel.send("Please make the suggestion longer.")
 
         const msgArgs = args.slice().join(" ")
 
         const ticketembed = new MessageEmbed()
-            .setDescription(`**Suggestion by <@${message.author.id}>.**\n\n**Suggestion**\n${msgArgs}`)
+            .setDescription(`**Suggestion by <@${message.author.id}>**\n\n**Suggestion**\n${msgArgs}`)
             .setColor(randomcolour);
 
         const ticketid = "739480654109999185"
@@ -25,7 +25,6 @@ module.exports = {
         // let fetchedChannel = message.guild.channels.cache.some(c => c.name === `${message.author.id}-ticket`);
 
         let m = await bot.channels.cache.get(ticketid).send(ticketembed)
-        let r = message.member.roles.remove('740596599561912433')
         await m.react("⬆️")
         await m.react("⬇️")
         await message.channel.delete().catch(console.error())
