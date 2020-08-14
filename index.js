@@ -1,11 +1,8 @@
 const discord = require("discord.js");
-const bot = new discord.Client({
-  partials: ["MESSAGE", "CHANNEL", "REACTION"],
-});
+const bot = new discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 const token = "NzMwNDQwNDU0ODM1MDExNjc0.XwXhrw.qFsSGlNxfJUNGzNUK1_jUIE5qAE";
 const prefix = "*";
 const fs = require("fs");
-const { send } = require("process");
 
 bot.commands = new discord.Collection();
 
@@ -77,6 +74,7 @@ bot.on("message", (message) => {
     console.log("ban command used");
   }
 });
+
 bot.on("message", (message) => {
   if (message.author.bot) return;
   if (!message.guild) return;
@@ -103,48 +101,52 @@ bot.on("message", (message) => {
 });
 
 bot.on("messageReactionAdd", async (reaction, user) => {
+
+  console.log("RECIEVED REACTION")
+
   if (reaction.message.channel.id != "739480654109999185") return;
 
-  if (reaction.emoji.name != "🎫" || reaction.bot) return;
+  if (reaction.emoji.name != "🎫") return;
+
+  await reaction.emoji.delete
 
   const randomcolour = "#" + Math.floor(Math.random() * 16777215).toString(16);
 
   try {
-    await reaction.fetch();
+      await reaction.fetch();
   } catch (error) {
-    console.log(error);
-
-    return;
+      console.log(error);
+      return;
   }
 
   console.log(`reaction: ${reaction.emoji.name}`);
 
   const embed = new discord.MessageEmbed()
-    .setTitle("Create a Ticket  🎫")
-    .setDescription(
-      `What is your suggestion ${user.username}?\n\nPlease start your message with** *ticket**`
-    )
-    .setColor(randomcolour);
+      .setTitle("Create a Ticket  🎫")
+      .setDescription(
+          `What is your suggestion ${user.tag}?\n\nPlease start your message with** *ticket**`
+      )
+      .setColor(randomcolour);
 
   let m = await reaction.message.guild.channels.create(`${user.id}-ticket`, {
-    type: "text",
-    permissionOverwrites: [
-      {
-        id: user.id,
-        allow: ["VIEW_CHANNEL"],
-      },
+      type: "text",
+      permissionOverwrites: [
+          {
+              id: user.id,
+              allow: ["VIEW_CHANNEL"],
+          },
 
-      {
-        id: reaction.message.guild.roles.everyone.id,
-        deny: ["VIEW_CHANNEL"],
-      },
-    ],
+          {
+              id: reaction.message.guild.roles.everyone.id,
+              deny: ["VIEW_CHANNEL"],
+          },
+      ],
   });
   await (await m).send(embed);
   await (await m).edit(`<@${user.id}>`);
   setTimeout(() => {
-    m.delete();
-    console.log((m.id = " was deleted because it timed out."));
+      m.delete();
+      console.log((m.id = " was deleted because it timed out."));
   }, 60000);
 });
 

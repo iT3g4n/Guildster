@@ -17,8 +17,7 @@ module.exports = {
         const msgArgs = args.slice().join(" ")
 
         const ticketembed = new MessageEmbed()
-            .setTitle(`Suggestion by @${message.author.tag}`)
-            .setDescription(`\n**Suggestion**\n${msgArgs}`)
+            .setDescription(`**Suggestion by <@${message.author.id}>.**\n\n**Suggestion**\n${msgArgs}`)
             .setColor(randomcolour);
 
         const ticketid = "739480654109999185"
@@ -29,7 +28,7 @@ module.exports = {
         let r = message.member.roles.remove('740596599561912433')
         await m.react("⬆️")
         await m.react("⬇️")
-        await message.channel.delete();
+        await message.channel.delete().catch(console.error())
 
     }
 }
