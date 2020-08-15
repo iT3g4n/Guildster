@@ -17,7 +17,7 @@ for (const file of commandFiles) {
 }
 
 bot.on("ready", () => {
-  console.log("Bot is online");
+  console.log(`logged in as ${bot.username}`);
 
   bot.user.setActivity("Zone of W's!", { type: "WATCHING" });
 });
@@ -36,23 +36,6 @@ bot.on("message", async (message) => {
   } catch {
     console.error();
   }
-
-  // if (command === "warn") {
-  //     bot.commands.get('warn').run(bot, message, args)
-  //     console.log("warn command used")
-  // } else if (command === "warnings") {
-  //     bot.commands.get('warnings').run(bot, message, args)
-  //     console.log("warnings command used")
-  // } else if (command === "clearwarn") {
-  //     bot.commands.get('clearwarn').run(bot, message, args)
-  //     console.log("clearwarn command used")
-  // } else if (command === "meme") {
-  //     bot.commands.get("meme").run(bot, message, args)
-  //     console.log("meme command used")
-  // } else if (command === "poll") {
-  //     bot.commands.get("poll").run(bot, message, args)
-  //     console.log("poll command used")
-  // }
 });
 
 bot.on("message", (message) => {
@@ -146,7 +129,7 @@ bot.on("messageReactionAdd", async (reaction, user) => {
             m.delete();
             console.log((m.id = " was deleted because it timed out."))
           } else return;
-        }, 60000);      
+        }, 100000);      
 });
 
 bot.login(token);

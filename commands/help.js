@@ -12,11 +12,9 @@ module.exports = {
 
       const adminembed = new MessageEmbed()
         .setColor("00ff00")
-        .setTitle("Commands for Zone of W's")
+        .setTitle(`Commands for Zone of W's`)
 
         .setDescription("More commands are on their way soon!")
-
-        .setImage("https://seeklogo.com/images/D/discord-logo-B02E5FBA04-seeklogo.com.png")
 
         .addField("*help", "Brings up a help message. Like this!")
         .addField("*ping", "Check you ping to this bot!")
@@ -27,9 +25,11 @@ module.exports = {
         .addField("*purge", "Deletes a specific number of messages in the channel of the message.")
         .addField("*warn", "Warns the person that you mention.")
         .addField("*warnings", "Check the amount of warnings a person has.")
-        .addField("*clearwarn", "Clears all warnings for a person.");
+        .addField("*clearwarn", "Clears all warnings for a person.")
+        .addField(`*ban`, `Bans the mentioned person with a reason.`)
+        .addField(`*kick`)
 
-      message.channel.send("Please make sure to open your DM's otherwise I cannot send you the help command!").then(msg => { msg.delete({ timeout: 10000 }) })
+      message.channel.send("Please make sure to open your DM's otherwise I cannot send you the help command!").then(msg => { msg.delete({ timeout: 5000 }) })
 
       message.author.send(adminembed).catch(console.log(Error))
 

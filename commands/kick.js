@@ -1,8 +1,3 @@
-
-//var user = Object.create(user)
-//const guild = new discord.Guild(bot, user);
-//const member = new discord.GuildMember(bot, user, guild);
-
 const { MessageEmbed } = require("discord.js");
 
 module.exports = {
