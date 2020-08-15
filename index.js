@@ -34,7 +34,7 @@ bot.on("message", async (message) => {
     bot.commands.get(command).run(bot, message, args);
     console.log(`${command} command used`);
   } catch {
-    console.log(Error);
+    console.error();
   }
 
   // if (command === "warn") {
@@ -147,6 +147,7 @@ bot.on("messageReactionAdd", async (reaction, user) => {
         let th = await (await m).send(`<@${user.id}>`);
         await (await th).edit(embed);
         setTimeout(() => {
+          if (!m) return
           if(m.deletable) {
             m.delete();
             console.log((m.id = " was deleted because it timed out."))

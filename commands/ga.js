@@ -16,7 +16,7 @@ module.exports = {
         let prize = args.slice(1).join(" ")
         if (!prize) return message.channel.send("No prize was given. Aborting Command").then(msg => { msg.delete({ timeout: 5000 }) })
 
-        let giveaway = await message.channel.send("Creating Giveaway...")
+        let giveaway = await message.channel.send("@everyonr")
 
         const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
 
@@ -30,7 +30,6 @@ module.exports = {
         await giveaway.edit(embed);
         await giveaway.edit("")
         await giveaway.react("🎁")
-        await giveaway.edit("@everyone")
         await giveaway.edit("")
         setTimeout(() => {
             let winner = giveaway.reactions.cache.get("🎁")
