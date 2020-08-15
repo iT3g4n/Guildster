@@ -67,12 +67,6 @@ bot.on("message", (message) => {
   } else if (command === "help") {
     bot.commands.get("help").execute(bot, message, args);
     console.log("help command used");
-  } else if (command === "kick") {
-    bot.commands.get("kick").execute(bot, message, args);
-    console.log("kick command used");
-  } else if (command === "ban") {
-    bot.commands.get("ban").execute(bot, message, args);
-    console.log("ban command used");
   }
 });
 
