@@ -108,7 +108,7 @@ bot.on("messageReactionAdd", async (reaction, user) => {
             .setColor(randomcolour);
 
         let m = await reaction.message.guild.channels.create(`${user.id}-ticket`, {
-            type: "text",
+            type: "text", parent: "737323550050091089",
             permissionOverwrites: [
                 {
                     id: user.id,
