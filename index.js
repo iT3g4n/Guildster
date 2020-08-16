@@ -86,7 +86,7 @@ bot.on("messageReactionAdd", async (reaction, user) => {
 
         if (user.bot) return;
 
-        await reaction.remove()
+        await reaction.users.remove(user)
         await reaction.message.react("🎫")
 
         const randomcolour = "#" + Math.floor(Math.random() * 16777215).toString(16);
