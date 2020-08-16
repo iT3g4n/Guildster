@@ -4,15 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "this is a test"
   },
   "engines": {},
   "author": "T3g4n",
-  "license": "ISC",
+  "license": "ONLY ME",
   "dependencies": {
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
-    "fortnite": "^4.3.2",
     "ms": "^2.1.2",
     "python": "0.0.4",
     "quick.db": "^7.1.1",

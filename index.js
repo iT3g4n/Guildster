@@ -21,9 +21,10 @@ bot.on("ready", () => {
   console.log(`logged in as ${bot.user.username}`);
 
   bot.user.setActivity("Zone of W's!", { type: "WATCHING" });
+
 });
 
-bot.on("message", async (message) => {
+bot.on("message", async message => {
 
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
@@ -37,6 +38,7 @@ bot.on("message", async (message) => {
   } catch {
     console.error();
   }
+
 });
 
 bot.on("message", (message) => {
