@@ -17,7 +17,7 @@ for (const file of commandFiles) {
 }
 
 bot.on("ready", () => {
-  console.log(`logged in as ${bot.username}`);
+  console.log(`logged in as ${bot.user.username}`);
 
   bot.user.setActivity("Zone of W's!", { type: "WATCHING" });
 });
