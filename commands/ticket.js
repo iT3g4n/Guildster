@@ -25,9 +25,9 @@ module.exports = {
         // let fetchedChannel = message.guild.channels.cache.some(c => c.name === `${message.author.id}-ticket`);
 
         let m = await bot.channels.cache.get(ticketid).send(ticketembed)
+        message.channel.delete().catch(console.error())
         await m.react("⬆️")
-        await m.react("⬇️")
-        await message.channel.delete().catch(console.error())
-
+        m.react("⬇️")
+        
     }
 }
