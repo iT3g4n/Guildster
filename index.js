@@ -1,8 +1,9 @@
 const discord = require("discord.js");
 const bot = new discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
-const token = "NzMwNDQwNDU0ODM1MDExNjc0.XwXhrw.qFsSGlNxfJUNGzNUK1_jUIE5qAE";
 const prefix = "*";
 const fs = require("fs");
+const { env } = require("process");
+const dotenv = require("dotenv").config()
 
 bot.commands = new discord.Collection();
 
@@ -129,7 +130,7 @@ bot.on("messageReactionAdd", async (reaction, user) => {
             m.delete();
             console.log((m.id = " was deleted because it timed out."))
           } else return;
-        }, 100000);      
+        }, 500000).catch();      
 });
 
-bot.login(token);
+bot.login(process.env.TOKEN);

@@ -6,12 +6,12 @@
   "scripts": {
     "start": "node index.js"
   },
-  "engines": {
-  },
+  "engines": {},
   "author": "T3g4n",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0",
     "fortnite": "^4.3.2",
     "ms": "^2.1.2",
     "python": "0.0.4",
