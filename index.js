@@ -90,6 +90,8 @@ bot.on("messageReactionAdd", async (reaction, user) => {
   let th = await (await m).send(`<@${user.id}>`);
   await (await th).edit(embed);
   db.add(`TICKET: ${user.id}`, 1)
+  
+
   setTimeout(() => {
 
     db.delete(`TICKET: ${user.id}`)
