@@ -32,10 +32,10 @@ module.exports = {
         await giveaway.react("🎁")
         await giveaway.edit("")
         setTimeout(() => {
-            let winner = giveaway.reactions.cache.get("🎁")
-            let thing = winner.users.cache.filter(u => !u.bot).random()
-            if (winner === "undefined") return message.channel.send("Nobody won the giveaway. How sad.")
-            message.channel.send(`**CONGRATULATIONS** ${thing}**!** You won **${prize}**`)
+            let thing = giveaway.reactions.cache.get("🎁")
+            let winner = thing.users.cache.filter(u => !u.bot).random()
+            if (winner == null) return message.channel.send("Nobody won the giveaway. How sad.")
+            message.channel.send(`**CONGRATULATIONS** ${winner}**!** You won **${prize}**`)
         }, ms(args[0]));
 
     }

@@ -14,6 +14,7 @@
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "ms": "^2.1.2",
+    "nodemon": "^2.0.4",
     "python": "0.0.4",
     "quick.db": "^7.1.1",
     "random-puppy": "^1.1.0"

@@ -1,4 +1,5 @@
 const { MessageEmbed } = require("discord.js")
+const db = require(`quick.db`)
 
 const randomcolour = "#" + Math.floor(Math.random() * 16777215).toString(16);
 
@@ -28,6 +29,7 @@ module.exports = {
         message.channel.delete().catch(console.error())
         await m.react("⬆️")
         m.react("⬇️")
+        db.delete(`TICKET: ${message.author.id}`, 1)
         
     }
 }

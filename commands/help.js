@@ -3,7 +3,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
   name: 'help',
   description: "this is a help command!",
-  execute(bot, message, args) {
+  async run (bot, message, args) {
 
 
     if (message.member.roles.cache.has("728443375778529400") || (message.member.roles.cache.has("71628940296349302")) || (message.member.roles.cache.has("728443657140830299")) || (message.member.roles.cache.has("716238674089476116"))) {
@@ -27,7 +27,7 @@ module.exports = {
         .addField("*warnings", "Check the amount of warnings a person has.")
         .addField("*clearwarn", "Clears all warnings for a person.")
         .addField(`*ban`, `Bans the mentioned person with a reason.`)
-        .addField(`*kick`)
+        .addField(`*kick`, `Kicks the mentioned person with a reason.`)
 
       message.channel.send("Please make sure to open your DM's otherwise I cannot send you the help command!").then(msg => { msg.delete({ timeout: 5000 }) })
 

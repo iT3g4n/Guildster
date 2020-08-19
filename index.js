@@ -24,7 +24,7 @@ bot.on("ready", () => {
 
 });
 
-bot.on("message", async message => {
+bot.on("message", async (message) => {
 
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
@@ -41,46 +41,6 @@ bot.on("message", async message => {
 
 });
 
-bot.on("message", (message) => {
-  if (!message.content.startsWith(prefix) || message.author.bot) return;
-  if (!message.guild) return;
-  const args = message.content.slice(prefix.length).split(" ");
-  const command = args.shift().toLowerCase();
-
-  if (command === "socials") {
-    bot.commands.get("socials").execute(message, args);
-    console.log("socials command used");
-  } else if (command === "help") {
-    bot.commands.get("help").execute(bot, message, args);
-    console.log("help command used");
-  }
-});
-
-bot.on("message", (message) => {
-  if (message.author.bot) return;
-  if (!message.guild) return;
-  const args = message.content.slice(prefix.length).split(" ");
-  const command = message.content;
-
-  if (
-    command === "Hello!" ||
-    command === "hello" ||
-    command === "Hi" ||
-    command === "hi" ||
-    command === "yo"
-  ) {
-    message.channel.send(`Hello! How are you ${message.author.username}?`);
-  } else if (message.content === "good") {
-    message.channel.send(
-      `Noice ${message.author.username}. I am a bot. I have no feelings.`
-    );
-  } else if (message.content === "Good") {
-    message.channel.send(
-      `Noice ${message.author.username}. I am a bot. I have no feelings.`
-    );
-  }
-});
-
 bot.on("messageReactionAdd", async (reaction, user) => {
 
   if (reaction.message.channel.id != "739480654109999185") return;
@@ -89,10 +49,14 @@ bot.on("messageReactionAdd", async (reaction, user) => {
 
         if (user.bot) return;
 
+
+        const db = require(`quick.db`)
+        if (db.includes(`TICKET: ${user.id}`, 1)) return reaction.message.channel.send(`Sorry <@${user.id}>. You already have a ticket open! Please wait for the time to be over.`).then(m => m.delete({ timeout: 5000 }))
+
         await reaction.users.remove(user)
         await reaction.message.react("🎫")
 
-        const randomcolour = "#" + Math.floor(Math.random() * 16777215).toString(16);
+        const randomcolour = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
         try {
             await reaction.fetch();
@@ -111,7 +75,7 @@ bot.on("messageReactionAdd", async (reaction, user) => {
             .setColor(randomcolour);
 
         let m = await reaction.message.guild.channels.create(`${user.id}-ticket`, {
-            type: "text", parent: "737323550050091089",
+            type: "text", parent: "714809218024079432",
             permissionOverwrites: [
                 {
                     id: user.id,
@@ -126,13 +90,15 @@ bot.on("messageReactionAdd", async (reaction, user) => {
         });
         let th = await (await m).send(`<@${user.id}>`);
         await (await th).edit(embed);
+        db.add(`TICKET: ${user.id}`, 1)
         setTimeout(() => {
-          if (!m) return
+          map.delete(user.id)
+          if (!m) return;
           if(m.deletable) {
             m.delete();
             console.log((m.id = " was deleted because it timed out."))
           } else return;
-        }, 500000).catch();      
+        }, 500000);      
 });
 
 bot.login(process.env.TOKEN);
