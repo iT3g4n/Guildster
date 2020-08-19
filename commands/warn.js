@@ -13,7 +13,7 @@ module.exports = {
             if(!user) return message.reply("Please mention a valid user!")
             if(user.bot) return message.reply("You can't warn a bot!")
             if(message.author.id === user.id) return message.reply("You cant warn yourself!")
-            if(message.guild.owner.id === user.id) return message.reply("NO WARNING THE ALL POWERFUL GOD, T3G4N.")
+            if(message.guild.owner.id === user.id) return message.reply("NO WARNING THE SERVER OWNER.")
 
             let reason = args.slice(1).join(" ")
             if(!reason) return message.reply("Please give a reason.")
@@ -21,8 +21,7 @@ module.exports = {
             let warnings = db.get(`warnings_${message.guild.id}_${user.id}`);
             
             let warnEmbed = new discord.MessageEmbed()
-            .setTitle(`<@!${user.id}> has been warned`)
-            .setDescription(`Reason: ${reason}`)
+            .setDescription(`<@!${user.id}> has been warned\n\nReason: ${reason}`)
             .setFooter(`Moderator ID: ${message.author.id}`)
             .setColor('#ff7b00')
 
@@ -33,7 +32,7 @@ module.exports = {
                 bot.channels.cache.get("728653429785755730").send(warnEmbed);
             }
 
-            if (warnings === 3) return ("This person now has 3 warnings. Action: 2 hour mute")
+            if (warnings = 3) return ("This person now has 3 warnings. Action: 2 hour mute")
             
         } else {
 

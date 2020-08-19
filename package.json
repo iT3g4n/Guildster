@@ -11,7 +11,7 @@
   "author": "T3g4n",
   "license": "ONLY ME",
   "dependencies": {
-    "discord.js": "^12.2.0",
+    "discord.js": "^12.3.1",
     "dotenv": "^8.2.0",
     "ms": "^2.1.2",
     "nodemon": "^2.0.4",
