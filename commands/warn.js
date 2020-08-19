@@ -21,14 +21,14 @@ module.exports = {
             let warnings = db.get(`warnings_${message.guild.id}_${user.id}`);
             
             let warnEmbed = new discord.MessageEmbed()
-            .setDescription(`<@!${user.id}> has been warned\n\nReason: ${reason}`)
+            .setDescription(`**<@${user.id}> has been warned**\n\nReason: ${reason}`)
             .setFooter(`Moderator ID: ${message.author.id}`)
-            .setColor('#ff7b00')
+            .setColor('ORANGE')
 
             if (warnings = null || (warnings = 1) || (warnings = 2 || (warnings = 3))) {
                 db.add(`warnings_${message.guild.id}_${user.id}`, 1);
                 user.send(warnEmbed).catch(console.log(`could not send ${user.name || user.id} a dm. They must open them first.`))
-                await message.channel.send(`**${user.username || user.id}** has been warned for: ${reason}`)
+                await message.channel.send(`**${user.username || user.id}** has been warned for: ${reason}`).then(r => r.delete({ timeout: 3000 }))
                 bot.channels.cache.get("728653429785755730").send(warnEmbed);
             }
 
