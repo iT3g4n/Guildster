@@ -15,16 +15,17 @@ module.exports = {
 
         if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send("YOU DO NOT HAVE ENOUGH PERMISSIONS")
 
-        const user = message.mentions.users.first() || message.guild.members.cache.get(args[0])
-        if (!user) return message.reply("Please give a Name / ID")
+        const mention = message.mentions.users.first() || message.guild.members.cache.get(args[0])
 
-        let warnings = await db.get(`warnings_${message.guild.id}_${user.id}`, 1);
+        if (!mention) return message.reply("Please give a Name / ID")
+
+        let warnings = await db.get(`warnings_${message.guild.id}_${mention.id}`, 1);
 
         if (warnings === null) {
             warnings = 0;
         }
 
-        message.channel.send(`${user.tag} has **${warnings}** warnings.`);
+        message.channel.send(`${mention.tag} has **${warnings}** warnings.`);
 
     }
 }
