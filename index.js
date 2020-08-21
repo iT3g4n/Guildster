@@ -2,7 +2,6 @@ const discord = require("discord.js");
 const bot = new discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 const prefix = "*";
 const fs = require("fs");
-const dotenv = require("dotenv").config()
 require("dotenv").config()
 
 bot.commands = new discord.Collection();
