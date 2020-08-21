@@ -40,6 +40,8 @@ bot.on("message", async (message) => {
 
 });
 
+const map = new discord.Map()
+
 bot.on("messageReactionAdd", async (reaction, user) => {
 
   if (reaction.message.channel.id != "739480654109999185") return;
@@ -48,12 +50,10 @@ bot.on("messageReactionAdd", async (reaction, user) => {
 
   if (user.bot) return;
 
-
   const db = require(`quick.db`)
   if (db.includes(`TICKET: ${user.id}`)) return reaction.message.channel.send(`Sorry <@${user.id}>. You already have a ticket open! Please wait for the time to be over.`).then(m => m.delete({ timeout: 5000 }))
 
   await reaction.users.remove(user)
-  await reaction.message.react("🎫")
 
   const randomcolour = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
@@ -64,7 +64,7 @@ bot.on("messageReactionAdd", async (reaction, user) => {
     return;
   }
 
-  console.log(`reaction: ${reaction._emoji.name}`);
+  console.log(`reaction: ${reaction.emoji.name}`);
 
   const embed = new discord.MessageEmbed()
     .setTitle("Create a Ticket  🎫")
