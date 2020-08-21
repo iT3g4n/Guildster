@@ -1,14 +1,23 @@
+const discord = require(`discord.js`)
+
 module.exports = {
+
+    /**
+     * 
+     * @param {discord.MessageReaction} reaction 
+     * @param {discord.User} user 
+     */
+
     async run(reaction, user) {
-        
+
         if (reaction.message.channel.id != "739480654109999185") return;
 
         if (reaction.emoji.name != "🎫") return;
 
         if (user.bot) return;
 
-        const db = require(`quick.db`)
-        if (db.includes(`TICKET: ${user.id}`)) return reaction.message.channel.send(`Sorry <@${user.id}>. You already have a ticket open! Please wait for the time to be over.`).then(m => m.delete({ timeout: 5000 }))
+        const db = new Map()
+        if (db.has(`TICKET: ${user.id}`)) return reaction.message.channel.send(`Sorry <@${user.id}>. You already have a ticket open! Please wait for the time to be over.`).then(m => m.delete({ timeout: 5000 }))
 
         await reaction.users.remove(user)
 
@@ -44,10 +53,10 @@ module.exports = {
                 },
             ]
         });
-        let th = await (await m).send(`<@${user.id}>`);
-        await (await th).edit(embed);
-        db.add(`TICKET: ${user.id}`, 1)
 
+        let th = await m.send(`<@${user.id}>`);
+        await th.edit(embed);
+        db.set(`TICKET: ${user.id}`)
 
         setTimeout(() => {
 
@@ -57,7 +66,7 @@ module.exports = {
 
             m.delete();
 
-            console.log((m.name = " was deleted because it timed out."));
+            console.log(m.name = " was deleted because it timed out.");
 
         }, 300000);
     }

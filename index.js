@@ -42,8 +42,8 @@ bot.on("message", async (message) => {
 
 const map = new Map()
 
-bot.on("messageReactionAdd", async (reaction, user) => {
-  require(`./commands/reaction.js`)(reaction, user)
+bot.on("messageReactionAdd", (reaction, user) => {
+  require(`./commands/reaction.js`).run(reaction, user)
 });
 
 bot.login(process.env.TOKEN);
