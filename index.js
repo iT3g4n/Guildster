@@ -1,29 +1,19 @@
 const discord = require("discord.js");
-const bot = new discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
+const bot = new discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER', 'GUILD_MEMBER'] });
 const prefix = "*";
-const fs = require("fs");
 require("dotenv").config()
 
-bot.commands = new discord.Collection();
-
-const commandFiles = fs
-  .readdirSync("./commands/")
-  .filter((File) => File.endsWith(".js"));
-
-for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
-
-  bot.commands.set(command.name, command);
-}
+const mongoose = require('mongoose');
+mongoose.connect('mongodb+srv://ADMIN:gF00qvKdUrbcnDiD@warnings.xsvkz.gcp.mongodb.net/Warnings?retryWrites=true&w=majority', { useUnifiedTopology: true, useNewUrlParser: true });
 
 bot.on("ready", () => {
-  console.log(`logged in as ${bot.user.username}`);
+  console.log(`logged in as ${bot.user.tag}`);
 
   bot.user.setActivity("Zone of W's!", { type: "WATCHING" });
 
 });
 
-bot.on("message", async (message) => {
+bot.on("message", async message => {
 
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
@@ -32,18 +22,18 @@ bot.on("message", async (message) => {
   if (!message.guild) return;
 
   try {
-    bot.commands.get(command).run(bot, message, args);
+    require(`./commands/${command}`).run(bot, message, args)
     console.log(`${command} command used`);
   } catch {
+    message.delete()
+    message.channel.send(`That is not a command!`).then(m => m.delete({ timout: 2000 }))
     console.error();
   }
 
 });
 
-const map = new Map()
-
 bot.on("messageReactionAdd", (reaction, user) => {
   require(`./commands/reaction.js`).run(reaction, user)
 });
 
-bot.login(process.env.TOKEN);
+bot.login(process.env.TOKEN)

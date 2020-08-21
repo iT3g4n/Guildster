@@ -22,10 +22,10 @@ module.exports = {
         let warnings = await db.get(`warnings_${message.guild.id}_${mention.id}`, 1);
 
         if (warnings === null) {
-            warnings = 0;
-        }
+            warnings = 'no';
+        };
 
-        message.channel.send(`${mention.tag} has **${warnings}** warnings.`);
+        message.channel.send(`${mention} has **${warnings}** warnings.`);
 
     }
 }
