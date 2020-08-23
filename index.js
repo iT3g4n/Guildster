@@ -4,7 +4,7 @@ const prefix = "*";
 require("dotenv").config()
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://ADMIN:gF00qvKdUrbcnDiD@warnings.xsvkz.gcp.mongodb.net/Warnings?retryWrites=true&w=majority', { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect('mongodb+srv://ADMIN:' + process.env.PASSWORD + '@warnings.xsvkz.gcp.mongodb.net/data?retryWrites=true&w=majority', { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false });
 
 bot.on("ready", () => {
   console.log(`logged in as ${bot.user.tag}`);
@@ -22,12 +22,12 @@ bot.on("message", async message => {
   if (!message.guild) return;
 
   try {
-    require(`./commands/${command}`).run(bot, message, args)
+    
+    require(`./commands/${command}`)(bot, message, args)
     console.log(`${command} command used`);
-  } catch {
-    message.delete()
-    message.channel.send(`That is not a command!`).then(m => m.delete({ timout: 2000 }))
-    console.error();
+  } catch (err) {
+    message.channel.send(`ERROR: ${err}`)
+    console.log(err);
   }
 
 });
