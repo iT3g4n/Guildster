@@ -2,9 +2,9 @@ const discord = require("discord.js")
 const { Client, Message } = require('discord.js')
 const mongoose = require('mongoose');
 
-const db = new mongoose.Schema({
+new mongoose.Schema({
     id: String,
-    reason: String,
+    reason: Array,
     moderator: String
 })
 
@@ -30,10 +30,8 @@ module.exports = {
             if(message.author.id === mention.id) return message.reply("You cant warn yourself!")
             if(message.guild.owner.id === mention.id) return message.reply("NO WARNING THE SERVER OWNER.")
 
-            let reason = args.slice(1).join(" ")
-            if(!reason) return message.reply("Please give a reason.")
-
-            let warnings = db.get(`warnings_${message.guild.id}_${mention.id}_`);
+            let reason = args.slice(1).join(" ");
+            if(!reason) return message.reply("Please give a reason.");
             
             let warnEmbed = new discord.MessageEmbed()
             .setDescription(`**<@${mention.id}> has been warned**\n\nReason: ${reason}`)
@@ -46,12 +44,10 @@ module.exports = {
                 moderator: message.author.id
             })
 
-            if (warnings = null || (warnings = 1) || (warnings = 2) || (warnings = 3)) {
                 db.add(`warnings_${message.guild.id}_${mention.id}`, 1);
                 mention.send(warnEmbed).catch(e => console.log(e))
                 message.channel.send(`${mention} has been warned for: ${reason}`).then(r => r.delete({ timeout: 3000 }))
                 bot.channels.cache.get("728653429785755730").send(warnEmbed);
-            }
 
             if (warnings = 3) return ("This person now has 3 warnings. Action: 2 hour mute")
             
