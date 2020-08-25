@@ -1,6 +1,6 @@
-const mongo = require(`../mongo`)
-const mongoose = require(`mongoose`)
-mongo()
+const mongo = require(`../mongo`);
+const mongoose = require(`mongoose`);
+mongo();
 
 const warnSchema = mongoose.Schema({
     Warns: [Object],

@@ -1,5 +1,5 @@
-const { MessageEmbed } = require("discord.js")
-const db = require(`quick.db`)
+const { MessageEmbed } = require("discord.js");
+const db = require(`./reaction`).db;
 
 const randomcolour = "#" + Math.floor(Math.random() * 16777215).toString(16);
 
@@ -8,8 +8,6 @@ module.exports = {
     description: "A ticket command",
     usage: "*ticket",
     async run(bot, message, args) {
-
-        message.delete()
 
         if (message.channel.name != `${message.author.id}-ticket`) return;
 
@@ -29,7 +27,7 @@ module.exports = {
         message.channel.delete().catch(console.error())
         await m.react("⬆️")
         m.react("⬇️")
-        db.delete(`TICKET: ${message.author.id}`, 1)
+        db.delete(`TICKET: ${message.author.id}`)
         
     }
-}
+};

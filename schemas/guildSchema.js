@@ -1,8 +1,10 @@
-const mongoose = require('mongoose')
+const mongo = require(`../mongo`);
+const mongoose = require('mongoose');
+mongo();
 
-let guildSchema = new mongoose.Schema({
-    _id: String,
-    logChannel: String,
-})
+const guildSchema = mongoose.Schema({
+    Guild: String,
+    Logs: String
+});
 
-module.exports = mongoose.model('guilds', guildSchema)
+module.exports = mongoose.model('guilds', guildSchema);

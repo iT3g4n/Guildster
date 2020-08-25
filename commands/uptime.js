@@ -12,9 +12,11 @@ module.exports= {
 
         let m = await message.channel.send("Checking Uptime...")
 
+        const uptime = ms(bot.uptime)
+
         const e = new MessageEmbed()
         .setTitle("Uptime")
-        .setDescription(`I have been online for:\n${ms(bot.uptime)}`)
+        .setDescription(`I have been online for:\n${uptime}`)
         .setColor(randomcolour)
 
         await m.edit(e)

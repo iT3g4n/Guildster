@@ -1,7 +1,8 @@
 const discord = require(`discord.js`)
+const db = new Map()
 
 module.exports = {
-
+    db,
     /**
      * 
      * @param {discord.MessageReaction} reaction 
@@ -16,7 +17,7 @@ module.exports = {
 
         if (user.bot) return;
 
-        const db = new Map()
+
         if (db.has(`TICKET: ${user.id}`)) return reaction.message.channel.send(`Sorry <@${user.id}>. You already have a ticket open! Please wait for the time to be over.`).then(m => m.delete({ timeout: 5000 }))
 
         await reaction.users.remove(user)
@@ -54,15 +55,15 @@ module.exports = {
             ]
         });
 
-        let th = await m.send(`<@${user.id}>`);
-        await th.edit(embed);
+        let msg = await m.send(`<@${user.id}>`);
+        await msg.edit(embed);
         db.set(`TICKET: ${user.id}`)
 
         setTimeout(() => {
 
             db.delete(`TICKET: ${user.id}`)
 
-            if (!m) return;
+            if (!m.deletable) return;
 
             m.delete();
 

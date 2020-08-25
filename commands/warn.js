@@ -1,6 +1,7 @@
 const { Client, Message, MessageEmbed } = require('discord.js')
 const mongo = require(`../mongo`)
 const warns = require(`../schemas/warnSchema`);
+const guilds = require(`../schemas/guildSchema`);
 
 module.exports = {
     name: 'warn',
@@ -68,12 +69,24 @@ module.exports = {
 
         const embed = new MessageEmbed()
             .setTitle(`User Warned`)
-            .addField(`User`, `<@${mi}>`, true)    
+            .addField(`User`, `<@${mi}>`, true)
             .addField(`Moderator`, `<@${message.author.id}>`, true)
             .addField(`Reason`, `${reason}`, true)
             .setColor(`YELLOW`)
 
-        let channel = bot.channels.cache.get(`728653429785755730`);
-        channel.send(embed)   
+        await mongo().then(async mongoose => {
+
+            try {
+                const result = await guilds.findOne({ Guild: message.guild.id })
+                bot.channels.cache.get(result.Logs).send(embed)
+            } finally {
+                mongoose.connection.close()
+            }
+            
+
+        })
+
+
+
     }
 }
