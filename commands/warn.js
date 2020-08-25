@@ -32,6 +32,8 @@ module.exports = {
         const reason = args.slice(1).join(' ')
         if (!reason) return message.channel.send(`You did not specify a reason.`);
 
+        let msg = await message.channel.send(`Warning ${mt}...`);
+
         console.log(mi, mt);
 
         await mongo().then(async mongoose => {
@@ -62,16 +64,16 @@ module.exports = {
             }
         })
 
+        msg.edit(`${mt} has been succesfully warned with the reason of \`${reason}\``)
 
+        const embed = new MessageEmbed()
+            .setTitle(`User Warned`)
+            .addField(`User`, `<@${mi}>`, true)    
+            .addField(`Moderator`, `<@${message.author.id}>`, true)
+            .addField(`Reason`, `${reason}`, true)
+            .setColor(`YELLOW`)
 
-        // const embed = new MessageEmbed()
-        //     .setTitle(`User Warned`)
-        //     .addField(`User`, `<@${mi}>`, true)    
-        //     .addField(`Moderator`, `<@${message.author.id}>`, true)
-        //     .addField(`Reason`, `${reason}`, true)
-        //     .setColor(`YELLOW`)
-
-        // let channel = bot.channels.cache.get(`728653429785755730`);
-        // channel.send(embed)   
+        let channel = bot.channels.cache.get(`728653429785755730`);
+        channel.send(embed)   
     }
 }
