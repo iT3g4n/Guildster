@@ -1,10 +1,16 @@
 module.exports = {
-    async run (bot, message, args) {
-        if (message.author.id != '381024325974622209') return; 
-        
+    async run(bot, message, args) {
+        if (message.author.id != '381024325974622209') return;
+
         let msg = await message.channel.send(`Shutting Down...`)
-        process.exit().then(
-            msg.edit(`Shutdown Complete!`)
-        )
+
+        try {
+            process.exit().then(
+                msg.edit(`Shutdown Complete!`)
+            )
+        } catch (err) {
+            msg.edit(`ERROR: ${err}`);
+            console.error(err);
+        }
     }
 }

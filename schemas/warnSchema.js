@@ -1,12 +1,11 @@
-const mongoose = require('mongoose')
-const reqString = { type: String, required: true }
+const mongo = require(`../mongo`)
+const mongoose = require(`mongoose`)
+mongo()
 
+const warnSchema = mongoose.Schema({
+    Warns: [Object],
+    User: String,
+    Guild: String
+});
 
-const warnSchema = new mongoose.Schema({
-    userId: String,
-    guildId: String,
-    warnings: Array,
-    moderatorId: String
-})
-
-module.exports = mongoose.model('warnings', warnSchema);
+module.exports = mongoose.model('warns', warnSchema);
