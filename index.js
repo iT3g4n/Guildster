@@ -49,17 +49,17 @@ bot.on("ready", async() => {
 
 bot.on("message", async message => {
 
-  if (!message.content.startsWith(prefix) || message.author.bot || !message.guild) return;
+  if (!message.content.startsWith(prefix) || message.author.bot || !message.guild || message.content === '*') return;
 
   const args = message.content.slice(prefix.length).split(" ");
   const command = args.shift().toLowerCase();
 
   try {
+    require(`./commands/${command}`).run(bot, message, args);
     console.log(`${command} command used`);
-    require(`./commands/${command}`).run(bot, message, args)
   } catch (err) {
-    console.log(err);
-  }
+    console.log(`Some idiot used the wrong command`);
+  };
 
 });
 
@@ -73,7 +73,7 @@ bot.on("message", async message => {
  */
 
 bot.on("messageReactionAdd", (reaction, user) => {
-  require(`./commands/reaction.js`).run(reaction, user)
+  require(`./commands/reaction.js`).run(reaction, user);
 });
 
-bot.login(process.env.TOKEN)
+bot.login(process.env.TOKEN);

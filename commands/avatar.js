@@ -1,5 +1,4 @@
 const { MessageEmbed } = require("discord.js");
-const randomcolor = "#" + Math.floor(Math.random() * 16777215).toString(16)
 
 module.exports = {
     name: "avatar",
@@ -11,11 +10,11 @@ module.exports = {
         let mention = message.mentions.users.first() || message.author;
 
         let embed = new MessageEmbed()
-        .setTitle(`Avatar for ${mention.username}`)
-        .setURL(mention.avatarURL())
-        .setImage(mention.avatarURL())
-        .setColor(randomcolor)
+        .setTitle(`Avatar for ${mention.tag}`)
+        .setURL(mention.avatarURL({ dynamic: true, format: "png", size: 1024 }))
+        .setImage(mention.avatarURL({ dynamic: true, format: "png", size: 1024 }))
+        .setColor('RANDOM')
 
-        await message.channel.send(embed)
+        message.channel.send(embed)
     }
-}
+};

@@ -64,7 +64,7 @@ module.exports = {
             }
         })
 
-        msg.edit(`${mt} has been succesfully warned with the reason of \`${reason}\``)
+        await msg.edit(`${mt} has been succesfully warned with the reason of \`${reason}\``)
 
         const embed = new MessageEmbed()
             .setTitle(`User Warned`)
