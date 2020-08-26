@@ -4,7 +4,7 @@ const warns = require(`../schemas/warnSchema`)
 
 module.exports = {
     name: 'warnings',
-    description: "this is a warnings command!",
+    description: "**ADMIN-ONLY**\nGets the warns for the mentioned user!",
 
     /**
      * @param {Client} bot 
@@ -34,7 +34,8 @@ module.exports = {
 
         let msg = await message.channel.send(`Getting warnings for ${mt}...`)
 
-        mongo().then(async mongoose => {
+        await mongo().then(async mongoose => {
+            
             try {
                 const results = await warns.findOne({
                     User: mi,

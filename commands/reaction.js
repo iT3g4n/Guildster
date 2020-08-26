@@ -2,6 +2,7 @@ const discord = require(`discord.js`)
 const db = new Map()
 
 module.exports = {
+    description: 'NOT-RUNABLE',
     db,
     /**
      * 

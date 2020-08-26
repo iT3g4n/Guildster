@@ -3,7 +3,7 @@ const bot = new discord.Client();
 
 module.exports = {
     name: 'slowmode',
-    description: "this is a slowmode command!",
+    description: "**ADMIN-ONLY**\nSets the slowmode to the specified amount!",
     async run(bot, message, args) {
 
         message.delete({ timeout: 0 })
@@ -22,8 +22,8 @@ module.exports = {
 
             if (args[0] > 1000) return message.channel.send("Please give a number lower than 1000 as that is the limit of the Discord API").then(msg => { msg.delete({ timeout: 6000 }) })
 
-            await message.channel.setRateLimitPerUser(args[0]).catch(console.error).then(
-            message.reply("Slowmode is now " + message.channel.rateLimitPerUser + secondornot).then(msg => { msg.delete({ timeout: 5000 }) }))
+            await message.channel.setRateLimitPerUser(args[0]).catch(err => console.error(err))
+            message.reply("Slowmode is now " + message.channel.rateLimitPerUser + secondornot).then(msg => { msg.delete({ timeout: 5000 }) })
 
         } else return message.reply("YOU DO NOT HAVE ENOUGH PERMISSIONS!").then(msg => { msg.delete({ timeout: 5000 }) })
 

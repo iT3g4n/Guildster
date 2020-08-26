@@ -4,7 +4,7 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
   name: "dog",
-  description: "Sends a random dog to the channel of the message",
+  description: "Sends a random dog to the channel of the message!",
   async run(bot, message, args) {
 
     message.delete({ timeout: 0 })

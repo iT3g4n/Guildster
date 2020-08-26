@@ -3,7 +3,7 @@ const ms = require("ms");
 
 module.exports = {
     name: "mute",
-    description: "mutes the mentioned person",
+    description: "**ADMIN-ONLY**\nMutes the mentioned user for the specified amount of time!",
     usage: "` *mute <mention || id> <time> <reason> `",
     async run(bot, message, args) {
         if (!message.member.permissions.has("MANAGE_MEMBERS"))

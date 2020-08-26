@@ -1,8 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = {
-    name: "avatar",
-    description: "gets an avatar for a mentioned user",
+    description: "Gets an avatar for the mentioned user!",
     async run (bot, message, args) {
 
         message.delete();

@@ -1,4 +1,5 @@
 module.exports = {
+    description: 'BOT-OWNER-ONLY\nStops the bot and makes it go offline!',
     async run(bot, message, args) {
         if (message.author.id != '381024325974622209') return;
 

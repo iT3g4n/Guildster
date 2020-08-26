@@ -1,4 +1,5 @@
 module.exports = {
+    description: 'NOT-RUNNABLE',
     async run(reaction, user) {
 
         if (reaction.message.channel.id != "739480654109999185") return;

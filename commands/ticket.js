@@ -5,7 +5,7 @@ const randomcolour = "#" + Math.floor(Math.random() * 16777215).toString(16);
 
 module.exports = {
     name: "ticket",
-    description: "A ticket command",
+    description: "If you are creating a ticket you use this to send it to the tickets channel! (Removing Soon)",
     usage: "*ticket",
     async run(bot, message, args) {
 

@@ -3,9 +3,11 @@ const ms = require("ms")
 
 module.exports = {
     name: "ga",
-    description: "a giveaway command",
+    description: "**ADMIN-ONLY**\nCreates a giveaway in the channel of the message!",
     usage: "*give <time> <prize>",
     async run(bot, message, args) {
+
+        if (!message.member.hasPermission('MANAGE_ROLES')) return;
 
         message.delete({ timeout: 0 })
 

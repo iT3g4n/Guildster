@@ -5,7 +5,7 @@ const guilds = require(`../schemas/guildSchema`);
 
 module.exports = {
     name: 'warn',
-    description: "this is a warn command!",
+    description: "**ADMIN-ONLY**\nWarns the mentioned user!",
 
     /**
      * @param {Client} bot 
@@ -38,6 +38,7 @@ module.exports = {
         console.log(mi, mt);
 
         await mongo().then(async mongoose => {
+            
             try {
 
                 await warns.findOneAndUpdate({

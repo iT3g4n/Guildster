@@ -1,6 +1,6 @@
 module.exports = {
     name: 'socials',
-    description: "this gives you my socials!",
+    description: "This gives you my socials!",
     async run (bot, message, args){
         
         const randomColor = Math.floor(Math.random() * 16777215).toString(16);

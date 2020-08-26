@@ -1,8 +1,7 @@
 const { MessageEmbed, Client, Message } = require("discord.js");
 
 module.exports = {
-    name: 'ban',
-    description: "this is a ban command!",
+    description: "**ADMIN-ONLY**\nThis bans the mentioned user with a reason!",
     /**
      * 
      * @param {Client} bot 

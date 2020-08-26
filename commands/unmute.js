@@ -1,6 +1,7 @@
 const { MessageEmbed } = require(`discord.js`)
 
 module.exports = {
+    description: '**ADMIN-ONLY**\nUnmutes the mentioned person!',
     async run (bot, message, args) {
 
         if (!message.member.has(`MANAGE_MESSAGES`)) return message.channel.send(`YOU DO NOT HAVE ENOUGH PERMISSIONS TO DO THIS COMMAND!`).then(m => m.delete({ timeout: 5000 }))
