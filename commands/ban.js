@@ -1,4 +1,5 @@
 const { MessageEmbed, Client, Message } = require("discord.js");
+const mongo = require("../mongo");
 
 module.exports = {
     description: "**ADMIN-ONLY**\nThis bans the mentioned user with a reason!",
@@ -27,7 +28,17 @@ module.exports = {
 
         user.ban(reason).catch(console.error())
 
-        bot.channels.cache.get("728653429785755730").send(embed);
+        await mongo().then(async mongoose => {
+
+            try {
+                const result = await guilds.findOne({ Guild: message.guild.id })
+                bot.channels.cache.get(result.Logs).send(embed)
+            } finally {
+                mongoose.connection.close()
+            }
+            
+
+        })
 
     }
 }
