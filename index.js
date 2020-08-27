@@ -89,8 +89,9 @@ end of thing
 bot.on("message", async message => {
   await mongo().then(async mongoose => {
     try {
-      const prefixa = await guilds.findOne({ Guild: message.guild.id });
-      const prefix = prefixa.Prefix;
+      // const prefixa = await guilds.findOne({ Guild: message.guild.id });
+      // const prefix = prefixa.Prefix;
+      const prefix = '*';
       if (!message.content.startsWith(prefix)) return;
       const args = message.content.slice(prefix.length).split(" ");
       const command = args.shift().toLowerCase();
