@@ -40,6 +40,10 @@ bot.on("ready", async () => {
     }
   }).catch(err => console.error(err))
 
+  setInterval(() => {
+    bot.channels.cache.get('736954524954001478').send(`Keep chat active please. kthx.`)
+  }, 999999)
+
 });
 
 
