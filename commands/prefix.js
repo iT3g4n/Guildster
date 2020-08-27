@@ -3,7 +3,7 @@ const { Client, Message } = require("discord.js");
 const mongo = require("../mongo");
 
 module.exports = {
-    description: `ADMIN-ONLY\nSets the prefix for this guild!`,
+    description: `**ADMIN-ONLY**\nSets the prefix for this guild!`,
     /**
      * @param {Client} bot
      * @param {Message} message
@@ -18,15 +18,16 @@ module.exports = {
 
                 if (!args[0]) return message.channel.send(`The prefix for ${message.guild.name} is \`${prefix}\``);
 
-                if (!message.member.hasPermission(`ADMINISTRATOR`)) return message.channel.send(`You don't have enough permissions to do that!`);
             } finally {
                 mongoose.connection.close()
             }
         })
 
-
+        if (!args[0]) return;
 
         await mongo().then(async mongoose => {
+
+            if (!message.member.hasPermission(`ADMINISTRATOR`)) return message.channel.send(`You don't have enough permissions to do that!`);
 
             try {
 
@@ -34,7 +35,7 @@ module.exports = {
                     Prefix: args[0]
                 }, { upsert: true })
 
-                message.channel.send(`:white_check_mark: Success! The prefix for ${message.guild.name} is now ${args[0]}`);
+                message.channel.send(`:white_check_mark: Success! The prefix for ${message.guild.name} is now \`${args[0]}\``);
 
             } finally {
 

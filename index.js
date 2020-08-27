@@ -87,18 +87,27 @@ end of thing
  */
 
 bot.on("message", async message => {
-  const prefix = '*'
-  const args = message.content.slice(prefix.length).split(" ");
-  const command = args.shift().toLowerCase();
-  if (!message.content.startsWith(prefix) || message.author.bot || !message.guild || !bot.commands.has(command)) return;
-
-  try {
-    bot.commands.get(command).run(bot, message, args);
-    console.log(`${command} command used`);
-  } catch (err) {
-    await message.channel.send(`I'm sorry. There was an error executing the \`${command}\` command.`);
-    console.log(err);
-  };
+  await mongo().then(async mongoose => {
+    try {
+      const prefixa = await guilds.findOne({ Guild: message.guild.id });
+      const prefix = prefixa.Prefix;
+      console.log(prefix)
+      if (!message.content.startsWith(prefix)) return;
+      const args = message.content.slice(prefix.length).split(" ");
+      const command = args.shift().toLowerCase();
+      if (message.author.bot || !message.guild || !bot.commands.has(command)) return;
+    
+      try {
+        bot.commands.get(command).run(bot, message, args);
+        console.log(`${command} command used`);
+      } catch (err) {
+        await message.channel.send(`I'm sorry. There was an error executing the \`${command}\` command.`);
+        console.log(err);
+      };
+    } catch (err) {
+      console.log(err)
+    }
+  })
 });
 
 /**
