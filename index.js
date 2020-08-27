@@ -87,7 +87,7 @@ end of thing
  */
 
 bot.on("message", async message => {
-  await mongo().then(async mongoose => {
+  //await mongo().then(async mongoose => {
     try {
       // const prefixa = await guilds.findOne({ Guild: message.guild.id });
       // const prefix = prefixa.Prefix;
@@ -108,7 +108,7 @@ bot.on("message", async message => {
       console.log(err)
     }
   })
-});
+//});
 
 /**
  
