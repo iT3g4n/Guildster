@@ -10,11 +10,11 @@
 
 const discord = require("discord.js");
 const bot = new discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER', 'GUILD_MEMBER'] });
-const prefix = "*";
 const Enmap = require(`enmap`)
 require("dotenv").config()
 const fs = require(`fs`);
 const mongo = require("./mongo.js");
+const guilds = require(`./schemas/guildSchema`)
 
 /**
 
@@ -35,12 +35,10 @@ bot.on("ready", async () => {
 
     try {
       console.log(`MongoDB Ready!`)
-    } catch (err) {
-      console.error(err)
     } finally {
       mongoose.connection.close()
     }
-  })
+  }).catch(err => console.error(err))
 
 });
 
@@ -86,18 +84,27 @@ end of thing
 
 bot.on("message", async message => {
 
-  if (!message.content.startsWith(prefix) || message.author.bot || !message.guild || message.content === '*') return;
+  await mongo().then(async mongoose => {
+    try {
+      
+      const asdf = await guilds.findOne({ Guild: message.guild.id })
+      const prefix = asdf.Prefix || '*';
+      const args = message.content.slice(prefix.length).split(" ");
+      const command = args.shift().toLowerCase();
+      if (!message.content.startsWith(prefix) || message.author.bot || !message.guild || !bot.commands.has(command)) return;
 
-  const args = message.content.slice(prefix.length).split(" ");
-  const command = args.shift().toLowerCase();
+      try {
+        bot.commands.get(command).run(bot, message, args);
+        console.log(`${command} command used`);
+      } catch (err) {
+        await message.channel.send(`I'm sorry. There was an error executing the \`${command}\` command.`);
+        console.log(err);
+      };
 
-  try {
-    bot.commands.get(command).run(bot, message, args)
-    console.log(`${command} command used`);
-  } catch (err) {
-    await message.channel.send(`I'm sorry. There was an error executing the \`${command}\` command.`)
-    console.log(err);
-  };
+    } finally {
+      mongoose.connection.close();
+    };
+  });
 
 });
 

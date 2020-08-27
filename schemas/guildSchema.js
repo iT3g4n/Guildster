@@ -1,10 +1,10 @@
 const mongo = require(`../mongo`);
 const mongoose = require('mongoose');
-mongo();
 
 const guildSchema = mongoose.Schema({
     Guild: String,
-    Logs: String
+    Logs: String,
+    Prefix: String
 });
 
 module.exports = mongoose.model('guilds', guildSchema);

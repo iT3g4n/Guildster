@@ -1,5 +1,6 @@
 const { MessageEmbed, Client, Message } = require("discord.js");
 const mongo = require("../mongo");
+const guilds = require(`../schemas/guildSchema`)
 
 module.exports = {
     description: "**ADMIN-ONLY**\nThis bans the mentioned user with a reason!",
@@ -23,7 +24,7 @@ module.exports = {
         console.log(reason)
 
         const embed = new MessageEmbed()
-            .setDescription(`**${user.tag} has been banned**\n\n*Reason:* \`${reason}\`\n\nModerator: <@${message.author.id}>`)
+            .setDescription(`**${user.tag} has been banned**\n\n*Reason:* \`${reason}\`\n\nModerator: <@${message.author}>`)
             .setColor(`#000000`)
 
         user.ban(reason).catch(console.error())
