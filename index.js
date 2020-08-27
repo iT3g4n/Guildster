@@ -91,7 +91,6 @@ bot.on("message", async message => {
     try {
       const prefixa = await guilds.findOne({ Guild: message.guild.id });
       const prefix = prefixa.Prefix;
-      console.log(prefix)
       if (!message.content.startsWith(prefix)) return;
       const args = message.content.slice(prefix.length).split(" ");
       const command = args.shift().toLowerCase();
