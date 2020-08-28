@@ -16,6 +16,8 @@ const { MessageEmbed } = require("discord.js")
     .addField(`Bot`, time)
     .addField("API", bot.ws.ping + " ms")
     .setColor('RANDOM')
+    .setFooter(`|   Ping Command`, message.author.avatarURL({ dynamic: true }))
+    .setTimestamp(Date.now())
 
     
     await msg.edit(embed)

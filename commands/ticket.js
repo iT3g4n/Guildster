@@ -1,7 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const db = require(`./reaction`).db;
-
-const randomcolour = "#" + Math.floor(Math.random() * 16777215).toString(16);
+const { db } = require(`../events/reaction`)
 
 module.exports = {
     name: "ticket",
@@ -17,14 +15,14 @@ module.exports = {
 
         const ticketembed = new MessageEmbed()
             .setDescription(`**Suggestion by <@${message.author.id}>**\n\n**Suggestion**\n${msgArgs}`)
-            .setColor(randomcolour);
+            .setColor('RANDOM');
 
         const ticketid = "739480654109999185"
 
         // let fetchedChannel = message.guild.channels.cache.some(c => c.name === `${message.author.id}-ticket`);
 
         let m = await bot.channels.cache.get(ticketid).send(ticketembed)
-        message.channel.delete().catch(console.error())
+        message.channel.delete().catch(err => console.error(err))
         await m.react("⬆️")
         m.react("⬇️")
         db.delete(`TICKET: ${message.author.id}`)

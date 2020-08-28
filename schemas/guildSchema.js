@@ -2,7 +2,7 @@ const mongo = require(`../mongo`);
 const mongoose = require('mongoose');
 
 const guildSchema = mongoose.Schema({
-    Guild: String,
+    _id: String,
     Logs: String,
     Prefix: String
 });

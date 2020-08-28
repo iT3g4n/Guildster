@@ -23,9 +23,8 @@ module.exports = {
 
             try {
                 await guild.findOneAndUpdate({
-                    Guild: message.guild.id
+                    _id: message.guild.id
                 }, {
-                    Guild: message.guild.id,
                     Logs: channel.id,
                 }, { upsert: true })
 

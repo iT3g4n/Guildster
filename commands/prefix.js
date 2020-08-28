@@ -11,12 +11,14 @@ module.exports = {
      */
     run: async (bot, message, args) => {
 
+        let msg = await message.channel.send(`Working...`)
+
         await mongo().then(async mongoose => {
             try {
-                let prefixa = await guild.findOne({ Guild: message.guild.id })
+                let prefixa = await guild.findOne({ _id: message.guild.id })
                 let prefix = prefixa.Prefix
 
-                if (!args[0]) return message.channel.send(`The prefix for ${message.guild.name} is \`${prefix}\``);
+                if (!args[0]) return msg.edit(`The prefix for ${message.guild.name} is \`${prefix}\``);
 
             } finally {
                 mongoose.connection.close()
@@ -31,15 +33,18 @@ module.exports = {
 
             try {
 
-                await guild.findOneAndUpdate({ Guild: message.guild.id }, {
+                await guild.findOneAndUpdate({ _id: message.guild.id }, {
                     Prefix: args[0]
                 }, { upsert: true })
 
-                message.channel.send(`:white_check_mark: Success! The prefix for ${message.guild.name} is now \`${args[0]}\``);
+                let prefixa = await guild.findOne({ _id: message.guild.id })
+                let prefix = prefixa.Prefix
+
+                msg.edit(`:white_check_mark: Success! The prefix for ${message.guild.name} is now \`${prefix}\``);
 
             } finally {
 
-                await mongoose.connection.close();
+                mongoose.connection.close();
 
             };
         });

@@ -12,9 +12,11 @@ module.exports = {
             const embed = new MessageEmbed()
                 .setColor(`RANDOM`)
                 .setTitle("Poll Time!")
-                .setDescription(args[0] + " " + msgArgs);
+                .setDescription(args[0] + " " + msgArgs)
+                .setFooter(`|   Poll Command`, message.author.avatarURL({ dynamic: true }))
+                .setTimestamp(Date.now())
 
-            await message.delete({ timeout: 200 })
+            message.delete()
 
             let msg = await message.channel.send("@everyone")
 
