@@ -78,7 +78,9 @@ module.exports = {
         await mongo().then(async mongoose => {
 
             try {
-                const result = await guilds.findOne({ Guild: message.guild.id })
+                const result = await guilds.findOne({ _id: message.guild.id })
+                console.log(result)
+                if (!result) return;
                 bot.channels.cache.get(result.Logs).send(embed)
             } finally {
                 mongoose.connection.close()

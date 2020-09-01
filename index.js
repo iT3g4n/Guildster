@@ -8,13 +8,19 @@
 
  */
 
+const Client = require(`./Client`)
+
 const discord = require("discord.js");
-const bot = new discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER', 'GUILD_MEMBER'] });
+const bot = Client.bot;
+
 const Enmap = require(`enmap`)
+
 require("dotenv").config()
+
 const fs = require(`fs`);
-const mongo = require("./mongo.js");
-const guilds = require(`./schemas/guildSchema`)
+const guilds = require(`./schemas/guildSchema`);
+const { url } = require("inspector");
+const { URL } = require("url");
 
 /**
 
@@ -26,28 +32,10 @@ const guilds = require(`./schemas/guildSchema`)
 
  */
 
-bot.on("ready", async () => {
+bot.once("ready", async () => {
   console.log(`logged in as ${bot.user.tag}`);
-
-  bot.user.setActivity("Zone of W's!", { type: "WATCHING" });
-
-  await mongo().then(async (mongoose) => {
-
-    try {
-      console.log(`MongoDB Ready!`)
-    } finally {
-      mongoose.connection.close()
-    }
-  }).catch(err => console.error(err))
-
-  setInterval(() => {
-    bot.channels.cache.get('736954524954001478').send(`Keep chat active please. kthx.`)
-  }, 999999)
-
+  bot.user.setActivity({ name: 'with Zone of W\'s!', type: 'STREAMING', url: 'https://twitch.tv/T3g4n' })
 });
-
-
-
 
 /**
 
@@ -64,7 +52,7 @@ bot.on("ready", async () => {
 thing
  */
 
-let helpEmbed = new discord.MessageEmbed().setColor('RANDOM')
+let helpEmbed = new discord.MessageEmbed()
 
 bot.commands = new Enmap()
 
@@ -74,9 +62,12 @@ fs.readdir('./commands/', (err, files) => {
     if (!file.endsWith(".js")) return;
     let props = require(`./commands/${file}`);
     let commandName = file.split(".")[0];
+    let one = commandName.slice(''.length)[0].toUpperCase();
+    let two = commandName.slice(' '.length);
+    const embedname = one + two;
     console.log(`Attempting to load command ${commandName}`);
     bot.commands.set(commandName, props);
-    helpEmbed.addField(commandName, props.description)
+    helpEmbed.addField(embedname, props.description)
   });
 });
 
@@ -92,17 +83,18 @@ bot.on("message", async message => {
   // const prefixa = await guilds.findOne({ Guild: message.guild.id });
   // const prefix = prefixa.Prefix;
   const prefix = '*';
-  if (!message.content.startsWith(prefix)) return;
-  const args = message.content.slice(prefix.length).split(" ");
+  const args = message.content.slice(prefix.length).trim().split(" ");
   const command = args.shift().toLowerCase();
-  if (message.author.bot || !message.guild || !bot.commands.has(command)) return;
+  if (message.author.bot || !message.guild) return;
+  if (!message.content.startsWith(prefix)) return;
+  if (!bot.commands.has(command)) return;
 
   try {
     bot.commands.get(command).run(bot, message, args);
     console.log(`${command} command used`);
   } catch (err) {
     await message.channel.send(`I'm sorry. There was an error executing the \`${command}\` command.`);
-    console.log(err);
+    console.error(err);
   }
 })
 
@@ -125,8 +117,15 @@ bot.on("messageReactionAdd", (reaction, user) => {
  NEW GUILD
  */
 
- bot.on('guildCreate', async guild => {
+bot.on('guildCreate', async guild => {
   require(`./events/guildCreate`).run(bot, guild)
- })
+})
+
+/**
+ NO GUILD
+ */
+bot.on('guildDelete', async guild => {
+  require(`./events/guildRemove`).run(bot, guild)
+})
 
 bot.login(process.env.TOKEN);

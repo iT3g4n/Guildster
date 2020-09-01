@@ -39,7 +39,7 @@ module.exports = {
 
         })
 
-        msg.edit(`Succesfully cleared warns for ${mt}`)
+        msg.edit(new MessageEmbed().setDescription(`☑ Successfully cleared warnings for \`${mt}\``).setColor('RANDOM').setFooter(`|    Clear Command`, message.author.avatarURL({ dynamic: true })).setTimestamp(Date.now()))
 
     }
 }

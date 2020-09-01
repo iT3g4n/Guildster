@@ -10,8 +10,8 @@ module.exports = {
 
         let embed = new MessageEmbed()
         .setTitle(`Avatar for ${mention.tag}`)
-        .setURL(mention.avatarURL({ dynamic: true, format: "png", size: 1024 }))
-        .setImage(mention.avatarURL({ dynamic: true, format: "png", size: 1024 }))
+        .setURL(mention.avatarURL({ dynamic: true, format: "png", size: 2048 }))
+        .setImage(mention.avatarURL({ dynamic: true, format: "png", size: 2048 }))
         .setColor('RANDOM')
 
         message.channel.send(embed)

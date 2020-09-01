@@ -4,7 +4,7 @@ const ms = require("ms");
 module.exports = {
     name: "mute",
     description: "**ADMIN-ONLY**\nMutes the mentioned user for the specified amount of time!",
-    usage: "` *mute <mention || id> <time> <reason> `",
+    usage: "`*mute <mention || id> <time> <reason>`",
     async run(bot, message, args) {
         if (!message.member.permissions.has("MANAGE_MEMBERS"))
             return message.channel.send(
@@ -21,13 +21,13 @@ module.exports = {
 
         if (mention && !args[1])
             return message.channel.send(
-                `Please specify the time to mute ${mention} for.`
+                `Please specify the time to mute ${mention.tag || mention.user.tag} for.`
             );
 
         const time = ms(args[1]);
         if (isNaN(args[1][0]))
             return message.channel.send(
-                `Please specify a time to mute ${mention} for.`
+                `Please specify a time to mute ${mention.tag || mention.user.tag} for.`
             );
         if (
             !args[1].endsWith("d") &&
@@ -47,7 +47,7 @@ module.exports = {
         mention.roles.add(role); //.catch(Error)(message.channel.send(`Sorry there was an error. Error: \`\`\`${Error}\`\`\``)).then(console.log(Error))
         message.channel
             .send(
-                `${mention} has been muted for ${args[1]} with the reason ${reason}`
+                `${mention.tag || mention.user.tag} has been muted for ${args[1]} with the reason ${reason}`
             )
             .then((m) => m.delete({ timeout: 20000 }));
         setTimeout(() => {

@@ -1,5 +1,11 @@
-const { MessageEmbed } = require("discord.js")
+const { MessageEmbed, Client, Message } = require("discord.js")
 const ms = require("ms")
+
+/**
+ * @param {Client} bot
+ * @param {Message} message
+ * @param {String[]} args
+ */
 
 module.exports = {
     name: "ga",
@@ -18,7 +24,7 @@ module.exports = {
         let prize = args.slice(1).join(" ")
         if (!prize) return message.channel.send("No prize was given. Aborting Command").then(msg => { msg.delete({ timeout: 5000 }) })
 
-        let giveaway = await message.channel.send("@everyone")
+        let msg = await message.channel.send("@everyone")
 
         const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
 
@@ -29,16 +35,15 @@ module.exports = {
             .setFooter(`Giveaway Started By: ${message.author.username}. ends`)
             .setTimestamp(Date.now() + ms(args[0]))
 
-        await giveaway.edit(embed);
-        await giveaway.edit("")
-        await giveaway.react("🎁")
-        await giveaway.edit("")
+        await msg.edit(embed);
+        await msg.edit("")
+        await msg.react("🎁")
+        await msg.edit("")
         setTimeout(() => {
-            let thing = giveaway.reactions.cache.get("🎁")
+            let thing = msg.reactions.cache.get("🎁")
             let winner = thing.users.cache.filter(u => !u.bot).random()
-            if (winner == null) return message.channel.send("Nobody won the giveaway. How sad.")
+            if (!winner) return message.channel.send("Nobody won the giveaway. How sad.")
             message.channel.send(`**CONGRATULATIONS** ${winner}**!** You won **${prize}**`)
         }, ms(args[0]));
-
     }
 }

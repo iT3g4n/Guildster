@@ -1,7 +1,7 @@
-const guildSchema = require(`../schemas/guildSchema`)
-const mongo = require("../mongo")
-const { Guild, MessageEmbed, Client } = require("discord.js")
-const helpEmbed = require(`../index`).helpEmbed
+const guildSchema = require(`../schemas/guildSchema`);
+const mongo = require("../mongo");
+const { Guild, MessageEmbed, Client } = require("discord.js");
+const helpEmbed = require(`../index`).helpEmbed;
 
 module.exports = {
     /**
@@ -17,7 +17,7 @@ module.exports = {
                 }, {
                     upsert: true
                 })
-                console.log(`New Guild!`, guild.name)
+                console.log(`New Guild:`, guild.name)
                 // let channelid = guild.channels.cache.first().id;
                 // let channel = await guild.channels.cache.find(channelid);
 
@@ -27,16 +27,16 @@ module.exports = {
                 // channel.send(embed);
                 // channel.send(helpEmbed);
 
-                let defaultChannel = "";
                 guild.channels.cache.forEach((channel) => {
-                    if (channel.type == "text" && defaultChannel == "") {
+                    if (channel.type == "text") {
                         if (channel.permissionsFor(guild.me).has("SEND_MESSAGES")) {
-                            defaultChannel = channel;
+                            channel.send(embed)
+                            channel.send(helpEmbed.setColor('RANDOM'))
+                            return;
                         }
                     }
                 })
-                defaultChannel.send(embed)
-                defaultChannel.send(helpEmbed)
+                
 
             } finally {
                 mongoose.connection.close();
