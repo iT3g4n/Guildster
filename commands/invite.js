@@ -1,29 +1,22 @@
-const { Client, Message } = require("discord.js");
-const newembed = require("../newembed");
-const ms = require(`ms`);
-this.name = 'Info'
+const { Message, Client } = require(`discord.js`)
+const newembed = require("../newembed")
+this.name = 'Invite'
 
 module.exports = {
-    name: 'Info',
-    description: 'Get the info on this bot!',
+    description: 'Want to invite the bot to your own server? Well use this!',
     /**
-     * @param {Client} bot
      * @param {Message} message
+     * @param {Client} bot
      * @param {String[]} args
      */
     run: async(bot, message, args) => {
-        await newembed(message, this).then(async embed => {
+        newembed(message, this).then(async embed => {
             embed
-                .setTitle(`Bot Info`)
-                .addField(`Uptime`, `${ms(bot.uptime, { long: false })}`, true)
-                .addField(`API Ping`, `${bot.ws.ping} MS`, true)
-                .addField(`Owner`, `<@381024325974622209>`, true)
-                .addField(`Severs`, `${bot.guilds.cache.size}`, true)
+                .setTitle(`Helpful Links`)
                 .addField(`Bot Invite`, "[Click Here!](https://discord.com/api/oauth2/authorize?client_id=730440454835011674&permissions=8&scope=bot)", true)
                 .addField(`Support`, "[Click Here!](https://discord.gg/yVVDJfM)", true)
                 .addField(`YouTube`, "[Click Here!](https://youtube.com/T3g4n)", true)
                 .addField(`Commands`, "[Click Here!](https://docs.google.com/document/d/1fbXv3c7MLatbkGSS3POwINSmLBiyINE5AIkhT7GcfVI/edit?usp=sharing)", true)
-                .addField(`Version`, `${require(`../package.json`).version}`, true )
             message.channel.send(embed)
         })
     }

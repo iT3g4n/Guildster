@@ -34,7 +34,13 @@ const { URL } = require("url");
 
 bot.once("ready", async () => {
   console.log(`logged in as ${bot.user.tag}`);
-  bot.user.setActivity({ name: 'with Zone of W\'s!', type: 'STREAMING', url: 'https://twitch.tv/T3g4n' })
+  let guildornot;
+  if (bot.guilds.cache.size == 1) {
+    guildornot = 'guild!'
+  } else {
+    guildornot = 'guilds!'
+  }
+  bot.user.setActivity({ name: `with ${bot.guilds.cache.size} ${guildornot} || *help`, type: 'STREAMING', url: 'https://twitch.tv/T3g4n' })
 });
 
 /**
@@ -67,7 +73,7 @@ fs.readdir('./commands/', (err, files) => {
     const embedname = one + two;
     console.log(`Attempting to load command ${commandName}`);
     bot.commands.set(commandName, props);
-    helpEmbed.addField(embedname, props.description)
+    helpEmbed.addField(embedname, props.description, true)
   });
 });
 
