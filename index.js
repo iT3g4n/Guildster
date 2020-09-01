@@ -19,8 +19,6 @@ require("dotenv").config()
 
 const fs = require(`fs`);
 const guilds = require(`./schemas/guildSchema`);
-const { url } = require("inspector");
-const { URL } = require("url");
 
 /**
 
