@@ -31,15 +31,9 @@ const guilds = require(`./schemas/guildSchema`);
  */
 
 
-bot.once("ready", async () => {
+bot.once("ready", () => {
   console.log(`logged in as ${bot.user.tag}`);
-  let guildornot;
-  if (bot.guilds.cache.size == 1) {
-    guildornot = 'guild!'
-  } else {
-    guildornot = 'guilds!'
-  }
-  bot.user.setActivity({ name: `with ${bot.guilds.cache.size} ${guildornot} | *help`, type: 'STREAMING', url: 'https://twitch.tv/T3g4n' })
+  bot.user.setActivity({ name: `over ${bot.guilds.cache.size} guilds! | *help`, type: 'WATCHING' })
 });
 
 /**
@@ -131,6 +125,8 @@ bot.on('guildCreate', async guild => {
  */
 bot.on('guildDelete', async guild => {
   require(`./events/guildRemove`).run(bot, guild)
+  delete[bot.guilds.cache]
+  bot.user.setActivity({ name: `over ${await bot.guilds.cache.size} guilds! | *help`, type: 'WATCHING' })
 })
 
 bot.login(process.env.TOKEN);
