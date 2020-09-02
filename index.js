@@ -32,7 +32,8 @@ const guilds = require(`./schemas/guildSchema`);
 
 let addamount = bot.guilds.cache.size
 let amount;
-let finalamout = addamount + amount
+
+
 
 bot.once("ready", async () => {
   console.log(`logged in as ${bot.user.tag}`);
@@ -42,7 +43,13 @@ bot.once("ready", async () => {
   } else {
     guildornot = 'guilds!'
   }
-  bot.user.setActivity({ name: `with ${finalamout} ${guildornot} || *help`, type: 'STREAMING', url: 'https://twitch.tv/T3g4n' })
+  if (!amount) {
+    let finalamout = addamount
+    bot.user.setActivity({ name: `with ${finalamout} ${guildornot} | *help`, type: 'STREAMING', url: 'https://twitch.tv/T3g4n' })
+  } else {
+    let finalamout = addamount
+    bot.user.setActivity({ name: `with ${finalamout} ${guildornot} | *help`, type: 'STREAMING', url: 'https://twitch.tv/T3g4n' })
+  }
 });
 
 /**
