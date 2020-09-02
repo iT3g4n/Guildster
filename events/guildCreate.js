@@ -24,8 +24,8 @@ module.exports = {
                 const embed = new MessageEmbed()
                     .setColor('RANDOM')
                     .setTitle(`Thank You for inviting me to your server! These are all my commands!`);
-                guild.channels.cache.get(guild.channels.cache.first().id).send(embed);
-                guild.channels.cache.get(guild.channels.cache.first().id).send(helpEmbed);
+                guild.channels.cache.get(guild.channels.cache.random().id).send(embed);
+                guild.channels.cache.get(guild.channels.cache.random().id).send(helpEmbed);
 
             } finally {
                 mongoose.connection.close();
