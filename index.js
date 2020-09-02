@@ -13,9 +13,9 @@ const Client = require(`./Client`)
 const discord = require("discord.js");
 const bot = Client.bot;
 
-const Enmap = require(`enmap`)
+const Enmap = require(`enmap`);
 
-require("dotenv").config()
+require("dotenv").config();
 
 const fs = require(`fs`);
 const guilds = require(`./schemas/guildSchema`);
