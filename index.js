@@ -1,11 +1,11 @@
 /**
-
-
-
+ 
+ 
+ 
  Consts
-
-
-
+ 
+ 
+ 
  */
 
 const Client = require(`./Client`)
@@ -21,13 +21,13 @@ const fs = require(`fs`);
 const guilds = require(`./schemas/guildSchema`);
 
 /**
-
-
-
+ 
+ 
+ 
  Ready
-
-
-
+ 
+ 
+ 
  */
 
 
@@ -37,13 +37,13 @@ bot.once("ready", () => {
 });
 
 /**
-
-
-
+ 
+ 
+ 
  Message
-
-
-
+ 
+ 
+ 
  */
 
 
@@ -101,11 +101,11 @@ bot.on("message", async message => {
 
 /**
  
-
-
+ 
+ 
  Reaction
-
-
+ 
+ 
  */
 
 bot.on("messageReactionAdd", (reaction, user) => {
