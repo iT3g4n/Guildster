@@ -1,6 +1,7 @@
 const { MessageEmbed, Client, Message } = require("discord.js");
 const mongo = require("../mongo");
 const guilds = require(`../schemas/guildSchema`)
+const { deletemsg } = require(`../Client`)
 
 module.exports = {
     description: "**ADMIN-ONLY**\nThis bans the mentioned user with a reason!",
@@ -10,37 +11,53 @@ module.exports = {
      * @param {Message} message 
      * @param {String[]} args 
      */
-    async run(bot, message, args) {
+    run: async(bot, message, args) => {
+        const mention = message.mentions.users.first()
+        const id = message.guild.members.cache.get(args[0])
+        if (!id && !mention) return message.reply(`Please mention a person to ban.`).then(msg => msg.delete({ timout: 5000 }))
 
-        message.delete()
+        if (!mention) {
+            var mi = id.id
+            var mt = id.user.tag
+            var user = id
+        } else {
+            var mi = mention.id
+            var mt = mention.tag
+            var user = mention
+        }
 
-        const user = message.mentions.users.first()
-        const mention = message.guild.members.cache.get(args[0]);
-        user.fetch()
-        if (!user && !mention) return message.channel.send(`Please include a user to ban.`)
-        console.log(user.username)
+        const reason = args.slice(1).join(' ')
+        if (!reason) return message.reply(`Please give a reason.`).then(msg => msg.delete({ timout: 5000 }))
 
-        const reason = args.slice(1).join(" ")
-        if (!reason) return message.channel.send(`Please give a reason to ban ${user}`)
-        console.log(reason)
+        user.ban(reason);
 
-        const embed = new MessageEmbed()
-            .setDescription(`**${user.tag} has been banned**\n\n*Reason:* \`${reason}\`\n\nModerator: <@${message.author}>`)
-            .setColor(`#000000`)
-
-        user.ban(reason).catch(console.error()) || mention.ban(reason).catch(console.error())
-
-        await mongo().then(async mongoose => {
-
+        await mongo(async mongoose => {
+            
             try {
-                const result = await guilds.findOne({ _id: message.guild.id })
-                bot.channels.cache.get(result.Logs).send(embed)
+
+                await warns.findOneAndUpdate({
+
+                    User: mi,
+                    Guild: message.guild.id
+
+                }, {
+
+                    User: mi,
+                    Guild: message.guild.id,
+                    $push: {
+                        Warns: [
+                            {
+                                Moderator: message.author.id,
+                                Reason: reason,
+                            }
+                        ]
+                    },
+
+                }, { upsert: true })
+
             } finally {
                 mongoose.connection.close()
             }
-            
-
         })
-
     }
 }

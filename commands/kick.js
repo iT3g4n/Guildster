@@ -1,34 +1,55 @@
-const { MessageEmbed } = require("discord.js");
-const guilds = require(`../schemas/guildSchema`);
+const { MessageEmbed, Client, Message } = require("discord.js");
 const mongo = require("../mongo");
+const guilds = require(`../schemas/guildSchema`);
+const guildSchema = require("../schemas/guildSchema");
+const embed = require(`../newembed`)
+this.name = 'Kick'
 
 module.exports = {
-    description: '**ADMIN-ONLY**\nKicks the mentioned person from the server!',
-    async run (bot, message, args) {
+    description: "**ADMIN-ONLY**\nThis kicks the mentioned user with a reason!",
+    /**
+     * 
+     * @param {Client} bot 
+     * @param {Message} message 
+     * @param {String[]} args 
+     */
+    run: async(bot, message, args) => {
+        const mention = message.mentions.users.first()
+        const id = message.guild.members.cache.get(args[0])
+        if (!id && !mention) return message.reply(`Please mention a person to kick.`).then(msg => msg.delete({ timout: 5000 }))
 
-        message.delete()
+        if (!mention) {
+            var mi = id.id
+            var mt = id.user.tag
+            var user = id
+        } else {
+            var mi = mention.id
+            var mt = mention.tag
+            var user = mention
+        }
 
-        const user = message.mentions.users.first() || message.guild.members.cache.get(args[0]);
-        if (!user) return message.channel.send(`Please include a user to ban.`)
-        console.log(user.username)
+        const reason = args.slice(1).join(' ')
+        if (!reason) return message.reply(`Please give a reason.`).then(msg => msg.delete({ timout: 5000 }))
 
-        const reason = args.slice(1).join(" ")
-        if (!reason) return message.channel.send(`Please give a reason to ban ${user}`)
-        console.log(reason)
+        user.kick(reason);
 
-        const embed = new MessageEmbed()
-        .setDescription(`**${user} has been kicked**\n\nReason: *${reason}*\n\nModerator: <@${message.author.id}>`)
-        .setColor(`WHITE`)
-
-        user.kick(reason).catch(console.error())
-        await mongo().then(async mongoose => {
+        await mongo(async mongoose => {
+            
             try {
-                const result = await guilds.findOne({ Guild: message.guild.id })
-                bot.channels.cache.get(result.Logs).send(embed)
+                let data = await guildSchema.findOne({_id: message.guild.id})
+                if (!data.Logs) return;
+                bot.channels.cache.get(data.Logs).send(embed(message, this).then(async embed => {
+                    embed
+                        .setTitle(`${mt} has been kicked`)
+                        .setDescription(`
+                        User: ${user}
+                        Reason: ${reason}
+                        Moderator: ${message.author}
+                        `)
+                }))
             } finally {
                 mongoose.connection.close()
             }
         })
-
     }
 }
