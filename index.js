@@ -42,7 +42,7 @@ bot.once("ready", async () => {
   } else {
     guildornot = 'guilds!'
   }
-  bot.user.setActivity({ name: `with ${amount} ${guildornot} || *help`, type: 'STREAMING', url: 'https://twitch.tv/T3g4n' })
+  bot.user.setActivity({ name: `with ${finalamout} ${guildornot} || *help`, type: 'STREAMING', url: 'https://twitch.tv/T3g4n' })
 });
 
 /**
