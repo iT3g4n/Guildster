@@ -125,8 +125,8 @@ bot.on('guildCreate', async guild => {
  */
 bot.on('guildDelete', async guild => {
   require(`./events/guildRemove`).run(bot, guild)
-  delete[bot.guilds.cache]
-  bot.user.setActivity({ name: `over ${await bot.guilds.cache.size} guilds! | *help`, type: 'WATCHING' })
+  await bot.destroy()
+  await bot;
 })
 
 bot.login(process.env.TOKEN);

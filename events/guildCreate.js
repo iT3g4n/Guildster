@@ -25,7 +25,7 @@ module.exports = {
                     .setColor('RANDOM')
                     .setTitle(`Thank You for inviting me to your server! These are all my commands!`);
                     const randomchannel = guild.channels.cache.random()
-                guild.channels.cache.get(randomchannel.id).send(embed);
+                await guild.channels.cache.get(randomchannel.id).send(embed);
                 guild.channels.cache.get(randomchannel.id).send(helpEmbed);
 
             } finally {
