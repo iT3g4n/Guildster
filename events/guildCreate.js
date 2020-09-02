@@ -24,21 +24,7 @@ module.exports = {
                 const embed = new MessageEmbed()
                     .setColor('RANDOM')
                     .setTitle(`Thank You for inviting me to your server! These are all my commands!`);
-                // channel.send(embed);
-                // channel.send(helpEmbed);
-
-                // guild.channels.cache.forEach((channel) => {
-                //     if (channel.type == "text") {
-                //         if (channel.permissionsFor(guild.me).has("SEND_MESSAGES")) {
-                //             channel.send(embed)
-                //             channel.send(helpEmbed.setColor('RANDOM'))
-                //             return;
-                //         }
-                //     }
-                // })
-
-                guild.channels.cache.first().send(embed + helpEmbed)
-                
+                guild.channels.cache.get(guild.channels.cache.random().id).send(embed + helpEmbed);
 
             } finally {
                 mongoose.connection.close();
@@ -48,3 +34,11 @@ module.exports = {
 
     }
 }
+
+// if (channel.type == "text") {
+                    //     if (channel.permissionsFor(guild.me).has("SEND_MESSAGES")) {
+                    //         channel.send(embed)
+                    //         channel.send(helpEmbed.setColor('RANDOM'))
+                    //         return;
+                    //     }
+                    // }
