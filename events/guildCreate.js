@@ -27,15 +27,17 @@ module.exports = {
                 // channel.send(embed);
                 // channel.send(helpEmbed);
 
-                guild.channels.cache.forEach((channel) => {
-                    if (channel.type == "text") {
-                        if (channel.permissionsFor(guild.me).has("SEND_MESSAGES")) {
-                            channel.send(embed)
-                            channel.send(helpEmbed.setColor('RANDOM'))
-                            return;
-                        }
-                    }
-                })
+                // guild.channels.cache.forEach((channel) => {
+                //     if (channel.type == "text") {
+                //         if (channel.permissionsFor(guild.me).has("SEND_MESSAGES")) {
+                //             channel.send(embed)
+                //             channel.send(helpEmbed.setColor('RANDOM'))
+                //             return;
+                //         }
+                //     }
+                // })
+
+                guild.channels.cache.first().send(embed + helpEmbed)
                 
 
             } finally {
