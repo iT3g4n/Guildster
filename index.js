@@ -30,15 +30,19 @@ const guilds = require(`./schemas/guildSchema`);
 
  */
 
+let addamount = bot.guilds.cache.size
+let amount;
+let finalamout = addamount + amount
+
 bot.once("ready", async () => {
   console.log(`logged in as ${bot.user.tag}`);
   let guildornot;
-  if (bot.guilds.cache.size == 1) {
+  if (amount == 1) {
     guildornot = 'guild!'
   } else {
     guildornot = 'guilds!'
   }
-  bot.user.setActivity({ name: `with ${bot.guilds.cache.size} ${guildornot} || *help`, type: 'STREAMING', url: 'https://twitch.tv/T3g4n' })
+  bot.user.setActivity({ name: `with ${amount} ${guildornot} || *help`, type: 'STREAMING', url: 'https://twitch.tv/T3g4n' })
 });
 
 /**
@@ -123,7 +127,7 @@ bot.on("messageReactionAdd", (reaction, user) => {
 
 bot.on('guildCreate', async guild => {
   require(`./events/guildCreate`).run(bot, guild)
-  bot.guilds.cache.size + 1
+  amount + 1
 })
 
 /**
@@ -131,7 +135,7 @@ bot.on('guildCreate', async guild => {
  */
 bot.on('guildDelete', async guild => {
   require(`./events/guildRemove`).run(bot, guild)
-  bot.guilds.cache.size - 1
+  amount - 1
 })
 
 bot.login(process.env.TOKEN);
