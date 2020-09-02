@@ -12,9 +12,12 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(bot, message, args) => {
+
+        if (!message.member.hasPermission(`BAN_MEMBERS`)) return message.channel.send(`You are not allowed to run that command!`).then(m => m.delete({ timeout: 5000 }))
+
         const mention = message.mentions.users.first()
         const id = message.guild.members.cache.get(args[0])
-        if (!id && !mention) return message.reply(`Please mention a person to ban.`).then(msg => msg.delete({ timout: 5000 }))
+        if (!id && !mention) return message.reply(`Please mention a person to ban.`).then(msg => msg.delete({ timeout: 5000 }))
 
         if (!mention) {
             var mi = id.id

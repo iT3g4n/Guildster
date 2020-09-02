@@ -8,7 +8,7 @@ module.exports = {
 
         message.delete({ timeout: 0 })
 
-        if (message.member.roles.cache.has("728443375778529400") || (message.member.roles.cache.has("71628940296349302")) || (message.member.roles.cache.has("728443657140830299")) || (message.member.roles.cache.has("716238674089476116"))) {
+        if (message.member.hasPermission(`MANAGE_CHANNELS`)) {
 
             if (!args[0]) return message.channel.send(`Slowmode is ${message.channel.rateLimitPerUser}`).then(msg => { msg.delete({ timeout: 5000 }) })
 
