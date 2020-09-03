@@ -125,8 +125,6 @@ bot.on('guildCreate', async guild => {
  */
 bot.on('guildDelete', async guild => {
   require(`./events/guildRemove`).run(bot, guild)
-  await bot.destroy()
-  await bot;
 })
 
 bot.login(process.env.TOKEN);
