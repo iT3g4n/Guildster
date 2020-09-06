@@ -26,20 +26,17 @@ module.exports = {
             }
 
             let msg = await message.channel.send(embed)
-            await msg.react(`✔`)
             msg.react(`❌`)
 
             const filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id
             msg.awaitReactions(filter, {time: 10000})
                 .then(collected => {
-                    console.log(`Collected ${collected.size} reactions`)
                     if (collected.size === 1) return msg.delete()
                 })
 
                 const filter2 = (reaction, user) => reaction.emoji.name === '✔' && user.id === message.author.id
                 msg.awaitReactions(filter2, {time: 10000})
                     .then(collected => {
-                        console.log(`Collected ${collected.size} reactions`)
                         if (collected.size === 1) return;
                     })
 
