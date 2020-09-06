@@ -1,8 +1,10 @@
-const discord = require(`discord.js`)
+const discord = require(`discord.js`);
+const mongo = require("../mongo");
+const guildSchema = require("../schemas/guildSchema");
 const db = new Map()
 
 module.exports = {
-
+    db,
     /**
      * @param {discord.MessageReaction} reaction 
      * @param {discord.User} user 
@@ -11,63 +13,78 @@ module.exports = {
 
         if (user.bot) return;
 
-        if (reaction.message.channel.id == "739480654109999185") {
+        await mongo().then(async mongoose => {
+            try {
 
-        if (reaction.emoji.name != "🎫") return;
+                const result = await guildSchema.findOne({ _id: reaction.message.guild.id })
+                console.log(result)
+                if (!result) return;
+                
+                if (reaction.message.channel.id == result.Tickets) {
 
-        if (user.bot) return;
+                    if (reaction.emoji.name != "🎫") return;
 
-        if (db.has(`TICKET: ${user.id}`)) return reaction.message.channel.send(`Sorry <@${user.id}>. You already have a ticket open! Please wait for the time to be over.`).then(m => m.delete({ timeout: 5000 }))
+                    if (user.bot) return;
 
-        reaction.users.remove(user)
+                    if (db.has(`TICKET: ${user.id}`)) return reaction.message.channel.send(`Sorry <@${user.id}>. You already have a ticket open! Please wait for the time to be over.`).then(m => m.delete({ timeout: 5000 }))
 
-        try {
-            await reaction.fetch();
-        } catch (error) {
-            console.log(error);
-            return;
-        }
+                    reaction.users.remove(user)
 
-        console.log(`reaction: ${reaction.emoji.name}`);
+                    try {
+                        await reaction.fetch();
+                    } catch (error) {
+                        console.log(error);
+                        return;
+                    }
 
-        const embed = new discord.MessageEmbed()
-            .setTitle("Create a Ticket  🎫")
-            .setDescription(`What is your suggestion <@${user.id}>?\n\nPlease start your message with *ticket`)
-            .setColor('RANDOM');
+                    console.log(`reaction: ${reaction.emoji.name}`);
 
-        let m = await reaction.message.guild.channels.create(`${user.id}-ticket`, {
-            type: "text", parent: "714809218024079432",
-            permissionOverwrites: [
-                {
-                    id: user.id,
-                    allow: ["VIEW_CHANNEL"],
-                },
+                    const embed = new discord.MessageEmbed()
+                        .setTitle("Create a Ticket  🎫")
+                        .setDescription(`What is your suggestion <@${user.id}>?\n\nPlease start your message with *ticket`)
+                        .setColor('RANDOM');
 
-                {
-                    id: reaction.message.guild.roles.everyone.id,
-                    deny: ["VIEW_CHANNEL"],
-                },
-            ]
-        });
+                    let m = await reaction.message.guild.channels.create(`${user.id}-ticket`, {
+                        type: "text",
+                        permissionOverwrites: [
+                            {
+                                id: user.id,
+                                allow: ["VIEW_CHANNEL"],
+                            },
 
-        const messageCollector = new discord.MessageCollector(m)
-        module.exports = {messageCollector}
+                            {
+                                id: reaction.message.guild.roles.everyone.id,
+                                deny: ["VIEW_CHANNEL"],
+                            },
+                        ]
+                    });
 
-        let msg = await m.send(`<@${user.id}>`);
-        await msg.edit(embed);
-        db.set(`TICKET: ${user.id}`)
 
-        setTimeout(() => {
 
-            db.delete(`TICKET: ${user.id}`)
+                    let msg = await m.send(`<@${user.id}>`);
+                    await msg.edit(embed);
+                    db.set(`TICKET: ${user.id}`)
+                    // const filter = (message) => 
+                    // m.awaitMessages(filter, { time: 1000 * 60 * 5 })
 
-            if (!m.deletable) return;
+                    setTimeout(() => {
 
-            m.delete();
+                        db.delete(`TICKET: ${user.id}`)
 
-            console.log(m.name + " was deleted because it timed out.");
+                        if (!m.deletable) return;
 
-        }, 300000);
-        }
+                        m.delete();
+
+                        console.log(m.name + " was deleted because it timed out.");
+
+                    }, 300000);
+                }
+            } finally {
+                mongoose.connection.close()
+            }
+
+        })
+
+
     }
 }

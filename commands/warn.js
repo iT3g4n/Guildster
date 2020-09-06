@@ -79,7 +79,6 @@ module.exports = {
 
             try {
                 const result = await guilds.findOne({ _id: message.guild.id })
-                console.log(result)
                 if (!result) return;
                 bot.channels.cache.get(result.Logs).send(embed)
             } finally {

@@ -1,20 +1,20 @@
-const { MessageEmbed } = require("discord.js");
-const { db } = require(`../events/reaction`)
-const messageCollector = require(`../events/reaction`).messageCollector;
-
-
+const { MessageEmbed, Client, Message } = require("discord.js");
+const { db } = require(`../events/reaction`);
+const mongo = require("../mongo");
+const guildSchema = require("../schemas/guildSchema");
 
 module.exports = {
     name: "ticket",
     description: "If you are creating a ticket you use this to send it to the tickets channel! (Removing Soon)",
     usage: "*ticket",
-    async run(bot, message, args) {
+    /**
+     * @param {Client} bot
+     * @param {Message} message
+     * @param {String[]} args
+     */
+    run: async (bot, message, args) => {
 
-        messageCollector.on('collect', async message => {
-            console.log(message)
-        });
-
-        if (message.channel.name != `${message.author.id}-ticket`) return;
+        if (message.channel.name != `${message.author.id}-ticket`) return message.delete();
 
         if (!args[2]) return message.channel.send("Please make the suggestion longer.")
 
@@ -23,15 +23,20 @@ module.exports = {
         const ticketembed = new MessageEmbed()
             .setDescription(`**Suggestion by <@${message.author.id}>**\n\n**Suggestion**\n${msgArgs}`)
             .setColor('RANDOM');
-
         const ticketid = "739480654109999185"
 
-        // let fetchedChannel = message.guild.channels.cache.some(c => c.name === `${message.author.id}-ticket`);
+        await mongo().then(async mongoose => {
+            try {
+                const channel = await guildSchema.findOne({ _id: message.guild.id })
+                let m = await bot.channels.cache.get(channel.Tickets).send(ticketembed);
+                await m.react("⬆️")
+                m.react("⬇️")
+            } finally {
+                mongoose.connection.close()
+            }
+        })
 
-        let m = await bot.channels.cache.get(ticketid).send(ticketembed)
-        message.channel.delete().catch(err => console.error(err))
-        await m.react("⬆️")
-        m.react("⬇️")
+        message.channel.delete().catch(err => console.error(err));
         db.delete(`TICKET: ${message.author.id}`)
 
     }

@@ -33,7 +33,7 @@ const guilds = require(`./schemas/guildSchema`);
 
 bot.once("ready", () => {
   console.log(`logged in as ${bot.user.tag}`);
-  bot.user.setActivity({ name: `over ${bot.guilds.cache.size} guilds! | *help`, type: 'WATCHING' })
+  bot.user.setActivity({ name: `over ${bot.guilds.cache.size} guilds! | *help`, type: 'WATCHING', url: 'https://www.youtube.com/T3g4n' })
 });
 
 /**
