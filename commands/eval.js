@@ -20,7 +20,7 @@ module.exports = {
             let evaled;
             try {
                 evaled = await eval(args.join(' '));
-                embed.setTitle(`Success!`).addField('Result' ,`\`${evaled}\``);
+                embed.setTitle(`Success!`).addField('Result', `\`${evaled}\``);
             } catch (error) {
                 embed.setTitle(`Failed`).addField(`Result`, `\`${error}\``);
             }
@@ -29,16 +29,16 @@ module.exports = {
             msg.react(`❌`)
 
             const filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id
-            msg.awaitReactions(filter, {time: 10000})
+            msg.awaitReactions(filter, { time: 10000 })
                 .then(collected => {
                     if (collected.size === 1) return msg.delete()
                 })
 
-                const filter2 = (reaction, user) => reaction.emoji.name === '✔' && user.id === message.author.id
-                msg.awaitReactions(filter2, {time: 10000})
-                    .then(collected => {
-                        if (collected.size === 1) return;
-                    })
+            const filter2 = (reaction, user) => reaction.emoji.name === '✔' && user.id === message.author.id
+            msg.awaitReactions(filter2, { time: 10000 })
+                .then(collected => {
+                    if (collected.size === 1) return;
+                })
 
         })
     }
