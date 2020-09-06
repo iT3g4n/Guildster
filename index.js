@@ -41,7 +41,6 @@ bot.once("ready", () => {
     { name: `the *help command!`, type: 'WATCHING' }
   ]
 
-  console.log(activities_list)
   setInterval(() => {
 
     const index = Math.floor(Math.random() * activities_list.length);
