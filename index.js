@@ -117,7 +117,7 @@ bot.on("message", async message => {
 
   setTimeout(() => {
     map.delete(message.author.id)
-  }, 1000 * 3)
+  }, 1000 * 2)
 })
 
 //});
