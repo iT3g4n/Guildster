@@ -91,6 +91,7 @@ module.exports = { helpEmbed }
 end of thing
  */
 
+let map = new Map()
 bot.on("message", async message => {
   //await mongo().then(async mongoose => {
 
@@ -103,13 +104,20 @@ bot.on("message", async message => {
   if (!message.content.startsWith(prefix)) return;
   if (!bot.commands.has(command)) return;
 
+  if (map.has(message.author.id)) return message.react('⏰');
+
   try {
     bot.commands.get(command).run(bot, message, args);
     console.log(`${command} command used`);
+    map.set(message.author.id)
   } catch (err) {
     await message.channel.send(`I'm sorry. There was an error executing the \`${command}\` command.`);
     console.error(err);
   }
+
+  setTimeout(() => {
+    map.delete(message.author.id)
+  }, 1000 * 3)
 })
 
 //});
