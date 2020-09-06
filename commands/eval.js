@@ -1,5 +1,6 @@
 const newembed = require("../newembed");
 const { Message, Client } = require(`discord.js`)
+const { inspect } = require(`util`)
 this.name = 'Eval'
 
 module.exports = {
@@ -20,13 +21,14 @@ module.exports = {
             let evaled;
             try {
                 evaled = await eval(args.join(' '));
-                embed.setTitle(`Success!`).addField('Result', `\`${evaled}\``);
+                embed.setTitle(`Success!`).setDescription(`**Result**\n\`\`\`${inspect(evaled)}\`\`\``);
             } catch (error) {
-                embed.setTitle(`Failed`).addField(`Result`, `\`${error}\``);
+                embed.setTitle(`Failed`).addField(`Result`, `\`\`\`${error}\`\`\``);
             }
 
             let msg = await message.channel.send(embed)
-            msg.react(`❌`)
+            await msg.react(`❌`);
+            msg.react('✔');
 
             const filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id
             msg.awaitReactions(filter, { time: 10000 })

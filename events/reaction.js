@@ -45,7 +45,7 @@ module.exports = {
                         .setColor('RANDOM');
 
                     let m = await reaction.message.guild.channels.create(`${user.id}-ticket`, {
-                        type: "text",
+                        type: "text", parent: reaction.message.channel.parentID,
                         permissionOverwrites: [
                             {
                                 id: user.id,
@@ -58,8 +58,6 @@ module.exports = {
                             },
                         ]
                     });
-
-
 
                     let msg = await m.send(`<@${user.id}>`);
                     await msg.edit(embed);
