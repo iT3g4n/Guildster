@@ -47,7 +47,6 @@ module.exports = {
                 if (!results) return msg.edit(`${mt} has no warnings`);
 
                 for (const warning of results.Warns) {
-                    console.log(`Warns:`, warning)
                     embed.addField(`Warning ${i++}`, `Moderator: <@${warning.Moderator}>\nReason: ${warning.Reason}`, true)
                 }
 

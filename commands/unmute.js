@@ -8,7 +8,6 @@ module.exports = {
 
         let mention = message.mentions.users.first() || message.guild.members.cache.get(args[0]);
         if (!mention) return message.channel.send(`Please include someone to unmute.`).then(m => m.delete({ timeout: 5000 }))
-        console.log(mention)
 
         const embed = new MessageEmbed()
         .setDescription(`**MEMBER UNMUTED > ${mention}**`);

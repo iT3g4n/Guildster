@@ -17,12 +17,9 @@ module.exports = {
             try {
 
                 const result = await guildSchema.findOne({ _id: reaction.message.guild.id })
-                console.log(result)
                 if (!result) return;
                 
-                if (reaction.message.channel.id == result.Tickets) {
-
-                    if (reaction.emoji.name != "🎫") return;
+                if (reaction.message.channel.id == result.Tickets && reaction.emoji.name == "🎫") {
 
                     if (user.bot) return;
 
@@ -36,8 +33,6 @@ module.exports = {
                         console.log(error);
                         return;
                     }
-
-                    console.log(`reaction: ${reaction.emoji.name}`);
 
                     const embed = new discord.MessageEmbed()
                         .setTitle("Create a Ticket  🎫")
@@ -72,9 +67,6 @@ module.exports = {
                         if (!m.deletable) return;
 
                         m.delete();
-
-                        console.log(m.name + " was deleted because it timed out.");
-
                     }, 300000);
                 }
             } finally {

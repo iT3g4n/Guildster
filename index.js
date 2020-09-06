@@ -19,6 +19,7 @@ require("dotenv").config();
 
 const fs = require(`fs`);
 const guilds = require(`./schemas/guildSchema`);
+const ms = require("ms");
 
 /**
  
@@ -38,7 +39,8 @@ bot.once("ready", () => {
   activities_list = [
     { name: `over ${bot.guilds.cache.size} guilds! | *help`, type: 'WATCHING', url: 'https://www.youtube.com/T3g4n' },
     { name: `with ${bot.users.cache.size} users! | *help`, type: 'PLAYING' },
-    { name: `the *help command!`, type: 'WATCHING' }
+    { name: `the *help command!`, type: 'WATCHING' },
+    { name: `*help | Uptime: ${ms(process.uptime().toFixed(0), { long: true })}`, type: 'LISTENING' }
   ]
 
   setInterval(() => {
@@ -47,7 +49,7 @@ bot.once("ready", () => {
 
     bot.user.setActivity(activities_list[index]);
 
-  }, 1000 * 10);
+  }, 1000 * 5);
 
 });
 

@@ -1,4 +1,7 @@
 const discord = require(`discord.js`);
 
 this.bot = new discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER', 'GUILD_MEMBER'] });
-this.embed = require(`./newembed`);
+this.owners = [
+    '381024325974622209',
+    '589390599740719105'
+]
