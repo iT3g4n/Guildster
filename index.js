@@ -31,9 +31,25 @@ const guilds = require(`./schemas/guildSchema`);
  */
 
 
+
 bot.once("ready", () => {
   console.log(`logged in as ${bot.user.tag}`);
-  bot.user.setActivity({ name: `over ${bot.guilds.cache.size} guilds! | *help`, type: 'WATCHING', url: 'https://www.youtube.com/T3g4n' })
+
+  activities_list = [
+    { name: `over ${bot.guilds.cache.size} guilds! | *help`, type: 'WATCHING', url: 'https://www.youtube.com/T3g4n' },
+    { name: `with ${bot.users.cache.size} users! | *help`, type: 'PLAYING' },
+    { name: `the *help command!`, type: 'WATCHING' }
+  ]
+
+  console.log(activities_list)
+  setInterval(() => {
+
+    const index = Math.floor(Math.random() * activities_list.length);
+
+    bot.user.setActivity(activities_list[index]);
+
+  }, 1000 * 10);
+
 });
 
 /**
