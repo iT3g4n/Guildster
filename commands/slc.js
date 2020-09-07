@@ -13,11 +13,11 @@ module.exports = {
 
         if (!message.member.hasPermission('ADMINISTRATOR')) return;
 
-        let channel = message.mentions.channels.first()
+        const channel = message.mentions.channels.first()
         if (!channel) return message.channel.send(`Please mention a channel.`)
         if (!channel.type == TextChannel) return message.reply(`That is a Voice Channel. Please select a Text Channel`)
 
-        let msg = await message.channel.send(`Setting log channel to <#${channel.id}>...`)
+        const msg = await message.channel.send(`Setting log channel to ${channel}...`)
 
         await mongo().then(async mongoose => {
 

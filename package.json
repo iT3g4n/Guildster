@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon",
     "test": "this is a test",
-    "dev": "npx nodemon"
+    "dev": "clear\nnodemon"
   },
   "engines": {},
   "author": "T3g4n",
@@ -20,7 +20,5 @@
     "nodemon": "^2.0.4",
     "random-puppy": "^1.1.0"
   },
-  "devDependencies": {
-    "prettier": "2.0.5"
-  }
+  "devDependencies": {}
 }

@@ -35,8 +35,6 @@ module.exports = {
 
         let msg = await message.channel.send(`Warning ${mt}...`);
 
-        console.log(mi, mt);
-
         await mongo().then(async mongoose => {
             
             try {

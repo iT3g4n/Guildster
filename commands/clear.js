@@ -26,8 +26,6 @@ module.exports = {
             var mt = mention.tag
         }
 
-        console.log(mt, mi)
-
         let msg = await message.channel.send(`Clearing warns for ${mt}...`)
 
         mongo().then(async mongoose => {
