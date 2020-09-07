@@ -37,7 +37,7 @@ this.run = async(bot, message, args) => {
             }
         embed
             .addField('Joined', person.joinedAt.toLocaleTimeString() + ` on ${person.joinedAt.toDateString()}`, true)
-            
+            .setThumbnail(person.user.avatarURL({ size: 2048, dynamic: true }))
         message.channel.send(embed)
 
     })
