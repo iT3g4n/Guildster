@@ -1,13 +1,3 @@
-/**
- 
- 
- 
- Consts
- 
- 
- 
- */
-
 const Client = require(`./Client`)
 
 const discord = require("discord.js");
@@ -22,7 +12,7 @@ const guilds = require(`./schemas/guildSchema`);
 const ms = require("ms");
 
 bot.once("ready", () => {
-  require(`./events/ready`).run()
+  require(`./events/ready`).run(bot)
 });
 
 let helpEmbed = new discord.MessageEmbed()

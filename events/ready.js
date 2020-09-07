@@ -1,7 +1,6 @@
-const { bot } = require(`../Client`)
 const ms = require(`ms`)
 
-this.run = async() => {
+this.run = async(bot) => {
     console.log(`logged in as ${bot.user.tag}`);
 
   activities_list = [
