@@ -1,4 +1,7 @@
+const { bot } = require(`../Client`);
+
 let commands;
+bot.commandlength = 0;
 
 this.run = async (bot, err, files, helpEmbed) => {
     if (err) return console.error(err);
@@ -11,8 +14,7 @@ this.run = async (bot, err, files, helpEmbed) => {
         const embedname = one + two;
         console.log(`Attempting to load command ${commandName}`);
         bot.commands.set(commandName, props);
-        helpEmbed.addField(embedname, props.description, true)
-
+        helpEmbed.addField(embedname, props.description, true);
+        bot.commandlength++
     });
-}
-
+};

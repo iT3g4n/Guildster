@@ -7,7 +7,7 @@ this.run = async(bot) => {
     { name: `over ${bot.guilds.cache.size} guilds! | *help`, type: 'WATCHING', url: 'https://www.youtube.com/T3g4n' },
     { name: `with ${bot.users.cache.size} users! | *help`, type: 'PLAYING' },
     { name: `the *help command!`, type: 'WATCHING' },
-    { name: `*help | Uptime: ${ms(process.uptime().toFixed(0), { long: true })}`, type: 'LISTENING' }
+    { name: `${bot.commandlength} Commands! | *help`, type: 'LISTENING' }
   ]
 
   setInterval(() => {
