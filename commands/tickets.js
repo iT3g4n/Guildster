@@ -2,7 +2,7 @@ const { Message, Client } = require(`discord.js`)
 const mongo = require("../mongo")
 const guildSchema = require("../schemas/guildSchema")
 this.name = 'Stc'
-this.desctiption = '**ADMIN-ONLY**\nSets the channel for the tickets to go to.'
+this.description = '**ADMIN-ONLY**\nSets the channel for the tickets to go to.'
 /**
  * @param {Client} bot 
  * @param {Message} message 

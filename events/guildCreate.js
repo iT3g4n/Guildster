@@ -17,16 +17,16 @@ module.exports = {
                 }, {
                     upsert: true
                 })
-                console.log(`New Guild:`, guild.name)
-                // let channelid = guild.channels.cache.first().id;
-                // let channel = await guild.channels.cache.find(channelid);
+                console.log(`New Guild:`, guild.name);
+
+                const channelid = guild.channels.cache.first().id;
+                const channel = await guild.channels.cache.get(channelid);
 
                 const embed = new MessageEmbed()
                     .setColor('RANDOM')
                     .setTitle(`Thank You for inviting me to your server! These are all my commands!`);
-                    const randomchannel = guild.channels.cache.random()
-                await guild.channels.cache.get(randomchannel.id).send(embed);
-                guild.channels.cache.get(randomchannel.id).send(helpEmbed);
+                await channel.send(embed);
+                channel.send(helpEmbed);
 
             } finally {
                 mongoose.connection.close();
