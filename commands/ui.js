@@ -31,7 +31,7 @@ this.run = async(bot, message, args) => {
             .setTitle(`User Info for ${mt}`)
             .addField('Created', person.user.createdAt.toLocaleTimeString() + ` on ${person.user.createdAt.toDateString()}`, true)
             if (!message.guild.member(person)._roles) {
-                embed.addField('Roles', `${mt} has no roles.`, true)
+                embed.addField('Roles', `${person} has no roles.`, true)
             } else {
                 embed.addField('Roles', '<@&' + message.guild.member(person)._roles.join('> <@&') + '>', true)
             }
