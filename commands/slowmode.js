@@ -25,7 +25,7 @@ module.exports = {
             await message.channel.setRateLimitPerUser(args[0]).catch(err => console.error(err))
             message.reply("Slowmode is now " + message.channel.rateLimitPerUser + secondornot).then(msg => { msg.delete({ timeout: 5000 }) })
 
-        } else return message.reply("YOU DO NOT HAVE ENOUGH PERMISSIONS!").then(msg => { msg.delete({ timeout: 5000 }) })
+        } else return message.reply("YOU DO NOT HAVE ENOUGH PERMISSIONS!").then(m => { m.delete({ timeout: 5000 }) })
 
     }
 }

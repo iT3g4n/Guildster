@@ -11,9 +11,17 @@ this.run = async (bot, err, files, helpEmbed) => {
         let commandName = file.split(".")[0];
         let one = commandName.slice(''.length)[0].toUpperCase();
         let two = commandName.slice(' '.length);
-        const embedname = one + two;
+        let embedname = one + two;
         console.log(`Attempting to load command ${commandName}`);
         bot.commands.set(commandName, props);
+        if (commandName.length < 4) {
+            if (!commandName.toLowerCase() == 'dog') {
+                embedname = commandName.toUpperCase()
+            } else {
+                return;
+            }
+            
+        }
         helpEmbed.addField(embedname, props.description, true);
         bot.commandlength++
     });

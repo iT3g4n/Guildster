@@ -33,34 +33,5 @@ module.exports = {
         if (!reason) return message.reply(`Please give a reason.`).then(msg => msg.delete({ timout: 5000 }))
 
         user.ban(reason);
-
-        await mongo(async mongoose => {
-            
-            try {
-
-                await warns.findOneAndUpdate({
-
-                    User: mi,
-                    Guild: message.guild.id
-
-                }, {
-
-                    User: mi,
-                    Guild: message.guild.id,
-                    $push: {
-                        Warns: [
-                            {
-                                Moderator: message.author.id,
-                                Reason: reason,
-                            }
-                        ]
-                    },
-
-                }, { upsert: true })
-
-            } finally {
-                mongoose.connection.close()
-            }
-        })
     }
 }

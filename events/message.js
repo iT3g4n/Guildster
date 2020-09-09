@@ -1,3 +1,10 @@
+const { Message, Client } = require('discord.js')
+/**
+ * @param {Client} bot 
+ * @param {Message} message 
+ * @param {Map} map 
+ */
+
 this.run = async (bot, message, map) => {
     //await mongo().then(async mongoose => {
 
@@ -27,5 +34,5 @@ this.run = async (bot, message, map) => {
 
     setTimeout(() => {
         map.delete(message.author.id);
-    }, 1000 * 2);
+    }, 1000 * 3);
 }
