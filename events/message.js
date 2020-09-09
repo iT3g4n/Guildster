@@ -10,7 +10,7 @@ this.run = async (bot, message, map) => {
 
     // const prefixa = await guilds.findOne({ Guild: message.guild.id });
     // const prefix = prefixa.Prefix;
-    const prefix = '*';
+    const prefix = '*' || '<@730440454835011674>';
     const args = message.content.slice(prefix.length).trim().split(" ");
     const command = args.shift().toLowerCase();
     if (message.author.bot || !message.guild) return;
