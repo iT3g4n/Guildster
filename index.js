@@ -8,8 +8,6 @@ const Enmap = require(`enmap`);
 require("dotenv").config();
 
 const fs = require(`fs`);
-const guilds = require(`./schemas/guildSchema`);
-const ms = require("ms");
 
 bot.once("ready", () => {
   require(`./events/ready`).run(bot)

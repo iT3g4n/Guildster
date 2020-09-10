@@ -15,7 +15,7 @@ this.run = async (bot, err, files, helpEmbed) => {
         console.log(`Attempting to load command ${commandName}`);
         bot.commands.set(commandName, props);
         if (commandName.length < 4) {
-            if (!commandName.toLowerCase() == 'dog') {
+            if (commandName.toLowerCase() !== 'dog') {
                 embedname = commandName.toUpperCase()
             } else {
                 return;

@@ -1,4 +1,5 @@
 const { MessageEmbed, Message } = require('discord.js')
+const { bot } = require('./Client')
 
 /**
  * 
