@@ -2,7 +2,8 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
     name: "resetticket",
-    description: '**ADMIN-ONLY**\nCreates the \'Create a Ticket!\' message in the channel of the message!',
+    aliases: ['rt', 'ticketmsg', 'ticketmessage'],
+    description: 'Creates the \'Create a Ticket!\' message in the channel of the message!',
     async run(bot, message, args) {
 
         if (!message.member.permissions.has('MANAGE_MESSAGES')) return;

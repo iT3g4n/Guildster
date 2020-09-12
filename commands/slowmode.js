@@ -3,7 +3,8 @@ const bot = new discord.Client();
 
 module.exports = {
     name: 'slowmode',
-    description: "**ADMIN-ONLY**\nSets the slowmode to the specified amount!",
+    aliases: ['sm', 'chatspeed', 'speed', 'mode'],
+    description: "Sets the slowmode to the specified amount!",
     async run(bot, message, args) {
 
         message.delete({ timeout: 0 })

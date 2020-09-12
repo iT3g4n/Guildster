@@ -2,6 +2,7 @@ const { Message, Client, Role } = require('discord.js')
 const newembed = require('../newembed')
 const ms = require('ms')
 this.name = 'UI'
+this.aliases = ['whois', 'inf', 'information']
 this.description = 'Gets information on a user!'
 /**
  * @param {Client} bot 

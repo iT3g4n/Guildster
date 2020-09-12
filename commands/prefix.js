@@ -3,7 +3,9 @@ const { Client, Message } = require("discord.js");
 const mongo = require("../mongo");
 
 module.exports = {
-    description: `**ADMIN-ONLY**\nSets the prefix for this guild!`,
+    name: 'Prefix',
+    aliases: ['pre', 'startofmessage'],
+    description: `Sets the prefix for this guild!`,
     /**
      * @param {Client} bot
      * @param {Message} message

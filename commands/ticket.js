@@ -5,6 +5,7 @@ const guildSchema = require("../schemas/guildSchema");
 
 module.exports = {
     name: "ticket",
+    aliases: ['tick', 'tt'],
     description: "If you are creating a ticket you use this to send it to the tickets channel! (Removing Soon)",
     usage: "*ticket",
     /**

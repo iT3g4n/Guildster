@@ -4,9 +4,10 @@ const guilds = require(`../schemas/guildSchema`);
 const guildSchema = require("../schemas/guildSchema");
 const embed = require(`../newembed`)
 this.name = 'Kick'
+this.aliases = ['k', 'remove', 'yeet']
 
 module.exports = {
-    description: "**ADMIN-ONLY**\nThis kicks the mentioned user with a reason!",
+    description: "This kicks the mentioned user with a reason!",
     /**
      * 
      * @param {Client} bot 

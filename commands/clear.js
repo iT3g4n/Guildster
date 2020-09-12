@@ -3,7 +3,9 @@ const mongo = require(`../mongo`)
 const warns = require(`../schemas/warnSchema`);
 
 module.exports = {
-    description: '**ADMIN-ONLY**\nThis clears all warns for a user!',
+    name: 'Clear',
+    aliases: ['clearwarn', 'removewarns', 'c'],
+    description: 'This clears all warns for a user!',
     /**
      * @param {Client} bot 
      * @param {Message} message

@@ -4,6 +4,7 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
   name: "dog",
+  aliases: ['d', 'doggy', 'doggo', 'puppy', 'pup', 'dogs'],
   description: "Sends a random dog to the channel of the message!",
   async run(bot, message, args) {
 

@@ -2,7 +2,8 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
     name: 'poll',
-    description: "**ADMIN-ONLY**\nCreates a poll in the channel of the message!",
+    aliases: [],
+    description: "Creates a poll in the channel of the message!",
     run: async (bot, message, args) => {
 
         const msgArgs = args.slice(1).join(" ");

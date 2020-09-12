@@ -1,7 +1,8 @@
 const { Client, Message } = require("discord.js");
 const newembed = require("../newembed");
 const ms = require(`ms`);
-this.name = 'Info'
+
+this.aliases = ['botinfo', 'bot']
 
 module.exports = {
     name: 'Info',
