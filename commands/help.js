@@ -31,7 +31,7 @@ module.exports = {
             msg.react('🎫').then(() => {
               msg.react('🌎').then(() => {
                 if (!owners.includes(message.author.id)) return;
-                msg.react('754519671897587833' || '716330113670578257')
+                msg.react('716330113670578257')
               });
             });
           });
