@@ -1,16 +1,14 @@
 const { MessageEmbed, Client, Message } = require("discord.js")
 const ms = require("ms")
-
-/**
- * @param {Client} bot
- * @param {Message} message
- * @param {String[]} args
- */
-
 module.exports = {
     name: "ga",
     description: "**ADMIN-ONLY**\nCreates a giveaway in the channel of the message!",
     usage: "*give <time> <prize>",
+    /**
+ * @param {Client} bot
+ * @param {Message} message
+ * @param {String[]} args
+ */
     async run(bot, message, args) {
 
         if (!message.member.hasPermission('MANAGE_ROLES')) return;
@@ -33,7 +31,7 @@ module.exports = {
             .setTitle("🎁  GIVEAWAY TIME  🎁")
             .setDescription(`Prize: ${prize}\nTime of the giveaway: ${args[0]}`)
             .setFooter(`Giveaway Started By: ${message.author.username}. ends`)
-            .setTimestamp(Date.now() + ms(args[0]))
+            .setTimestamp(Date.now() + ms(args[0]));
 
         await msg.edit(embed);
         await msg.edit("")

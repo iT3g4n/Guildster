@@ -8,4 +8,5 @@ this.run = async(asdfasdf, message, args) => {
     if (mention.id === message.author.id) return message.channel.send(new MessageEmbed().setDescription(`You have killed yourself! You are now angry with yourself. Wait, you are dead.`))
 
     message.channel.send(new MessageEmbed().setDescription(`You have killed ${mention}! They are now angry with you.`))
+
 }

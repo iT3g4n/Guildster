@@ -10,7 +10,12 @@ this.run = async (bot, message, map) => {
 
     // const prefixa = await guilds.findOne({ Guild: message.guild.id });
     // const prefix = prefixa.Prefix;
-    const prefix = '*';
+    let prefix;
+    if (message.content.startsWith(new RegExp(`^<@!?${client.user.id}> `))) {
+        prefix = new RegExp(`^<@!?${client.user.id}> `);
+    } else {
+        prefix = '*'
+    }
     const args = message.content.slice(prefix.length).trim().split(" ");
     const command = args.shift().toLowerCase();
     if (message.author.bot || !message.guild) return;
