@@ -5,6 +5,7 @@ const warns = require(`../schemas/warnSchema`)
 module.exports = {
     name: 'Warns',
     aliases: ['warnings'],
+    catagory: 'moderation',
     description: "Gets the warns for the mentioned user!",
 
     /**

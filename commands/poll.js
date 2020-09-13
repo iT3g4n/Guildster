@@ -3,6 +3,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
     name: 'poll',
     aliases: [],
+    catagory: 'fun',
     description: "Creates a poll in the channel of the message!",
     run: async (bot, message, args) => {
 

@@ -13,14 +13,12 @@ bot.once("ready", () => {
   require(`./events/ready`).run(bot)
 });
 
-let helpEmbed = new discord.MessageEmbed()
+bot.helpEmbed = new discord.MessageEmbed()
 bot.commands = new Enmap()
 
 fs.readdir('./commands/', (err, files) => {
-  require(`./events/readdir`).run(bot, err, files, helpEmbed)
+  require(`./events/readdir`).run(bot, err, files)
 });
-
-module.exports = { helpEmbed }
 
 let map = new Map()
 bot.on("message", async message => {

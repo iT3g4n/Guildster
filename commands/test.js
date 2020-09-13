@@ -5,6 +5,7 @@ this.name = 'Test'
 module.exports = {
     name: 'Test',
     aliases: ['t'],
+    catagory: 'owner',
     description: 'This is just for testing commands and such.',
     /**
      * @param {Client} bot
@@ -13,7 +14,7 @@ module.exports = {
      */
     run: async(bot, message, args) => {
 
-        message.channel.send(bot.embed.setDescription('test'))
+        console.log(require('../events/readdir').fun)
    
     }
 }

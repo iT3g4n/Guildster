@@ -1,9 +1,10 @@
 const { bot } = require(`../Client`);
 
-let commands;
 bot.commandlength = 0;
 
-this.run = async (bot, err, files, helpEmbed) => {
+this.fun = []
+
+this.run = async (a, err, files) => {
     if (err) return console.error(err);
     files.forEach(file => {
         if (!file.endsWith(".js")) return;
@@ -22,7 +23,10 @@ this.run = async (bot, err, files, helpEmbed) => {
             }
             
         }
-        helpEmbed.addField(embedname, props.description, true);
+        if (props.catagory == 'fun') {
+            this.fun.push(`**Name:** ${embedname}\n**Description:** ${props.description}`)
+        } 
+        bot.helpEmbed.addField(embedname, props.description, true);
         bot.commandlength++
     });
 };

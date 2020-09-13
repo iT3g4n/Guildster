@@ -4,6 +4,7 @@ module.exports = {
     name: 'Avatar',
     description: "Gets an avatar for the mentioned user!",
     aliases: ['pfp', 'icon'],
+    catagory: 'fun',
     async run (bot, message, args) {
 
         message.delete();

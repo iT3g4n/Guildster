@@ -7,6 +7,7 @@ this.name = 'Kick'
 this.aliases = ['k', 'remove', 'yeet']
 
 module.exports = {
+    catagory: 'moderation',
     description: "This kicks the mentioned user with a reason!",
     /**
      * 

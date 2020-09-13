@@ -2,6 +2,7 @@ const { Message, Client, Emoji } = require("discord.js")
 
 this.name = 'React'
 this.aliases = ['r', 'rm']
+this.catagory = 'fun',
 this.description = 'Reacts to any message!'
 /**
  * 

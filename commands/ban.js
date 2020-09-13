@@ -3,6 +3,7 @@ const { MessageEmbed, Client, Message } = require("discord.js");
 module.exports = {
     name: 'Ban',
     aliases: ['b'],
+    catagory: 'moderation',
     description: "This bans the mentioned user with a reason!",
     /**
      * 

@@ -3,6 +3,7 @@ const newembed = require("../newembed");
 const ms = require(`ms`);
 
 this.aliases = ['botinfo', 'bot']
+this.catagory = 'fun',
 
 module.exports = {
     name: 'Info',

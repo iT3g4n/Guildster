@@ -4,6 +4,7 @@ const bot = new discord.Client();
 module.exports = {
     name: 'slowmode',
     aliases: ['sm', 'chatspeed', 'speed', 'mode'],
+    catagory: 'moderation',
     description: "Sets the slowmode to the specified amount!",
     async run(bot, message, args) {
 

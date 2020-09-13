@@ -4,6 +4,7 @@ const ms = require('ms')
 this.name = 'UI'
 this.aliases = ['whois', 'inf', 'information']
 this.description = 'Gets information on a user!'
+this.catagory = 'fun',
 /**
  * @param {Client} bot 
  * @param {Message} message 

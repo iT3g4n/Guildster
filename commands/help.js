@@ -1,10 +1,9 @@
-const { MessageEmbed, Client, Message } = require("discord.js");
-const { helpEmbed } = require(`../index`)
-const fs = require(`fs`)
+const { Client, Message } = require("discord.js");
 
 module.exports = {
   name: 'Help',
   aliases: ['h', 'commands', 'command'],
+  catagory: 'fun',
   description: "This displays a list of all commands!",
   /**
    * @param {Client} bot 
@@ -14,15 +13,24 @@ module.exports = {
   run: async (bot, message, args) => {
 
     if (!args[0]) {
-      const embed = helpEmbed.setColor('RANDOM').setThumbnail(message.author.displayAvatarURL({ dynamic: true, format: 'png' })).setTitle(`All Commands for ${bot.user.tag}`).setFooter(`|  Help Command`, message.author.avatarURL({ dynamic: true, format: 'png', size: 2048 })).setTimestamp(Date.now())
-      try {
-        await message.author.send(embed);
-        message.reply(`I sent you a DM!`).then(msg => msg.delete({ timeout: 3000 }))
-      return;
-      } catch (err) {
-        message.reply(bot.embed.setDescription(`Please open your DM's so that I can send you the help command! I need to do this because the command list is very long.`)).then(msg => msg.delete({ timeout: 10000 }))
+      
+      const msg = message.reply(bot.embed.setDescription(`Hello ${message.author}! This is what I can do!
+      
+      😃: Fun
+      🤖: Moderation
+      🤬: Hitting
+      🎫: Tickets`))
+
+      await (await msg).react('😃');
+      await (await msg).react('🤖');
+      await (await msg).react('🤬');
+      await (await msg).react('🎫');
+
+      bot.on('messageReactionAdd', async (reaction, user) => {
+        if (reaction.emoji.name === '😃' && user.id === message.author.id) (await msg).edit(bot.embed.setTitle('Catagory: Fun').setDescription(require('../events/readdir').fun.join('\n\n')))
         return;
-      }
+      })
+      
     }
 
     const command = bot.commands.get(args[0]) || bot.commands.find(c => c.aliases && c.aliases.includes(args[0]))
@@ -30,11 +38,12 @@ module.exports = {
 
     let data = []
     if (command.name) data.push('Name: `' + command.name + '`');
-    if (command.description) data.push('Description: `' + command.description + '`')
-    if (command.aliases) data.push('Aliases: `' + command.aliases + '`')
-    if (command.usage) data.push('Usage: `' + command.usage + '`')
+    if (command.description) data.push('Description: `' + command.description + '`');
+    if (command.aliases) data.push('Aliases: `' + command.aliases.join(', ') + '`');
+    if (command.usage) data.push('Usage: `' + command.usage + '`');
+    if (command.catagory) data.push('Catagory: `' + command.catagory + '`')
 
-    message.reply(bot.embed.setDescription(data).setTitle('Help for "' + command.name + '"'))
+    message.reply(bot.embed.setDescription(data).setTitle('Help for "' + command.name + '"'));
 
   }
 }

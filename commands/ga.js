@@ -11,6 +11,7 @@ module.exports = {
     name: "ga",
     aliases: ['giveaway', 'start', 'g', 'give'],
     description: "Creates a giveaway in the channel of the message!",
+    catagory: 'fun',
     usage: "<command> <time> <prize>",
     async run(bot, message, args) {
 

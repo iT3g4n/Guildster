@@ -6,6 +6,7 @@ const guilds = require(`../schemas/guildSchema`);
 module.exports = {
     name: 'Warn',
     aliases: ['w'],
+    catagory: 'moderation',
     description: "Warns the mentioned user!",
 
     /**

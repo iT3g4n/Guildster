@@ -5,6 +5,7 @@ const mongo = require("../mongo");
 module.exports = {
     name: 'Prefix',
     aliases: ['pre', 'startofmessage'],
+    catagory: 'moderation',
     description: `Sets the prefix for this guild!`,
     /**
      * @param {Client} bot

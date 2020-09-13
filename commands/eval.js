@@ -6,6 +6,7 @@ this.name = 'Eval'
 
 module.exports = {
     aliases: ['e', 'ev'],
+    catagory: 'owner',
     description: 'Tests some code out!',
     /**
      * @param {Client} bot

@@ -10,7 +10,7 @@ this.run = async (bot, message, map) => {
     const prefix = '*';
     const args = message.content.slice(prefix.length).trim().split(" ");
     const command = args.shift().toLowerCase();
-    if (message.author.bot || !message.guild) return;
+    if (message.author.bot || !message.guild || !message.content.startsWith(prefix)) return;
 
     const cmd = bot.commands.get(command) || bot.commands.find(c => c.aliases && c.aliases.includes(command))
 
