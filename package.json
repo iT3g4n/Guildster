@@ -1,6 +1,6 @@
 {
   "name": "discord-bot",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,6 +15,7 @@
     "discord.js": "^12.3.1",
     "dotenv": "^8.2.0",
     "enmap": "^5.7.0",
+    "ffmpeg": "0.0.4",
     "mongoose": "^5.10.1",
     "ms": "^2.1.2",
     "nodemon": "^2.0.4",

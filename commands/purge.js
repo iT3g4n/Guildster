@@ -1,6 +1,8 @@
 module.exports = {
     name: 'purge',
-    description: "**ADMIN-ONLY**\nDeletes the specified amount of messages from the channel of the message!",
+    aliases: ['delete'],
+    catagory: 'moderation',
+    description: "Deletes the specified amount of messages from the channel of the message!",
     async run(bot, message, args) {
 
         message.delete()

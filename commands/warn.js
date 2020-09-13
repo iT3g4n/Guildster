@@ -4,8 +4,10 @@ const warns = require(`../schemas/warnSchema`);
 const guilds = require(`../schemas/guildSchema`);
 
 module.exports = {
-    name: 'warn',
-    description: "**ADMIN-ONLY**\nWarns the mentioned user!",
+    name: 'Warn',
+    aliases: ['w'],
+    catagory: 'moderation',
+    description: "Warns the mentioned user!",
 
     /**
      * @param {Client} bot 
@@ -17,7 +19,7 @@ module.exports = {
         if (!message.member.hasPermission(`MANAGE_MESSAGES`)) return message.reply(`no`);
         const mention = message.mentions.users.first();
         const mrid = message.guild.members.cache.get(args[0]);
-        if (!mention && !mrid) return message.channel.send(`You did not mention anyone.`);
+        if (!mention && !mrid) return message.channel.send(bot.embed.setDescription(`You did not mention anyone.`));
 
         var mi;
         var mt;

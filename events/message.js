@@ -1,4 +1,4 @@
-const { Message, Client } = require('discord.js')
+const { Message, Client, MessageEmbed } = require('discord.js');
 /**
  * @param {Client} bot 
  * @param {Message} message 
@@ -6,7 +6,6 @@ const { Message, Client } = require('discord.js')
  */
 
 this.run = async (bot, message, map) => {
-    //await mongo().then(async mongoose => {
 
     // const prefixa = await guilds.findOne({ Guild: message.guild.id });
     // const prefix = prefixa.Prefix;
@@ -18,8 +17,11 @@ this.run = async (bot, message, map) => {
     }
     const args = message.content.slice(prefix.length).trim().split(" ");
     const command = args.shift().toLowerCase();
-    if (message.author.bot || !message.guild) return;
-    if (!bot.commands.has(command)) return;
+    if (message.author.bot || !message.guild || !message.content.startsWith(prefix)) return;
+
+    const cmd = bot.commands.get(command) || bot.commands.find(c => c.aliases && c.aliases.includes(command))
+
+    if (!cmd) return;
 
     if (map.has(message.author.id)) {
         message.react('⏰');
@@ -28,7 +30,8 @@ this.run = async (bot, message, map) => {
     };
 
     try {
-        bot.commands.get(command).run(bot, message, args);
+        bot.embed = new MessageEmbed().setFooter(`|   ${cmd.name} Command`, message.author.avatarURL({ dynamic: true, format: 'png' })).setColor('RANDOM').setTimestamp(Date.now())
+        cmd.run(bot, message, args);
         console.log(`${command} command used`);
         map.set(message.author.id)
     } catch (err) {
@@ -38,5 +41,5 @@ this.run = async (bot, message, map) => {
 
     setTimeout(() => {
         map.delete(message.author.id);
-    }, 1000 * 3);
+    }, 1000 * 5);
 }

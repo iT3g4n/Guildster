@@ -1,6 +1,7 @@
 const ms = require(`ms`)
+const { bot } = require('../Client')
 
-this.run = async(bot) => {
+this.run = async(a) => {
     console.log(`logged in as ${bot.user.tag}`);
 
   activities_list = [
@@ -9,6 +10,8 @@ this.run = async(bot) => {
     { name: `the *help command!`, type: 'WATCHING' },
     { name: `${bot.commandlength} Commands! | *help`, type: 'LISTENING' }
   ]
+
+  bot.channels.cache.get('714809218024079435')
 
   setInterval(() => {
 

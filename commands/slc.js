@@ -3,7 +3,10 @@ const guild = require(`../schemas/guildSchema`);
 const mongo = require(`../mongo`)
 
 module.exports = {
-    description: '**ADMIN-ONLY**\nSets the channel for logs to go to!',
+    name: 'SLC',
+    aliases: ['setlogchannel', 'logs'],
+    catagory: 'moderation',
+    description: 'Sets the channel for logs to go to!',
     /**
      * @param {Client} bot
      * @param {Message} message

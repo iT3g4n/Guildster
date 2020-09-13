@@ -1,57 +1,50 @@
-const { MessageEmbed } = require("discord.js");
-const ms = require("ms");
+const { Message, MessageEmbed } = require("discord.js")
+const { bot } = require('../Client')
+const mongo = require("../mongo")
+const guildSchema = require("../schemas/guildSchema")
+const ms = require('ms')
 
-module.exports = {
-    name: "mute",
-    description: "**ADMIN-ONLY**\nMutes the mentioned user for the specified amount of time!",
-    usage: "`*mute <mention || id> <time> <reason>`",
-    async run(bot, message, args) {
-        if (!message.member.permissions.has("MANAGE_MEMBERS"))
-            return message.channel.send(
-                `Hey! You don't have enough permissions to do that!`
-            );
+this.name = 'Mute'
+this.aliases = ['silence', 'shut', 'sh', 'stop']
+this.catagory = 'moderation',
+this.description = 'Mutes the mentioned person!'
+/**
+ * @param {Message} message 
+ * @param {String[]} args 
+ */
+this.run = async(asdfasdf, message, args) => {
+    if (!message.member.hasPermission('MANAGE_ROLES')) return message.reply(bot.embed.setDescription('You do not have enough permissions, ' + message.author)).then(m => m.delete({ timeout: 5000 }));
 
-        const mention =
-            message.mentions.users.first() ||
-            message.guild.members.cache.get(args[0]);
-        if (!mention)
-            return message.channel.send(
-                `Please mention a user to mute or give an id. Usage: ${this.usage}`
-            );
+    const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
+    if (!user) return message.channel.send(bot.embed.setDescription('You didn\'t mention anyone!'));
 
-        if (mention && !args[1])
-            return message.channel.send(
-                `Please specify the time to mute ${mention.tag || mention.user.tag} for.`
-            );
+    const muterole = message.guild.roles.cache.find(r => r.name === 'Muted')
+    if (!muterole) return message.channel.send(bot.embed.setDescription(`This server does not have a \'Muted\' role! Please create a role with the exact name \`Muted\`.`)).then(m => m.delete({ timeout: 20000}));
 
-        const time = ms(args[1]);
-        if (isNaN(args[1][0]))
-            return message.channel.send(
-                `Please specify a time to mute ${mention.tag || mention.user.tag} for.`
-            );
-        if (
-            !args[1].endsWith("d") &&
-            !args[1].endsWith("h") &&
-            !args[1].endsWith("m") &&
-            !args[1].endsWith("s")
-        )
-            return message.channel.send(
-                `Please specify a time such as: 10m, 20s, 1d, 2h etc.`
-            );
+    const time = ms(args[1])
+    if (!time) return message.reply(bot.embed.setDescription(`You did not specify a time!`));
 
-        const reason = args.slice(2).join(" ");
-        if (!reason)
-            return message.channel.send(`Please specify a reason for the mute.`);
+    let reason = args.slice(1).join(' ');
 
-        const role = message.guild.roles.cache.find((r) => r.name === "Muted");
-        mention.roles.add(role); //.catch(Error)(message.channel.send(`Sorry there was an error. Error: \`\`\`${Error}\`\`\``)).then(console.log(Error))
-        message.channel
-            .send(
-                `${mention.tag || mention.user.tag} has been muted for ${args[1]} with the reason ${reason}`
-            )
-            .then((m) => m.delete({ timeout: 20000 }));
-        setTimeout(() => {
-            mention.roles.remove(role);
-        }, time);
-    },
-};
+    user.roles.add(muterole)
+
+    setTimeout(() => {
+        user.roles.remove(muterole)
+    }, time)
+
+    await mongo().then(async mongoose => {
+        const channel = await guildSchema.findOne({ _id: message.guild.id })
+        if (!channel.Logs) return;
+        const sendchannel = channel.Logs
+
+        if (!reason) reason = 'No Reason Specified';
+
+        const embed = new MessageEmbed()
+            .setTitle(`User Muted`)
+            .addField(`User`, user, true)
+            .addField(`Moderator`, `<@${message.author.id}>`, true)
+            .addField(`Reason`, `${reason}`, true)
+            .setColor(`GREY`);
+        bot.channels.cache.get(sendchannel).send(embed)
+    })
+}

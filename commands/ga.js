@@ -2,13 +2,16 @@ const { MessageEmbed, Client, Message } = require("discord.js")
 const ms = require("ms")
 module.exports = {
     name: "ga",
-    description: "**ADMIN-ONLY**\nCreates a giveaway in the channel of the message!",
-    usage: "*give <time> <prize>",
     /**
  * @param {Client} bot
  * @param {Message} message
  * @param {String[]} args
  */
+
+    aliases: ['giveaway', 'start', 'g', 'give'],
+    description: "Creates a giveaway in the channel of the message!",
+    catagory: 'fun',
+    usage: "<command> <time> <prize>",
     async run(bot, message, args) {
 
         if (!message.member.hasPermission('MANAGE_ROLES')) return;
@@ -22,12 +25,10 @@ module.exports = {
         let prize = args.slice(1).join(" ")
         if (!prize) return message.channel.send("No prize was given. Aborting Command").then(msg => { msg.delete({ timeout: 5000 }) })
 
-        let msg = await message.channel.send("@everyone")
-
-        const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+        let msg = await message.channel.send("@everyone");
 
         const embed = new MessageEmbed()
-            .setColor(randomColor)
+            .setColor('RANDOM')
             .setTitle("🎁  GIVEAWAY TIME  🎁")
             .setDescription(`Prize: ${prize}\nTime of the giveaway: ${args[0]}`)
             .setFooter(`Giveaway Started By: ${message.author.username}. ends`)

@@ -3,8 +3,10 @@ const mongo = require(`../mongo`)
 const warns = require(`../schemas/warnSchema`)
 
 module.exports = {
-    name: 'warnings',
-    description: "**ADMIN-ONLY**\nGets the warns for the mentioned user!",
+    name: 'Warns',
+    aliases: ['warnings'],
+    catagory: 'moderation',
+    description: "Gets the warns for the mentioned user!",
 
     /**
      * @param {Client} bot 

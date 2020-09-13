@@ -2,11 +2,12 @@ const newembed = require("../newembed");
 const { Message, Client } = require(`discord.js`)
 const { inspect } = require(`util`);
 const { owners } = require("../Client");
-const { eventNames } = require("cluster");
 this.name = 'Eval'
 
 module.exports = {
-    description: '**BOT-OWNER-ONLY**\nTests some code out!',
+    aliases: ['e', 'ev'],
+    catagory: 'owner',
+    description: 'Tests some code out!',
     /**
      * @param {Client} bot
      * @param {Message} message

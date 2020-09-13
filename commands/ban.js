@@ -1,10 +1,10 @@
 const { MessageEmbed, Client, Message } = require("discord.js");
-const mongo = require("../mongo");
-const guilds = require(`../schemas/guildSchema`)
-const { deletemsg } = require(`../Client`)
 
 module.exports = {
-    description: "**ADMIN-ONLY**\nThis bans the mentioned user with a reason!",
+    name: 'Ban',
+    aliases: ['b'],
+    catagory: 'moderation',
+    description: "This bans the mentioned user with a reason!",
     /**
      * 
      * @param {Client} bot 
