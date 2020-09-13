@@ -1,8 +1,8 @@
 const { Message, Client, Role } = require('discord.js')
 const newembed = require('../newembed')
-const ms = require('ms')
-this.name = 'UI'
-this.aliases = ['whois', 'inf', 'information']
+
+this.name = 'Info'
+this.aliases = ['whois']
 this.description = 'Gets information on a user!'
 this.catagory = 'fun',
 this.usage = '[command] [mention]',
@@ -43,5 +43,5 @@ this.run = async(bot, message, args) => {
             .setThumbnail(person.user.avatarURL({ size: 2048, dynamic: true }))
         message.channel.send(embed)
 
-    })
-}
+    });
+};
