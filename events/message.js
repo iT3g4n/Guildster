@@ -6,14 +6,14 @@ const { Message, Client, MessageEmbed } = require('discord.js');
  */
 
 this.run = async (bot, message, map) => {
-
     // const prefixa = await guilds.findOne({ Guild: message.guild.id });
     // const prefix = prefixa.Prefix;
-    let prefix;
-    if (message.content.startsWith(new RegExp(`^<@!?${client.user.id}> `))) {
-        prefix = new RegExp(`^<@!?${client.user.id}> `);
-    } else {
-        prefix = '*'
+    const prefixes = [`<@!${bot.user.id}>`, `<@${bot.user.id}>`, '*']
+    //in your case can only be var prefixes = ["<@453463055741747200>", "<@!453463055741747200>"]
+
+    let prefix = false;
+    for (const thisPrefix of prefixes) {
+        if (message.content.toLowerCase().startsWith(thisPrefix)) prefix = thisPrefix;
     }
     const args = message.content.slice(prefix.length).trim().split(" ");
     const command = args.shift().toLowerCase();
