@@ -6,6 +6,7 @@ module.exports = {
     name: 'Prefix',
     aliases: ['pre', 'startofmessage'],
     catagory: 'moderation',
+    usage: '[command] [optional setprefix]',
     description: `Sets the prefix for this guild!`,
     /**
      * @param {Client} bot

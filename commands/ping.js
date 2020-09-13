@@ -4,6 +4,7 @@ const { MessageEmbed } = require("discord.js")
     name: 'ping',
     aliases: ['p', 'pong'],
     catagory: 'fun',
+    usage: '[command]',
     description: "Check your ping to the bot!",
     async run (bot, message, args) {
     

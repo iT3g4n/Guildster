@@ -3,12 +3,13 @@ const mongo = require("../mongo");
 const guilds = require(`../schemas/guildSchema`);
 const guildSchema = require("../schemas/guildSchema");
 const embed = require(`../newembed`)
-this.name = 'Kick'
-this.aliases = ['k', 'remove', 'yeet']
 
 module.exports = {
+    name: 'Kick',
+    aliases: ['k', 'remove', 'yeet'],
     catagory: 'moderation',
     description: "This kicks the mentioned user with a reason!",
+    usage: '[command] [mention or id] [reason]',
     /**
      * 
      * @param {Client} bot 

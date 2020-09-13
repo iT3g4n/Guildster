@@ -6,6 +6,7 @@ module.exports = {
   name: "dog",
   aliases: ['d', 'doggy', 'doggo', 'puppy', 'pup', 'dogs'],
   catagory: 'fun',
+  usage: '[command]',
   description: "Sends a random dog to the channel of the message!",
   async run(bot, message, args) {
 

@@ -1,32 +1,47 @@
-const { Client, Message } = require("discord.js");
-const newembed = require("../newembed");
-const ms = require(`ms`);
-
-this.aliases = ['botinfo', 'bot']
+const { Message, Client, Role } = require('discord.js')
+const newembed = require('../newembed')
+const ms = require('ms')
+this.name = 'UI'
+this.aliases = ['whois', 'inf', 'information']
+this.description = 'Gets information on a user!'
 this.catagory = 'fun',
+this.usage = '[command] [mention]',
+/**
+ * @param {Client} bot 
+ * @param {Message} message 
+ * @param {String[]} args
+ */
+this.run = async(bot, message, args) => {
+    newembed(message, this).then(async embed => {
+        const mention = message.mentions.members.first()
+        const user = message.guild.members.cache.get(args[0])
+        if (!mention && !user) return message.channel.send(`You did not mention anybody. Please try again, but this time, mention somebody.`).then(m => m.delete({ timeout: 5000 }))
 
-module.exports = {
-    name: 'Info',
-    description: 'Get the info on this bot!',
-    /**
-     * @param {Client} bot
-     * @param {Message} message
-     * @param {String[]} args
-     */
-    run: async(bot, message, args) => {
-        await newembed(message, this).then(async embed => {
-            embed
-                .setTitle(`Bot Info`)
-                .addField(`Uptime`, `${ms(bot.uptime, { long: false })}`, true)
-                .addField(`API Ping`, `${bot.ws.ping} MS`, true)
-                .addField(`Owner`, `<@381024325974622209>`, true)
-                .addField(`Severs`, `${bot.guilds.cache.size}`, true)
-                .addField(`Bot Invite`, "[Click Here!](https://discord.com/api/oauth2/authorize?client_id=730440454835011674&permissions=2134207679&scope=bot)", true)
-                .addField(`Support`, "[Click Here!](https://discord.gg/yVVDJfM)", true)
-                .addField(`YouTube`, "[Click Here!](https://youtube.com/T3g4n)", true)
-                .addField(`Commands`, "[Click Here!](https://docs.google.com/document/d/1fbXv3c7MLatbkGSS3POwINSmLBiyINE5AIkhT7GcfVI/edit?usp=sharing)", true)
-                .addField(`Version`, `${require(`../package.json`).version}`, true )
-            message.channel.send(embed)
-        })
-    }
+        let mi;
+        let mt;
+        let person;
+        if (!mention) {
+            mi = user.id
+            mt = user.user.tag
+            person = user
+        } else {
+            mi = mention.id
+            mt = mention.user.tag
+            person = mention
+        }
+
+        embed
+            .setTitle(`User Info for ${mt}`)
+            .addField('Created', person.user.createdAt.toLocaleTimeString() + ` on ${person.user.createdAt.toDateString()}`, true)
+            if (!message.guild.member(person)._roles) {
+                embed.addField('Roles', `${person} has no roles.`, true)
+            } else {
+                embed.addField('Roles', '<@&' + message.guild.member(person)._roles.join('> <@&') + '>', true)
+            }
+        embed
+            .addField('Joined', person.joinedAt.toLocaleTimeString() + ` on ${person.joinedAt.toDateString()}`, true)
+            .setThumbnail(person.user.avatarURL({ size: 2048, dynamic: true }))
+        message.channel.send(embed)
+
+    })
 }

@@ -1,10 +1,11 @@
 const { Message, Client } = require(`discord.js`)
 const newembed = require("../newembed")
-this.name = 'Invite'
-this.aliases = ['helplinks', 'links', 'link', 'support', 'supportserver']
-this.catagory = 'fun',
 
 module.exports = {
+    name: 'Invite',
+    aliases: ['helplinks', 'links', 'link', 'support', 'supportserver'],
+    catagory: 'fun',
+    usage: '[command]',
     description: 'Want to invite the bot to your own server? Well use this!',
     /**
      * @param {Message} message

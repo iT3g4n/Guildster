@@ -4,6 +4,7 @@ const guildSchema = require("../schemas/guildSchema")
 this.name = 'STC'
 this.aliases = ['setticketchannel', 'tickets']
 this.description = 'Sets the channel for the tickets to go to.'
+this.usage = '[command] [channel mention]',
 this.catagory = 'tickets'
 /**
  * @param {Client} bot 

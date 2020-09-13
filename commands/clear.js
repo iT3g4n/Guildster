@@ -1,11 +1,11 @@
 const { Client, Message, MessageEmbed } = require('discord.js')
 const mongo = require(`../mongo`)
 const warns = require(`../schemas/warnSchema`);
-
 module.exports = {
     name: 'Clear',
     aliases: ['clearwarn', 'removewarns', 'c'],
     catagory: 'moderation',
+    usage: '[command] [mention or id]',
     description: 'This clears all warns for a user!',
     /**
      * @param {Client} bot 

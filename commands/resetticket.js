@@ -4,6 +4,7 @@ module.exports = {
     name: "resetticket",
     aliases: ['rt', 'ticketmsg', 'ticketmessage'],
     catagory: 'tickets',
+    usage: '[command]',
     description: 'Creates the \'Create a Ticket!\' message in the channel of the message!',
     async run(bot, message, args) {
 

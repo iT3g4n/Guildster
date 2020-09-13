@@ -6,6 +6,7 @@ module.exports = {
   aliases: ['h', 'commands', 'command'],
   catagory: 'fun',
   description: "This displays a list of all commands!",
+  usage: '[command] [optional command]',
   /**
    * @param {Client} bot 
    * @param {Message} message 
@@ -21,7 +22,10 @@ module.exports = {
       🤖: Moderation
       🤬: Hitting
       🎫: Tickets
-      🌎: All`);
+      🌎: All
+      
+      **Don't forget!**
+      You can use \`*help [command]\` to get help on a specific command!\n`);
 
       const msg = await message.reply(sendmessage)
 

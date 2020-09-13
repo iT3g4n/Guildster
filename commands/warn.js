@@ -8,6 +8,7 @@ module.exports = {
     aliases: ['w'],
     catagory: 'moderation',
     description: "Warns the mentioned user!",
+    usage: '[command] [mention or id] [reason]',
 
     /**
      * @param {Client} bot 

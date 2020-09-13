@@ -3,6 +3,7 @@ const { MessageEmbed, Message } = require('discord.js')
 this.name = 'Kill'
 this.aliases = ['destoy', '1v1', 'die']
 this.catagory = 'hitting',
+this.usage = '[command] [mention]'
 this.description = 'Kills the mentioned person!'
 this.run = async(asdfasdf, message, args) => {
     const mention = message.mentions.members.first()

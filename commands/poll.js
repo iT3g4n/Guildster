@@ -4,6 +4,7 @@ module.exports = {
     name: 'poll',
     aliases: [],
     catagory: 'fun',
+    usage: '[command] [poll message]',
     description: "Creates a poll in the channel of the message!",
     run: async (bot, message, args) => {
 

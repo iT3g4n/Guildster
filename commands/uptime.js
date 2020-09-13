@@ -8,7 +8,7 @@ module.exports = {
     aliases: ['time', 'long'],
     catagory: 'fun',
     description: "Tells you how long the bot has been online!",
-    usage: "*uptime",
+    usage: '[command]',
     async run(bot, message, args) {
 
         message.delete({ timeout: 0 })

@@ -4,6 +4,7 @@ module.exports = {
     name: 'socials',
     aliases: ['media'],
     catagory: 'fun',
+    usage: '[command]',
     description: "This gives you my socials!",
     async run(bot, message, args) {
 

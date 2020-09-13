@@ -5,6 +5,7 @@ module.exports = {
     aliases: ['b'],
     catagory: 'moderation',
     description: "This bans the mentioned user with a reason!",
+    usage: '[command] [mention] [reason]',
     /**
      * 
      * @param {Client} bot 

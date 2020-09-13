@@ -4,6 +4,7 @@ this.name = 'React'
 this.aliases = ['r', 'rm']
 this.catagory = 'fun',
 this.description = 'Reacts to any message!'
+this.usage = '[command] [reaction] [rest of your message]',
 /**
  * 
  * @param {Client} bot 

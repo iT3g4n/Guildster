@@ -8,7 +8,7 @@ module.exports = {
     aliases: ['tick', 'tt'],
     catagory: 'tickets',
     description: "If you are creating a ticket you use this to send it to the tickets channel! (Removing Soon)",
-    usage: "*ticket",
+    usage: '[command] [your ticket]',
     /**
      * @param {Client} bot
      * @param {Message} message

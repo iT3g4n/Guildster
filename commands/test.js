@@ -1,11 +1,10 @@
 const { Client, Message } = require("discord.js");
-const newembed = require(`../newembed`)
-this.name = 'Test'
 
 module.exports = {
     name: 'Test',
     aliases: ['t'],
     catagory: 'owner',
+    usage: '[command] [whatever]',
     description: 'This is just for testing commands and such.',
     /**
      * @param {Client} bot

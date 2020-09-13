@@ -2,6 +2,7 @@ const { MessageEmbed } = require('discord.js')
 
 this.name = 'Hit'
 this.aliases = ['punch']
+this.usage = '[command] [mention]'
 this.catagory = 'hitting',
 this.description = 'Hits the mentioned person!'
 this.run = async(asdfasdf, message, args) => {

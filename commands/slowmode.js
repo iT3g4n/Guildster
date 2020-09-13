@@ -5,6 +5,7 @@ module.exports = {
     name: 'slowmode',
     aliases: ['sm', 'chatspeed', 'speed', 'mode'],
     catagory: 'moderation',
+    usage: '[command] [slowmode in secs]',
     description: "Sets the slowmode to the specified amount!",
     async run(bot, message, args) {
 

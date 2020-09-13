@@ -5,6 +5,7 @@ module.exports = {
     name: 'meme',
     aliases: ['m', 'me'],
     catagory: 'fun',
+    usage: '[command]',
     description: "Give you a random meme from reddit!",
     run: async (bot, message, args) => {
         const subreddits = ["dankmeme", "meme", "dank_meme", "dankmemes", "memes", "me_irl", "facepalm"];

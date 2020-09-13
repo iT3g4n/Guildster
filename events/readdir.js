@@ -36,6 +36,13 @@ this.run = async (a, err, files) => {
         if (props.catagory == 'owner') {
             this.owner.push(`**Name:** ${embedname}\n**Description:** ${props.description}`)
         };
+
+        if (!props.aliases) console.error(commandName + ' has no aliases');
+        if (!props.name) console.error(commandName + ' has no name');
+        if (!props.usage) console.error(commandName + ' has no usage');
+        if (!props.description) console.error(commandName + ' has no description');
+        if (!props.catagory) console.error(commandName + ' has no catagory');
+        
         bot.helpEmbed.addField(embedname, props.description);
         bot.commandlength++
     });

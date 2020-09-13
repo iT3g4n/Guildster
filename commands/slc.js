@@ -6,6 +6,7 @@ module.exports = {
     name: 'SLC',
     aliases: ['setlogchannel', 'logs'],
     catagory: 'moderation',
+    usage: '[command] [channel mention]',
     description: 'Sets the channel for logs to go to!',
     /**
      * @param {Client} bot

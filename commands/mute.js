@@ -7,6 +7,7 @@ const ms = require('ms')
 this.name = 'Mute'
 this.aliases = ['silence', 'shut', 'sh', 'stop']
 this.catagory = 'moderation',
+this.usage = '[command] [mention or id] [reason]'
 this.description = 'Mutes the mentioned person!'
 /**
  * @param {Message} message 
