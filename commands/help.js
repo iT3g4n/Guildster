@@ -46,7 +46,8 @@ module.exports = {
         if (reaction.emoji.name === '🌎' && user.id === message.author.id) {
           try {
             reaction.users.remove(user.id);
-            message.author.send(bot.helpEmbed.setTitle('Catagory: All')); + msg.edit(bot.embed.setDescription(`I have sent you a DM, ${message.author}!`))
+            user.send(bot.helpEmbed.setTitle('Catagory: All'));
+            msg.edit(bot.embed.setDescription(`I have sent you a DM, ${message.author}!`))
           } catch (err) {
             msg.edit(bot.embed.setDescription(`Please open your DM's first, ${message.author}! The commands list is ${bot.commandlength} commands long.`))
           }
