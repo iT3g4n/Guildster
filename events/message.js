@@ -6,8 +6,7 @@ const { Message, Client, MessageEmbed } = require('discord.js');
  */
 
 this.run = async (bot, message, map) => {
-    // const prefixa = await guilds.findOne({ Guild: message.guild.id });
-    // const prefix = prefixa.Prefix;
+
     const prefixes = [`<@!${bot.user.id}>`, `<@${bot.user.id}>`, '*']
     //in your case can only be var prefixes = ["<@453463055741747200>", "<@!453463055741747200>"]
 
@@ -17,7 +16,28 @@ this.run = async (bot, message, map) => {
     }
     const args = message.content.slice(prefix.length).trim().split(" ");
     const command = args.shift().toLowerCase();
-    if (message.author.bot || !message.guild || !message.content.startsWith(prefix)) return;
+
+    if (!message.content.startsWith(prefix)) {
+        if (!message.mentions.members) return;
+
+        let i = 0
+        message.mentions.members.forEach((_mention) => i++);
+
+        if (i !== 1) return;
+        if (!bot.afkmap) return;
+
+        bot.afkmap.forEach(thing => {
+
+            if (thing.includes(message.mentions.users.first().id)) {
+
+            message.reply(new MessageEmbed().setColor('RANDOM').setDescription(`One of the users you mentioned is afk for:\n\n${thing.split(':')[1]}`));
+
+        }})
+
+        return;
+    };
+
+    if (message.author.bot || !message.guild) return;
 
     const cmd = bot.commands.get(command) || bot.commands.find(c => c.aliases && c.aliases.includes(command))
 
