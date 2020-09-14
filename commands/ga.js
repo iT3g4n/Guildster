@@ -25,7 +25,7 @@ module.exports = {
         const prize = args.slice(1).join(" ")
         if (!prize) return message.channel.send("No prize was given. Aborting Command").then(msg => { msg.delete({ timeout: 5000 }) })
 
-        let msg = await message.channel.send("@everyone");
+        const msg = await message.channel.send("@everyone");
 
         const embed = new MessageEmbed()
             .setColor('RANDOM')
@@ -35,14 +35,13 @@ module.exports = {
             .setTimestamp(Date.now() + ms(args[0]));
 
         await msg.edit(embed);
-        await msg.edit("")
-        await msg.react("🎁")
-        await msg.edit("")
+        await msg.edit("");
+        await msg.react("🎁");
         setTimeout(() => {
             const thing = msg.reactions.cache.get("🎁")
             const winner = thing.users.cache.filter(u => !u.bot).random()
             if (!winner) return message.channel.send("Nobody won the giveaway. How sad.")
-            message.channel.send(`**CONGRATULATIONS** ${winner}**!** You won **${prize}**`)
+            message.channel.send(`**CONGRATULATIONS** ${winner}**!** You have won the \`${prize}\`!`);
         }, ms(args[0]));
     }
 }
