@@ -14,7 +14,7 @@ module.exports = {
      * @param {String[]} args
      */
     run: async(bot, message, args) => {
-        await newembed(message, this).then(async embed => {
+        await newembed(message, require('./botinfo.js')).then(async embed => {
             embed
                 .setTitle(`Bot Info`)
                 .addField(`Uptime`, `${ms(bot.uptime, { long: false })}`, true)
