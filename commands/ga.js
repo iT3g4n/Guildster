@@ -22,7 +22,7 @@ module.exports = {
         if (!args[0].endsWith("d") && !args[0].endsWith("h") && !args[0].endsWith("m") && !args[0].endsWith("s")) return message.channel.send("Please specify the amount of time before the giveaway ends.").then(msg => { msg.delete({ timeout: 6000 }) })
         if (isNaN(args[0][0])) return message.channel.send("That is not a number!").then(msg => { msg.delete({ timeout: 5000 }) })
 
-        let prize = args.slice(1).join(" ")
+        const prize = args.slice(1).join(" ")
         if (!prize) return message.channel.send("No prize was given. Aborting Command").then(msg => { msg.delete({ timeout: 5000 }) })
 
         let msg = await message.channel.send("@everyone");
@@ -30,7 +30,7 @@ module.exports = {
         const embed = new MessageEmbed()
             .setColor('RANDOM')
             .setTitle("🎁  GIVEAWAY TIME  🎁")
-            .setDescription(`Prize: ${prize}\nTime of the giveaway: ${args[0]}`)
+            .setDescription(`Prize: **${prize}**`)
             .setFooter(`Giveaway Started By: ${message.author.username}. ends`)
             .setTimestamp(Date.now() + ms(args[0]));
 
@@ -39,8 +39,8 @@ module.exports = {
         await msg.react("🎁")
         await msg.edit("")
         setTimeout(() => {
-            let thing = msg.reactions.cache.get("🎁")
-            let winner = thing.users.cache.filter(u => !u.bot).random()
+            const thing = msg.reactions.cache.get("🎁")
+            const winner = thing.users.cache.filter(u => !u.bot).random()
             if (!winner) return message.channel.send("Nobody won the giveaway. How sad.")
             message.channel.send(`**CONGRATULATIONS** ${winner}**!** You won **${prize}**`)
         }, ms(args[0]));

@@ -16,6 +16,10 @@ this.run = async (bot, message, map) => {
     }
     const args = message.content.slice(prefix.length).trim().split(" ");
     const command = args.shift().toLowerCase();
+    
+    if (message.author.bot || !message.guild) return;
+
+    if (bot.afkmap.includes(message.author.id)) bot.afkmap.find(message.author.id).replace('');
 
     if (!message.content.startsWith(prefix)) {
         if (!message.mentions.members) return;
@@ -36,8 +40,6 @@ this.run = async (bot, message, map) => {
 
         return;
     };
-
-    if (message.author.bot || !message.guild) return;
 
     const cmd = bot.commands.get(command) || bot.commands.find(c => c.aliases && c.aliases.includes(command))
 
