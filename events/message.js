@@ -16,12 +16,18 @@ this.run = async (bot, message, map) => {
     }
     const args = message.content.slice(prefix.length).trim().split(" ");
     const command = args.shift().toLowerCase();
-    
+
     if (message.author.bot || !message.guild) return;
 
-    if (bot.afkmap.includes(message.author.id)) bot.afkmap.find(message.author.id).replace(''), message.channel.send(new MessageEmbed().setColor('RANDOM').setDescription(`Welcome Back ${message.author}! I have removed your AFK!`)), message.member.setNickname(message.author.username);
+    if (bot.afkmap) {
+        bot.afkmap.forEach(item => {
+            item.split(':')[0].replace(message.author.id, '')
+            message.channel.send(new MessageEmbed().setColor('RANDOM').setDescription(`Welcome Back ${message.author}! I have removed your AFK!`)), message.member.setNickname(message.author.username);
+        })
+    }
 
     if (!message.content.startsWith(prefix)) {
+        if (bot.afkmap.includes(message.author.id)) return;
         if (!message.mentions.members) return;
 
         let i = 0
@@ -34,9 +40,10 @@ this.run = async (bot, message, map) => {
 
             if (thing.includes(message.mentions.users.first().id)) {
 
-            message.reply(new MessageEmbed().setColor('RANDOM').setDescription(`One of the users you mentioned is afk for:\n\n${thing.split(':')[1]}`));
+                message.reply(new MessageEmbed().setColor('RANDOM').setDescription(`One of the users you mentioned is afk for:\n\n${thing.split(':')[1]}`));
 
-        }})
+            }
+        })
 
         return;
     };

@@ -1,6 +1,5 @@
 const { bot } = require('../Client');
 const { Message, Collection } = require('discord.js');
-bot.afkmap = [];
 
 module.exports = {
     name: 'AFK',

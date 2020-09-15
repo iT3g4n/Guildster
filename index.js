@@ -10,6 +10,8 @@ async () => {
   console.log('MongoDB Ready!')
 }
 
+bot.afkmap = []
+
 const Enmap = require(`enmap`);
 
 require("dotenv").config();
