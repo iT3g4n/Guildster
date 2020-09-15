@@ -10,7 +10,7 @@ this.run = async (member) => {
     try {
         const dm = await member.send(new discord.MessageEmbed().setColor('RANDOM').setDescription('Welcome to this server! Please type in the message on the picture to verify!'));
         await member.send(d.captcha)
-        const collector = dm.channel.createMessageCollector((x) => x);
+        const collector = dm.channel.createMessageCollector((x) => x.author.id == message.author.id);
         i = 0
         collector.on('collect', message => {
             if (message.content.toLowerCase() !== d.captcha_text.toLowerCase()) {
