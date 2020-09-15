@@ -7,6 +7,10 @@ const { Message, Client, MessageEmbed } = require('discord.js');
 
 this.run = async (bot, message, map) => {
 
+    if (message.author.bot) return;
+
+    if (message.channel.id === '716239917751206048') message.delete();
+
     const prefixes = [`<@!${bot.user.id}>`, `<@${bot.user.id}>`, '*']
     //in your case can only be var prefixes = ["<@453463055741747200>", "<@!453463055741747200>"]
 
@@ -72,4 +76,4 @@ this.run = async (bot, message, map) => {
     setTimeout(() => {
         map.delete(message.author.id);
     }, 1000 * 5);
-}
+};

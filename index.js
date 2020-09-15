@@ -39,11 +39,16 @@ bot.on("messageReactionAdd", (reaction, user) => {
 });
 
 bot.on('guildCreate', async guild => {
-  require(`./events/guildCreate`).run(bot, guild)
+  require(`./events/guildCreate`).run(bot, guild);
 })
 
 bot.on('guildDelete', async guild => {
-  require(`./events/guildRemove`).run(bot, guild)
+  require(`./events/guildRemove`).run(bot, guild);
+})
+
+bot.on('guildMemberAdd', member => {
+  if (!member.guild.id === '714809218024079430') return;
+  require('./events/guildMemberAdd').run(member);
 })
 
 bot.login(process.env.TOKEN);
