@@ -1,6 +1,7 @@
-const { Message } = require("discord.js");
+const { Message, MessageEmbed } = require("discord.js");
 const { bot } = require('../Client');
 const mongo = require('../mongo');
+const guilds = require('../schemas/guildSchema')
 
 module.exports = {
     name: 'Unmute',
@@ -28,12 +29,8 @@ module.exports = {
             .addField(`Moderator`, `<@${message.author.id}>`, true)
             .setColor(`GREY`)
 
-        await mongo().then(async mongoose => {
-
             const result = await guilds.findOne({ _id: message.guild.id })
             if (!result) return;
             bot.channels.cache.get(result.Logs).send(embed)
-
-        })
     },
 }

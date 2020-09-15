@@ -32,8 +32,6 @@ this.run = async(asdfasdf, message, args) => {
     setTimeout(() => {
         user.roles.remove(muterole)
     }, time)
-
-    await mongo().then(async mongoose => {
         const channel = await guildSchema.findOne({ _id: message.guild.id })
         if (!channel.Logs) return;
         const sendchannel = channel.Logs
@@ -47,5 +45,4 @@ this.run = async(asdfasdf, message, args) => {
             .addField(`Reason`, `${reason}`, true)
             .setColor(`GREY`);
         bot.channels.cache.get(sendchannel).send(embed)
-    })
 }
