@@ -23,9 +23,7 @@ module.exports = {
 
         const msg = await message.channel.send(`Setting log channel to ${channel}...`)
 
-        await mongo().then(async mongoose => {
-
-            try {
+        
                 await guild.findOneAndUpdate({
                     _id: message.guild.id
                 }, {
@@ -33,12 +31,6 @@ module.exports = {
                 }, { upsert: true })
 
                 msg.edit(`Succesfully set the log channel to ${channel}`)
-
-            } finally {
-                mongoose.connection.close()
-            }
-
-        })
 
     }
 };

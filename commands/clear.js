@@ -13,7 +13,7 @@ module.exports = {
      * @param {String[]} args 
      */
     async run(bot, message, args) {
-        if (!message.member.hasPermission(`MANAGE_MESSAGES`)) return message.reply(`no`);
+        if (!message.member.hasPermission(`MANAGE_MESSAGES`)) return message.reply(bot.embed.setDescription(`You do not have enough permissions!, ${message.author}`));
         const mention = message.mentions.users.first();
         const uid = message.guild.members.cache.get(args[0]);
         if (!mention && !uid) return message.channel.send(`You did not mention anyone.`);

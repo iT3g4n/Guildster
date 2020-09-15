@@ -37,29 +37,23 @@ module.exports = {
 
         let msg = await message.channel.send(`Getting warnings for ${mt}...`)
 
-        await mongo().then(async mongoose => {
-            
-            try {
-                const results = await warns.findOne({
-                    User: mi,
-                    Guild: message.guild.id
-                })
 
-                let i = 1;
-
-                if (!results) return msg.edit(`${mt} has no warnings`);
-
-                for (const warning of results.Warns) {
-                    embed.addField(`Warning ${i++}`, `Moderator: <@${warning.Moderator}>\nReason: ${warning.Reason}`, true)
-                }
-
-                await msg.edit(embed)
-                msg.edit("")
-
-            } finally {
-                mongoose.connection.close()
-            }
+        const results = await warns.findOne({
+            User: mi,
+            Guild: message.guild.id
         })
 
+        let i = 1;
+
+        if (!results) return msg.edit(`${mt} has no warnings`);
+
+        for (const warning of results.Warns) {
+            embed.addField(`Warning ${i++}`, `Moderator: <@${warning.Moderator}>\nReason: ${warning.Reason}`, true)
+        }
+
+        await msg.edit(embed)
+        msg.edit("")
     }
+
+
 }

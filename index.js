@@ -3,6 +3,13 @@ const Client = require(`./Client`)
 const discord = require("discord.js");
 const bot = Client.bot;
 
+const mongo = require("./mongo");
+
+async () => {
+  await mongo()
+  console.log('MongoDB Ready!')
+}
+
 const Enmap = require(`enmap`);
 
 require("dotenv").config();

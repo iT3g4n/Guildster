@@ -39,7 +39,7 @@ module.exports = {
         let msg = await message.channel.send(`Warning ${mt}...`);
 
         await mongo().then(async mongoose => {
-            
+
             try {
 
                 await warns.findOneAndUpdate({
@@ -76,20 +76,8 @@ module.exports = {
             .addField(`Reason`, `${reason}`, true)
             .setColor(`YELLOW`)
 
-        await mongo().then(async mongoose => {
-
-            try {
-                const result = await guilds.findOne({ _id: message.guild.id })
-                if (!result) return;
-                bot.channels.cache.get(result.Logs).send(embed)
-            } finally {
-                mongoose.connection.close()
-            }
-            
-
-        })
-
-
-
+        const result = await guilds.findOne({ _id: message.guild.id })
+        if (!result) return;
+        bot.channels.cache.get(result.Logs).send(embed)
     }
 }

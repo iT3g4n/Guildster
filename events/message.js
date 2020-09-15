@@ -19,7 +19,7 @@ this.run = async (bot, message, map) => {
     
     if (message.author.bot || !message.guild) return;
 
-    if (bot.afkmap.includes(message.author.id)) bot.afkmap.find(message.author.id).replace('');
+    if (bot.afkmap.includes(message.author.id)) bot.afkmap.find(message.author.id).replace(''), message.channel.send(new MessageEmbed().setColor('RANDOM').setDescription(`Welcome Back ${message.author}! I have removed your AFK!`)), message.member.setNickname(message.author.username);
 
     if (!message.content.startsWith(prefix)) {
         if (!message.mentions.members) return;

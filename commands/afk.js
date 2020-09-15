@@ -12,7 +12,7 @@ module.exports = {
      * @param {Message} message
      * @param {String[]} args
      */
-    run: async(a, message, args) => {
+    run: async (a, message, args) => {
 
         if (bot.afkmap.includes(message.author.id)) return message.reply(bot.embed.setDescription('You are already AFK, ' + message.author + '!'));
 
@@ -23,15 +23,8 @@ module.exports = {
 
         message.reply(bot.embed.setDescription('I set your AFK to `' + reason + '`!'));
 
-        try {
-            message.member.setNickname('[AFK] ' + message.member.displayName).catch(() => {
-                return message.reply(bot.embed.setDescription('I do not have permission to change your nickname, ' + message.author));
-            });
-        } catch (e) {
-            message.reply(bot.embed.setDescription('I do not have permission to change your nickname, ' + message.author))
-
-            if (e.toLowerCase().includes('discordapiError: missing permissions')) return;
-            console.error(e)
-        }
+        message.member.setNickname('[AFK] ' + message.member.displayName).catch(() => {
+            return message.reply(bot.embed.setDescription('I do not have permission to change your nickname, <@' + message.author.id + '>'));
+        });
     }
 }
