@@ -11,19 +11,19 @@ module.exports = {
      * @param {Message} message
      * @param {String[]} args
      */
-    run: async (a, message, args) => {
+    // run: async (a, message, args) => {
 
-        if (bot.afkmap.includes(message.author.id)) return message.reply(bot.embed.setDescription('You are already AFK, ' + message.author + '!'));
+    //     if (bot.afkmap.includes(message.author.id)) return message.reply(bot.embed.setDescription('You are already AFK, ' + message.author + '!'));
 
-        let reason = args.join(' ');
-        if (!reason) reason = 'No Reason Specified';
+    //     let reason = args.join(' ');
+    //     if (!reason) reason = 'No Reason Specified';
 
-        bot.afkmap.push(`${message.author.id}:${reason}`)
+    //     bot.afkmap.push(`${message.author.id}:${reason}`)
 
-        message.reply(bot.embed.setDescription('I set your AFK to `' + reason + '`!'));
+    //     message.reply(bot.embed.setDescription('I set your AFK to `' + reason + '`!'));
 
-        message.member.setNickname('[AFK] ' + message.member.displayName).catch(() => {
-            return message.reply(bot.embed.setDescription('I do not have permission to change your nickname, <@' + message.author.id + '>'));
-        });
-    }
+    //     message.member.setNickname('[AFK] ' + message.member.displayName).catch(() => {
+    //         return message.reply(bot.embed.setDescription('I do not have permission to change your nickname, <@' + message.author.id + '>'));
+    //     });
+    // }
 }
