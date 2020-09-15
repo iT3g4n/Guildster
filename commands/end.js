@@ -12,6 +12,9 @@ module.exports = {
      * @param {String[]} args
      */
     run: async(a, message, args) => {
+
+        message.delete()
+
         const msg = message.channel.messages.fetch(args[0], true, false);
         if (!msg) return message.reply(bot.embed.setDescription(`You did not specify any message, ${message.author}`));
 
