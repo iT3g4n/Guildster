@@ -21,7 +21,8 @@ this.run = async (bot, message, map) => {
 
     if (bot.afkmap) {
         bot.afkmap.forEach(item => {
-            item.split(':')[0].replace(message.author.id, '')
+            if (!item.includes(message.author.id)) return;
+            item.replace(message.author.id, '')
             message.channel.send(new MessageEmbed().setColor('RANDOM').setDescription(`Welcome Back ${message.author}! I have removed your AFK!`)), message.member.setNickname(message.author.username);
         })
     }
