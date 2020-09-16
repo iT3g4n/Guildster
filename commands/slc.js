@@ -21,16 +21,16 @@ module.exports = {
         if (!channel) return message.channel.send(`Please mention a channel.`)
         if (!channel.type == TextChannel) return message.reply(`That is a Voice Channel. Please select a Text Channel`)
 
-        const msg = await message.channel.send(`Setting log channel to ${channel}...`)
+        let msg = await message.channel.send(`Setting log channel to ${channel}...`)
 
-        
-                await guild.findOneAndUpdate({
-                    _id: message.guild.id
-                }, {
-                    Logs: channel.id,
-                }, { upsert: true })
 
-                msg.edit(`Succesfully set the log channel to ${channel}`)
+        await guild.findOneAndUpdate({
+            _id: message.guild.id
+        }, {
+            Logs: channel.id,
+        }, { upsert: true })
+
+        msg.edit(`Succesfully set the log channel to ${channel}`)
 
     }
 };
