@@ -11,6 +11,11 @@ this.run = async (member) => {
         const dm = await member.send(new discord.MessageEmbed().setColor('RANDOM').setDescription('Welcome to this server! Please type in the message on the picture to verify!'));
         await member.send(d.captcha)
         const collector = dm.channel.createMessageCollector((x) => x.author.id == member.id);
+
+        setTimeout(() => {
+            collector.stop('too long');
+        }, 1000 * 60 * 2);
+
         i = 0
         collector.on('collect', message => {
             if (message.content.toLowerCase() !== d.captcha_text.toLowerCase()) {
@@ -27,6 +32,8 @@ this.run = async (member) => {
                 member.roles.add(member.guild.roles.cache.find(r => r.name.toLowerCase() === 'member'));
                 member.send(new discord.MessageEmbed().setColor('RANDOM').setDescription('Success! You now have full access to the server!'));
                 return;
+            } else if (reason == 'too long') {
+                member.send(`I'm sorry but you have taken too long! Please do the verify command again!`);
             }
         })
     } catch (err) {
