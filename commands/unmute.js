@@ -21,7 +21,7 @@ module.exports = {
 
         mention.roles.remove(mention.roles.cache.find(r => r.name === 'Muted'));
 
-        message.reply(bot.embed.setDescription('Succesfully unmuted ' + mention + '!'));
+        message.reply(bot.embed.setDescription(`'Succesfully unmuted <@${mention.id}>!`));
 
         const embed = new MessageEmbed()
             .setTitle(`User Unmuted`)

@@ -16,31 +16,38 @@ this.description = 'Mutes the mentioned person!'
 this.run = async(asdfasdf, message, args) => {
     if (!message.member.hasPermission('MANAGE_ROLES')) return message.reply(bot.embed.setDescription('You do not have enough permissions, ' + message.author)).then(m => m.delete({ timeout: 5000 }));
 
-    const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-    if (!user) return message.channel.send(bot.embed.setDescription('You didn\'t mention anyone!'));
+    const mention = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
+    if (!mention) return message.channel.send(bot.embed.setDescription('You didn\'t mention anyone!'));
 
     const muterole = message.guild.roles.cache.find(r => r.name === 'Muted')
     if (!muterole) return message.channel.send(bot.embed.setDescription(`This server does not have a \'Muted\' role! Please create a role with the exact name \`Muted\`.`)).then(m => m.delete({ timeout: 20000}));
 
     const time = ms(args[1])
     if (!time) return message.reply(bot.embed.setDescription(`You did not specify a time!`));
+    if (!isNaN(args[0][0])) return message.reply(bot.embed.setDescription('That is not a time.'));
 
     let reason = args.slice(1).join(' ');
 
-    user.roles.add(muterole)
+    mention.roles.add(muterole)
 
+    if (!reason) reason = 'No Reason Specified';
+
+
+    message.reply(bot.embed.setDescription(`Successfully Muted <@${mention.id}>`));
+
+    
     setTimeout(() => {
-        user.roles.remove(muterole)
+        mention.roles.remove(muterole)
     }, time)
         const channel = await guildSchema.findOne({ _id: message.guild.id })
         if (!channel.Logs) return;
         const sendchannel = channel.Logs
 
-        if (!reason) reason = 'No Reason Specified';
+        
 
         const embed = new MessageEmbed()
             .setTitle(`User Muted`)
-            .addField(`User`, user, true)
+            .addField(`User`, mention, true)
             .addField(`Moderator`, `<@${message.author.id}>`, true)
             .addField(`Reason`, `${reason}`, true)
             .setColor(`GREY`);

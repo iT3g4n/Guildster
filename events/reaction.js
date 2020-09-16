@@ -1,79 +1,82 @@
 const discord = require(`discord.js`);
-const mongo = require("../mongo");
-const guildSchema = require("../schemas/guildSchema");
 const db = new Map()
 
 module.exports = {
-    db,
     /**
      * @param {discord.MessageReaction} reaction 
      * @param {discord.User} user 
      */
-    async run(reaction, user) {
+
+    run: async(reaction, user) => {
 
         if (user.bot) return;
 
-        await mongo().then(async mongoose => {
-            try {
+        if (reaction.emoji.name == "🎫") {
 
-                const result = await guildSchema.findOne({ _id: reaction.message.guild.id })
-                if (!result) return;
-                
-                if (reaction.message.channel.id == result.Tickets && reaction.emoji.name == "🎫") {
+            if (user.bot) return;
 
-                    if (user.bot) return;
+            if (db.has(`TICKET: ${user.id}`)) return reaction.message.channel.send(`Sorry <@${user.id}>. You already have a ticket open! Please wait for the time to be over.`).then(m => m.delete({ timeout: 5000 })), reaction.users.remove(user);
 
-                    if (db.has(`TICKET: ${user.id}`)) return reaction.message.channel.send(`Sorry <@${user.id}>. You already have a ticket open! Please wait for the time to be over.`).then(m => m.delete({ timeout: 5000 }))
+            console.log('test')
 
-                    reaction.users.remove(user)
+            const embed = new discord.MessageEmbed()
+                .setTitle("Create a Ticket  🎫")
+                .setDescription(`What is your suggestion <@${user.id}>?`)
+                .setColor('RANDOM');
 
-                    try {
-                        await reaction.fetch();
-                    } catch (error) {
-                        console.log(error);
-                        return;
-                    }
+            let m = await reaction.message.guild.channels.create(`${user.id}-ticket`, {
+                type: "text", parent: reaction.message.channel.parentID,
+                permissionOverwrites: [
+                    {
+                        id: user.id,
+                        allow: ["VIEW_CHANNEL"],
+                    },
 
-                    const embed = new discord.MessageEmbed()
-                        .setTitle("Create a Ticket  🎫")
-                        .setDescription(`What is your suggestion <@${user.id}>?\n\nPlease start your message with *ticket`)
-                        .setColor('RANDOM');
+                    {
+                        id: reaction.message.guild.roles.everyone.id,
+                        deny: ["VIEW_CHANNEL"],
+                    },
+                ],
+            });
 
-                    let m = await reaction.message.guild.channels.create(`${user.id}-ticket`, {
-                        type: "text", parent: reaction.message.channel.parentID,
-                        permissionOverwrites: [
-                            {
-                                id: user.id,
-                                allow: ["VIEW_CHANNEL"],
-                            },
+            let msg = await m.send(`<@${user.id}>`);
+            await msg.edit(embed);
+            db.set(`TICKET: ${user.id}`);
 
-                            {
-                                id: reaction.message.guild.roles.everyone.id,
-                                deny: ["VIEW_CHANNEL"],
-                            },
-                        ]
-                    });
+            const { message } = reaction
 
-                    let msg = await m.send(`<@${user.id}>`);
-                    await msg.edit(embed);
-                    db.set(`TICKET: ${user.id}`)
-                    // const filter = (message) => 
-                    // m.awaitMessages(filter, { time: 1000 * 60 * 5 })
+            await reaction.fetch();
 
-                    setTimeout(() => {
+            const collector = m.createMessageCollector((x) => x.author.id == message.author.id);
 
-                        db.delete(`TICKET: ${user.id}`)
+            collector.on('collect', async message => {
 
-                        if (!m.deletable) return;
+                console.log(message.content)
 
-                        m.delete();
-                    }, 300000);
-                }
-            } finally {
-                mongoose.connection.close()
-            }
+                const ticketembed = new MessageEmbed()
+                    .setDescription(`**Suggestion by <@${message.author.id}>**\n\n**Suggestion**\n${msgArgs}`)
+                    .setColor('RANDOM');
+                const ticketid = "739480654109999185";
 
-        })
+                let m = await bot.channels.cache.get(reaction.message.channel.id).send(ticketembed);
+                await m.react("⬆️")
+                m.react("⬇️")
+
+                message.channel.delete().catch(err => console.error(err));
+                db.delete(`TICKET: ${message.author.id}`)
+                collector.stop('ticket complete');
+            })
+
+            setTimeout(() => {
+
+                db.delete(`TICKET: ${user.id}`)
+
+                if (!m.deletable) return;
+
+                m.delete();
+            }, 300000);
+
+        }
 
 
     }
