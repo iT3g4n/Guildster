@@ -1,5 +1,5 @@
 const { Message, MessageEmbed } = require("discord.js")
-const { bot } = require('../Client')
+const { bot } = require('../Bot')
 const mongo = require("../mongo")
 const guildSchema = require("../schemas/guildSchema")
 const ms = require('ms')

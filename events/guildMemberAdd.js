@@ -1,5 +1,5 @@
 const { GuildMember } = require('discord.js');
-const { bot } = require('../Client');
+const { bot } = require('../Bot');
 const fetch = require('node-fetch')
 const discord = require('discord.js');
 /**

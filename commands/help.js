@@ -1,5 +1,4 @@
 const { Client, Message } = require("discord.js");
-const { owners } = require("../Client");
 
 module.exports = {
   name: 'Help',
@@ -34,7 +33,7 @@ module.exports = {
           msg.react('🤬').then(() => {
             msg.react('🎫').then(() => {
               msg.react('🌎').then(() => {
-                if (!owners.includes(message.author.id)) return;
+                if (!bot.owners.includes(message.author.id)) return;
                 msg.react('716330113670578257')
               });
             });

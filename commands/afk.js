@@ -1,4 +1,4 @@
-const { bot } = require('../Client');
+const bot = require('../Bot');
 const { Message, Collection } = require('discord.js');
 
 module.exports = {

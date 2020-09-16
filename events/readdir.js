@@ -1,7 +1,5 @@
-const { bot } = require(`../Client`);
 const { MessageEmbed } = require("discord.js");
-
-bot.commandlength = 0;
+let i = 0;
 bot.helpEmbed = new MessageEmbed().setColor('RANDOM')
 
 this.fun = []
@@ -10,7 +8,7 @@ this.hitting = []
 this.tickets = []
 this.owner = []
 
-this.run = async (a, err, files) => {
+this.run = async (bot, err, files) => {
     if (err) return console.error(err);
     files.forEach(file => {
         if (!file.endsWith(".js")) return;
@@ -44,6 +42,6 @@ this.run = async (a, err, files) => {
         if (!props.catagory) console.error(commandName + ' has no catagory');
         
         bot.helpEmbed.addField(embedname, props.description);
-        bot.commandlength++
+        i++
     });
 };

@@ -1,12 +1,11 @@
 const { Message, Client, MessageEmbed } = require('discord.js');
-const { bot } = require('../Client');
 /**
  * @param {Client} bot 
  * @param {Message} message 
  * @param {Map} map 
  */
 
-this.run = async (a, message, map) => {
+this.run = async (bot, message, map) => {
 
     if (message.author.bot) return;
 

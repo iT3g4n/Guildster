@@ -1,4 +1,3 @@
-const { bot } = require('../Client')
 const { Message } = require('discord.js')
 
 this.name = 'Join'

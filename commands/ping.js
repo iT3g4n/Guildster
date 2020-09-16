@@ -1,5 +1,4 @@
-const { MessageEmbed } = require("discord.js")
-const { bot } = require('../Client');
+const { MessageEmbed } = require("discord.js");
 
 module.exports = {
     name: 'ping',
@@ -7,7 +6,7 @@ module.exports = {
     catagory: 'fun',
     usage: '[command]',
     description: "Check your ping to the bot!",
-    async run(a, message, args) {
+    async run(bot, message, args) {
 
         const emoji = bot.emoji
 

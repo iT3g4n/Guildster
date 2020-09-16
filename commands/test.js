@@ -1,5 +1,5 @@
 const { Client, Message } = require("discord.js");
-const { bot, owners } = require('../Client');
+const { bot, owners } = require('../Bot');
 
 module.exports = {
     name: 'Test',
