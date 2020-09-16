@@ -13,6 +13,6 @@ module.exports = {
      */
     run: async(a, message, args) => {
         if (!owners.includes(message.author.id)) return;
-        message.client.emit('guildMemberAdd', message.member);
+        message.channel.send(bot.senderror('test'))
     }
 }

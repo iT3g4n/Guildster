@@ -5,10 +5,7 @@ const bot = Client.bot;
 
 const mongo = require("./mongo");
 
-async () => {
-  await mongo();
-  console.log('MongoDB Ready!');
-};
+mongo().then(() => console.log('MongoDB Ready!'));
 
 bot.afkmap = []
 

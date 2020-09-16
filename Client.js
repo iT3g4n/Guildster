@@ -7,3 +7,4 @@ this.owners = [
 ];
 
 this.bot.e = new discord.MessageEmbed().setColor('RANDOM').setDescription
+this.bot.senderror = new discord.MessageEmbed().setColor('RED').setFooter('An error occurred.').setDescription
