@@ -9,7 +9,7 @@ module.exports = {
     description: "Check your ping to the bot!",
     async run(a, message, args) {
 
-        const emoji = bot.guilds.cache.get('714809218024079430').emojis.cache.find(e => e.name.toLowerCase() === 'loading')
+        const emoji = bot.emoji
 
         message.delete({ timeout: 0 })
         let msg = await message.channel.send(`${emoji} Pinging...`)
