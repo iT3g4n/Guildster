@@ -1,17 +1,16 @@
 const { Message } = require("discord.js");
-const bot = require('../Bot');
 
 module.exports = {
     name: 'End',
     description: 'Ends the giveaway when you provide a messageID',
-    aliases: [],
+    aliases: ['reroll', 'again', 'newwinner'],
     catagory: 'fun',
-    usage: '[command] [messageid]',
+    usage: '[command] [messag,eid]',
     /**
      * @param {Message} message
      * @param {String[]} args
      */
-    run: async(a, message, args) => {
+    run: async(bot, message, args) => {
 
         message.delete()
 

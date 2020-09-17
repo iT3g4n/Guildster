@@ -1,4 +1,5 @@
 const { Client, Message } = require("discord.js");
+const { bot } = require('../index');
 
 module.exports = {
     name: 'Verify',

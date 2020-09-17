@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = {
-    name: 'ping',
+    name: 'Ping',
     aliases: ['p', 'pong'],
     catagory: 'fun',
     usage: '[command]',

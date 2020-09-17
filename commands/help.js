@@ -1,4 +1,5 @@
 const { Client, Message } = require("discord.js");
+const { bot } = require('../index');
 
 module.exports = {
   name: 'Help',
@@ -7,11 +8,10 @@ module.exports = {
   description: "This displays a list of all commands!",
   usage: '[command] [optional command]',
   /**
-   * @param {Client} bot 
    * @param {Message} message 
    * @param {String[]} args 
    */
-  run: async (bot, message, args) => {
+  run: async (baot, message, args) => {
 
     if (!args[0]) {
 
@@ -42,21 +42,21 @@ module.exports = {
       });
 
       bot.on('messageReactionAdd', async (reaction, user) => {
-        if (reaction.emoji.name === '😃' && user.id === message.author.id) reaction.users.remove(user.id) + msg.edit(bot.embed.setTitle('Catagory: Fun').setDescription(require('../events/readdir').fun.join('\n\n')));
-        if (reaction.emoji.name === '🤖' && user.id === message.author.id) reaction.users.remove(user.id) + msg.edit(bot.embed.setTitle('Catagory: Moderation').setDescription(require('../events/readdir').moderation.join('\n\n')));
-        if (reaction.emoji.name === '🤬' && user.id === message.author.id) reaction.users.remove(user.id) + msg.edit(bot.embed.setTitle('Catagory: Hitting').setDescription(require('../events/readdir').hitting.join('\n\n')));
-        if (reaction.emoji.name === '🎫' && user.id === message.author.id) reaction.users.remove(user.id) + msg.edit(bot.embed.setTitle('Catagory: Tickets').setDescription(require('../events/readdir').tickets.join('\n\n')));
+        if (reaction.emoji.name === '😃' && user.id === message.author.id) reaction.users.remove(user.id) + msg.edit(bot.embed.setTitle('Catagory: Fun').setDescription(bot.fun.join('\n\n')));
+        if (reaction.emoji.name === '🤖' && user.id === message.author.id) reaction.users.remove(user.id) + msg.edit(bot.embed.setTitle('Catagory: Moderation').setDescription(bot.moderation.join('\n\n')));
+        if (reaction.emoji.name === '🤬' && user.id === message.author.id) reaction.users.remove(user.id) + msg.edit(bot.embed.setTitle('Catagory: Hitting').setDescription(bot.hitting.join('\n\n')));
+        if (reaction.emoji.name === '🎫' && user.id === message.author.id) reaction.users.remove(user.id) + msg.edit(bot.embed.setTitle('Catagory: Tickets').setDescription(bot.tickets.join('\n\n')));
         if (reaction.emoji.name === '🌎' && user.id === message.author.id) {
           try {
-            reaction.users.remove(user.id);
+            reaction.users.remove(user);
             user.send(bot.helpEmbed.setTitle('Catagory: All'));
             msg.edit(bot.embed.setDescription(`I have sent you a DM, ${message.author}!`))
           } catch (err) {
             msg.edit(bot.embed.setDescription(`Please open your DM's first, ${message.author}! The commands list is ${bot.commandlength} commands long.`))
           }
         }
-        if (reaction.emoji.id === '716330113670578257' && message.author.id === user.id) reaction.users.remove(user.id) + msg.edit(bot.embed.setTitle(`Catagory: Owner`).setDescription(require('../events/readdir').owner.join('\n\n')));
-        if (reaction.emoji.id === '754519671897587833' && message.author.id === user.id) reaction.users.remove(user.id) + msg.edit(bot.embed.setTitle(`Catagory: Owner`).setDescription(require('../events/readdir').owner.join('\n\n')));
+        if (reaction.emoji.id === '716330113670578257' && message.author.id === user.id) reaction.users.remove(user.id) + msg.edit(bot.embed.setTitle(`Catagory: Owner`).setDescription(bot.owner.join('\n\n')));
+        if (reaction.emoji.id === '754519671897587833' && message.author.id === user.id) reaction.users.remove(user.id) + msg.edit(bot.embed.setTitle(`Catagory: Owner`).setDescription(bot.owner.join('\n\n')));
         return;
       })
     }

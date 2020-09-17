@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { Client, Collection } = require(`discord.js`);
+const { Client, Collection, MessageEmbed } = require(`discord.js`);
 const discord = require('discord.js')
 class BotClient extends Client {
     constructor() {
@@ -7,8 +7,18 @@ class BotClient extends Client {
         this.owners = ['381024325974622209', '589390599740719105'];
         this.fs = require('fs');
         this.path = require('path');
+        this.discord = require('discord.js');
+        this.afkmap = []
+        this.fun = []
+        this.moderation = []
+        this.hitting = []
+        this.tickets = []
+        this.owner = []
+        this.commandlength = 0
+        this.helpEmbed = new discord.MessageEmbed()
         this.commands = new Collection();
-        this.senderror = new discord.MessageEmbed().setColor('RED').setFooter('AN ERROR HAS OCCURED');
+        this.embed = new MessageEmbed().setColor('RANDOM')
+        this.error = new MessageEmbed().setColor('RED').setFooter('AN ERROR HAS OCCURED').setDescription;
     }
     commandHandler(path) {
         this.fs.readdirSync(this.path.join(__dirname, '.', path)).map((f) => {
@@ -20,8 +30,9 @@ class BotClient extends Client {
     start(path) {
         this.commandHandler(path);
         this.login(process.env.TOKEN);
-        this.once('ready', async() => {
+        this.once('ready', async () => {
             require('./events/ready').run(this);
+            this.emoji = this.guilds.cache.get('714809218024079430').emojis.cache.find(e => e.name.toLowerCase() === 'loading')
         });
         let map = new Map()
         this.on('message', message => {

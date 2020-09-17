@@ -64,7 +64,6 @@ this.run = async (bot, message, map) => {
     };
 
     try {
-        bot.emoji = bot.guilds.cache.get('714809218024079430').emojis.cache.find(e => e.name.toLowerCase() === 'loading')
         bot.embed = new MessageEmbed().setFooter(`|   ${cmd.name} Command`, message.author.avatarURL({ dynamic: true, format: 'png' })).setColor('RANDOM').setTimestamp(Date.now())
         cmd.run(bot, message, args);
         console.log(`${command} command used`);

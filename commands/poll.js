@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = {
-    name: 'poll',
+    name: 'Poll',
     aliases: [],
     catagory: 'fun',
     usage: '[command] [poll message]',

@@ -1,5 +1,5 @@
-const { Client, Message } = require("discord.js");
-const { bot, owners } = require('../Bot');
+const { Message, Client } = require("discord.js");
+const { bot } = require('../index')
 
 module.exports = {
     name: 'Test',
@@ -12,7 +12,8 @@ module.exports = {
      * @param {String[0]} args
      */
     run: async(a, message, args) => {
-        if (!owners.includes(message.author.id)) return;
-        message.channel.send(bot.senderror('test'))
+        if (!bot.owners.includes(message.author.id)) return;
+        const msg = await message.channel.send('a')
+        msg.edit(bot.emoji)
     }
 }
