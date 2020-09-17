@@ -1,5 +1,7 @@
 const discord = require(`discord.js`);
 const db = new Map()
+const guildSchema = require('../schemas/guildSchema');
+const MessageEmbed = require('discord.js').MessageEmbed
 
 module.exports = {
     /**
@@ -8,10 +10,13 @@ module.exports = {
      */
 
     run: async(reaction, user) => {
+        const { message } = reaction
 
         if (user.bot) return;
 
-        if (reaction.emoji.name == "🎫") {
+        const result = await guildSchema.findOne({ _id: message.guild.id });
+
+        if (reaction.emoji.name == "🎫" && message.channel.id === result.Tickets) {
 
             if (user.bot) return;
 
