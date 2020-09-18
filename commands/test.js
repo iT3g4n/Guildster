@@ -1,4 +1,5 @@
 const { Message, Client } = require("discord.js");
+const reaction = require("../events/reaction");
 const { bot } = require('../index')
 
 module.exports = {
@@ -13,7 +14,6 @@ module.exports = {
      */
     run: async(a, message, args) => {
         if (!bot.owners.includes(message.author.id)) return;
-        const msg = await message.channel.send('a')
-        msg.edit(bot.emoji)
+        bot.emit('guildCreate', message.guild);
     }
-}
+}   

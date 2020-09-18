@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { Client, Collection, MessageEmbed } = require(`discord.js`);
+const{ Client, Collection, MessageEmbed } = require(`discord.js`);
 const discord = require('discord.js')
 class BotClient extends Client {
     constructor() {
@@ -42,16 +42,21 @@ class BotClient extends Client {
             require(`./events/reaction`).run(reaction, user);
         });
         this.on('guildCreate', async guild => {
-            require(`./events/guildCreate`).run(bot, guild);
+            require(`./events/guildCreate`).run(this, guild);
         });
         this.on('guildDelete', async guild => {
-            require(`./events/guildRemove`).run(bot, guild);
+            require(`./events/guildRemove`).run(this, guild);
         });
         this.on('guildMemberAdd', member => {
             if (!member.guild.id === '714809218024079430') return;
             require('./events/guildMemberAdd').run(member);
         });
+        this.on('error', err => {
+            
+            if (err.name.toLowerCase() == 'unhandledpromiserejectionWarning: discordapierror: unknown message') return;
+            throw new error(err)
+        })
     };
-}
+};
 
 module.exports = BotClient;
