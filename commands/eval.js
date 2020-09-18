@@ -1,7 +1,7 @@
 const newembed = require("../newembed");
 const { Message, Client } = require(`discord.js`)
 const { inspect } = require(`util`);
-const { owners } = require("../Bot");
+const { owners } = require("../index").bot;
 
 module.exports = {
     name: 'Eval',
