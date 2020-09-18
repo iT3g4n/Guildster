@@ -1,12 +1,14 @@
 const { Message, Client, MessageEmbed } = require('discord.js');
+const { bot } = require('../index');
 /**
  * @param {Client} bot 
  * @param {Message} message 
  * @param {Map} map 
  */
 
-this.run = async (bot, message, map) => {
+this.run = async (a, message, map) => {
 
+    if (message.author.bot && message.channel.id === '716239917751206048' && message.author.id !== '730440454835011674') message.delete()
     if (message.author.bot) return;
 
     if (message.channel.id === '716239917751206048') message.delete();
@@ -57,22 +59,25 @@ this.run = async (bot, message, map) => {
 
     if (!cmd) return;
 
-    if (map.has(message.author.id)) {
-        message.react('⏰');
-        map.set(message.author.id);
-        return;
-    };
-
+    if (!bot.owners.includes(message.author.id)) {
+        if (map.has(message.author.id)) {
+            message.react('⏰');
+            map.set(message.author.id);
+            return;
+        };
+    }
+    
     try {
         bot.embed = new MessageEmbed().setFooter(`|   ${cmd.name} Command`, message.author.avatarURL({ dynamic: true, format: 'png' })).setColor('RANDOM').setTimestamp(Date.now())
         cmd.run(bot, message, args);
-        console.log(`${command} command used`);
+        console.log(`${cmd.name.toLowerCase()} command used`);
         map.set(message.author.id)
     } catch (err) {
         await message.channel.send(`I'm sorry. There was an error executing the \`${command}\` command.`);
         console.error(err);
     };
 
+    if (bot.owners.includes(message.author.id)) return;
     setTimeout(() => {
         map.delete(message.author.id);
     }, 1000 * 5);

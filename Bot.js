@@ -18,7 +18,11 @@ class BotClient extends Client {
         this.helpEmbed = new discord.MessageEmbed()
         this.commands = new Collection();
         this.embed = new MessageEmbed().setColor('RANDOM')
-        this.error = new MessageEmbed().setColor('RED').setFooter('AN ERROR HAS OCCURED').setDescription;
+    }
+    error(message, title) {
+        const embed = new MessageEmbed().setTimestamp(Date.now()).setFooter('ERROR').setColor('RED').setDescription(message);
+        if(title) embed.setTitle(title);
+        return embed
     }
     commandHandler(path) {
         this.fs.readdirSync(this.path.join(__dirname, '.', path)).map((f) => {
@@ -32,11 +36,12 @@ class BotClient extends Client {
         this.login(process.env.TOKEN);
         this.once('ready', async () => {
             require('./events/ready').run(this);
-            this.emoji = this.guilds.cache.get('714809218024079430').emojis.cache.find(e => e.name.toLowerCase() === 'loading')
+            if (!this.guilds.cache.get('714809218024079430')) return;
+            this.emoji = this.guilds.cache.get('714809218024079430').emojis.cache.find(e => e.name.toLowerCase() === 'loading').catch(e => null);
         });
         let map = new Map()
         this.on('message', message => {
-            require('./events/message').run(this, message, map)
+            require('./events/message').run(this, message, map);
         });
         this.on("messageReactionAdd", (reaction, user) => {
             require(`./events/reaction`).run(reaction, user);
