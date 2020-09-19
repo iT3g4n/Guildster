@@ -31,6 +31,7 @@ module.exports = {
                 embed.setDescription(`**Result**\n\`\`\`${error}\`\`\``);
             }
 
+            console.log(inspect(evaled));
             let msg = await message.channel.send(embed)
 
         })
