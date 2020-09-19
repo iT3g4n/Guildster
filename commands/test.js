@@ -14,6 +14,6 @@ module.exports = {
      */
     run: async(a, message, args) => {
         if (!bot.owners.includes(message.author.id)) return;
-        message.channel.send(bot.error('thisisatestplswork'))
+        message.channel.send(bot.error('NAH'))
     }
 }   

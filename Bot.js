@@ -17,7 +17,6 @@ class BotClient extends Client {
         this.commandlength = 0
         this.helpEmbed = new discord.MessageEmbed()
         this.commands = new Collection();
-        this.embed = new MessageEmbed().setColor('RANDOM')
     }
     error(message, title) {
         const embed = new MessageEmbed().setTimestamp(Date.now()).setFooter('ERROR').setColor('RED').setDescription(message);
@@ -57,9 +56,7 @@ class BotClient extends Client {
             require('./events/guildMemberAdd').run(member);
         });
         this.on('error', err => {
-            
-            if (err.name.toLowerCase() == 'unhandledpromiserejectionWarning: discordapierror: unknown message') return;
-            throw new error(err)
+            null;
         })
     };
 };
