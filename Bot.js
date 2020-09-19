@@ -36,7 +36,7 @@ class BotClient extends Client {
         this.once('ready', async () => {
             require('./events/ready').run(this);
             if (!this.guilds.cache.get('714809218024079430')) return;
-            this.emoji = this.guilds.cache.get('714809218024079430').emojis.cache.find(e => e.name.toLowerCase() === 'loading').catch(e => null);
+            this.emoji = this.guilds.cache.get('714809218024079430').emojis.cache.find(e => e.name.toLowerCase() === 'loading')
         });
         let map = new Map()
         this.on('message', message => {
