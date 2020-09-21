@@ -8,7 +8,9 @@ const { bot } = require('../index');
 
 this.run = async (a, message, map) => {
 
-    if (message.author.bot && message.channel.id === '716239917751206048' && message.author.id !== '730440454835011674') message.delete()
+    if (message.author.bot && message.channel.id === '716239917751206048') message.delete({ timeout: 20000 }).catch(e => {
+        return;
+    });
     if (message.author.bot) return;
 
     if (message.channel.id === '716239917751206048') message.delete();
@@ -26,31 +28,24 @@ this.run = async (a, message, map) => {
     if (message.author.bot || !message.guild) return;
 
     if (bot.afkmap) {
-        bot.afkmap.forEach(item => {
-            if (!item.includes(message.author.id)) return;
-            item.replace(message.author.id, '')
-            message.channel.send(new MessageEmbed().setColor('RANDOM').setDescription(`Welcome Back ${message.author}! I have removed your AFK!`)), message.member.setNickname(message.author.username);
-        })
+        if (bot.afkmap.has(message.author.id)) {
+            bot.afkmap.delete(message.author.id);
+            message.reply(new MessageEmbed().setColor('RANDOM').setDescription(`It's good to have you back, <@${message.author.id}>!`))
+        }
     }
 
+    console.log(bot.afkmap);
+
     if (!message.content.startsWith(prefix)) {
-        if (bot.afkmap.includes(message.author.id)) return;
+        if (!bot.afkmap.has(message.mentions.members.first().id)) return;
         if (!message.mentions.members) return;
-
-        let i = 0
-        message.mentions.members.forEach((_mention) => i++);
-
-        if (i !== 1) return;
         if (!bot.afkmap) return;
 
-        bot.afkmap.forEach(thing => {
+        if (bot.afkmap.has(message.mentions.members.first().id)) {
 
-            if (thing.includes(message.mentions.users.first().id)) {
+            message.reply(new MessageEmbed().setColor('RANDOM').setDescription(`One of the users you mentioned is afk for:\n${bot.afkmap.get(message.mentions.members.first().id)}`));
 
-                message.reply(new MessageEmbed().setColor('RANDOM').setDescription(`One of the users you mentioned is afk for:\n\n${thing.split(':')[1]}`));
-
-            }
-        })
+        }
 
         return;
     };

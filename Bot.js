@@ -8,7 +8,7 @@ class BotClient extends Client {
         this.fs = require('fs');
         this.path = require('path');
         this.discord = require('discord.js');
-        this.afkmap = []
+        this.afkmap = new Collection()
         this.fun = []
         this.moderation = []
         this.hitting = []
@@ -30,8 +30,15 @@ class BotClient extends Client {
             console.log('Loading ' + File.name.toLowerCase())
         })
     };
+    eventLoader() {
+        this.fs.readdirSync('./events').forEach(file => {
+            require('./events/' + file);
+            console.log(`Checking ${file.split('.')[0]}`);
+        })
+    }
     start(path) {
         this.commandHandler(path);
+        this.eventLoader();
         this.login(process.env.TOKEN);
         this.once('ready', async () => {
             require('./events/ready').run(this);
