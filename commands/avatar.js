@@ -10,7 +10,7 @@ module.exports = {
 
         message.delete();
 
-        let mention = message.mentions.users.first() || message.author;
+        const mention = message.mentions.users.first() || message.author;
 
         let embed = new MessageEmbed()
         .setTitle(`Avatar for ${mention.tag}`)

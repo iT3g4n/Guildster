@@ -1,8 +1,9 @@
-const { Message } = require('discord.js')
+const { Message } = require('discord.js');
+const { bot } = require('../index');
 
 this.name = 'Join'
 this.aliases = ['j', 'voice', 'joinvoice']
-this.usage = '<command or alias>'
+this.usage = '[command]'
 this.description = 'Joins the voice channel that you are in!'
 this.catagory = 'fun'
 /**

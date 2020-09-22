@@ -20,7 +20,7 @@ module.exports = {
 
         if (!args.join(' ')) return message.reply(`You did not give any arguments`).then(msg => msg.delete({ timeout: 5000 }))
 
-        newembed(message, this).then(async embed => {
+        newembed(message, require('./eval')).then(async embed => {
 
             let evaled;
 
@@ -31,6 +31,7 @@ module.exports = {
                 embed.setDescription(`**Result**\n\`\`\`${error}\`\`\``);
             }
 
+            console.log(inspect(evaled));
             let msg = await message.channel.send(embed)
 
         })

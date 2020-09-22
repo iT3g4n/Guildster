@@ -1,12 +1,16 @@
 const { Message, Client, MessageEmbed } = require('discord.js');
+const { bot } = require('../index');
 /**
  * @param {Client} bot 
  * @param {Message} message 
  * @param {Map} map 
  */
 
-this.run = async (bot, message, map) => {
+this.run = async (a, message, map) => {
 
+    if (message.author.bot && message.channel.id === '716239917751206048') message.delete({ timeout: 20000 }).catch(e => {
+        return;
+    });
     if (message.author.bot) return;
 
     if (message.channel.id === '716239917751206048') message.delete();
@@ -24,31 +28,24 @@ this.run = async (bot, message, map) => {
     if (message.author.bot || !message.guild) return;
 
     if (bot.afkmap) {
-        bot.afkmap.forEach(item => {
-            if (!item.includes(message.author.id)) return;
-            item.replace(message.author.id, '')
-            message.channel.send(new MessageEmbed().setColor('RANDOM').setDescription(`Welcome Back ${message.author}! I have removed your AFK!`)), message.member.setNickname(message.author.username);
-        })
+        if (bot.afkmap.has(message.author.id)) {
+            bot.afkmap.delete(message.author.id);
+            message.reply(new MessageEmbed().setColor('RANDOM').setDescription(`It's good to have you back, <@${message.author.id}>!`))
+        }
     }
 
+    console.log(bot.afkmap);
+
     if (!message.content.startsWith(prefix)) {
-        if (bot.afkmap.includes(message.author.id)) return;
+        if (!bot.afkmap.has(message.mentions.members.first().id)) return;
         if (!message.mentions.members) return;
-
-        let i = 0
-        message.mentions.members.forEach((_mention) => i++);
-
-        if (i !== 1) return;
         if (!bot.afkmap) return;
 
-        bot.afkmap.forEach(thing => {
+        if (bot.afkmap.has(message.mentions.members.first().id)) {
 
-            if (thing.includes(message.mentions.users.first().id)) {
+            message.reply(new MessageEmbed().setColor('RANDOM').setDescription(`One of the users you mentioned is afk for:\n${bot.afkmap.get(message.mentions.members.first().id)}`));
 
-                message.reply(new MessageEmbed().setColor('RANDOM').setDescription(`One of the users you mentioned is afk for:\n\n${thing.split(':')[1]}`));
-
-            }
-        })
+        }
 
         return;
     };
@@ -57,22 +54,25 @@ this.run = async (bot, message, map) => {
 
     if (!cmd) return;
 
-    if (map.has(message.author.id)) {
-        message.react('⏰');
-        map.set(message.author.id);
-        return;
-    };
-
+    if (!bot.owners.includes(message.author.id)) {
+        if (map.has(message.author.id)) {
+            message.react('⏰');
+            map.set(message.author.id);
+            return;
+        };
+    }
+    
     try {
         bot.embed = new MessageEmbed().setFooter(`|   ${cmd.name} Command`, message.author.avatarURL({ dynamic: true, format: 'png' })).setColor('RANDOM').setTimestamp(Date.now())
         cmd.run(bot, message, args);
-        console.log(`${command} command used`);
+        console.log(`${cmd.name.toLowerCase()} command used`);
         map.set(message.author.id)
     } catch (err) {
         await message.channel.send(`I'm sorry. There was an error executing the \`${command}\` command.`);
         console.error(err);
     };
 
+    if (bot.owners.includes(message.author.id)) return;
     setTimeout(() => {
         map.delete(message.author.id);
     }, 1000 * 5);
