@@ -1,4 +1,5 @@
-const { MessageEmbed, Client, Message } = require("discord.js");
+const { MessageEmbed, Client, Message } = require("discord.js")
+const { bot } = require('../index');
 
 module.exports = {
     name: 'Ban',
@@ -11,7 +12,7 @@ module.exports = {
      * @param {Message} message 
      * @param {String[]} args 
      */
-    run: async(bot, message, args) => {
+    run: async(a, message, args) => {
 
         if (!message.member.hasPermission(`BAN_MEMBERS`)) return message.channel.send(bot.error(`You are not allowed to run that command!`)).then(m => m.delete({ timeout: 5000 }))
 
@@ -23,6 +24,6 @@ module.exports = {
         if (!reason) return message.reply(bot.error(`Please give a reason.`)).then(msg => msg.delete({ timeout: 5000 }))
 
         if(!mention.bannable) return message.channel.send(bot.error(`<@${mention.id}> is not bannable! Please try again later. Does <@${mention.id}> have a higher role than me?`))
-        mention.ban(reason);
+        mention.ban({ reason: reason });
     }
 }

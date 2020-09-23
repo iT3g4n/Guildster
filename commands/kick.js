@@ -24,7 +24,7 @@ module.exports = {
         const reason = args.slice(1).join(' ')
         if (!reason) return message.reply(`Please give a reason.`).then(msg => msg.delete({ timout: 5000 }))
 
-        mention.kick(reason);
+        mention.kick({ reason: reason });
 
     }
 }
