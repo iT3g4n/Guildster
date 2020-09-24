@@ -18,6 +18,6 @@ this.run = async(a, message, args) => {
     msg.react('❌');
 
     bot.on('messageReactionAdd', async (reaction, user) => {
-        if (reaction.emoji.name === '❌' && user.id === message.author.id) msg.delete() + message.guild.me.voice.channel.leave()
+        if (reaction.emoji.name === '❌' && user.id === message.author.id) msg.delete(), message.guild.me.voice.channel.leave()
     })
 }

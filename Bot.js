@@ -1,6 +1,7 @@
 require('dotenv').config()
 const{ Client, Collection, MessageEmbed } = require(`discord.js`);
-const discord = require('discord.js')
+const discord = require('discord.js');
+const { error } = require('console');
 class BotClient extends Client {
     constructor() {
         super({ partials: ['REACTION', 'MESSAGE', 'USER', 'GUILD_MEMBER', 'CHANNEL'] });
@@ -27,7 +28,7 @@ class BotClient extends Client {
         this.fs.readdirSync(this.path.join(__dirname, '.', path)).map((f) => {
             let File = require(this.path.join(__dirname, `.`, path, f));
             this.commands.set(File.name.toLowerCase(), File);
-            console.log('Loading ' + File.name.toLowerCase())
+            console.log('Sucessfully Loaded ' + File.name.toLowerCase())
         })
     };
     eventLoader() {
@@ -62,8 +63,8 @@ class BotClient extends Client {
             if (!member.guild.id === '714809218024079430') return;
             require('./events/guildMemberAdd').run(member);
         });
-        this.on('error', err => {
-            null;
+        process.on('unhandledRejection', err => {
+            error('UNHANDLED PROMISE REJECTION', err)
         })
     };
 };
