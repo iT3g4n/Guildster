@@ -34,8 +34,6 @@ this.run = async (a, message, map) => {
         }
     }
 
-    console.log(bot.afkmap);
-
     if (!message.content.startsWith(prefix)) {
         if (!bot.afkmap.has(message.mentions.members.first().id)) return;
         if (!message.mentions.members) return;
