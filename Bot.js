@@ -65,9 +65,8 @@ class BotClient extends Client {
             require('./events/guildMemberAdd').run(member);
         });
         process.on('unhandledRejection', err => {
-            if(err.message.includes('No video id found')) return;
             if(err.message.includes('DiscordAPIError: Unknown Message')) return;
-            error('UNHANDLED PROMISE REJECTION', err);
+            error('UNHANDLED PROMISE REJECTION\n\n', err);
         })
     };
 };

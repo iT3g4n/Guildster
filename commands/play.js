@@ -20,16 +20,23 @@ this.run = async(a, message, args) => {
 
     const embed = new MessageEmbed().setColor('GREEN')
 
-    await message.guild.me.voice.channel.join().then(async vc => {
+    await message.member.voice.channel.join().then(async vc => {
         await search(query).then((data, err) => {
             if (err) console.error(err);
     
-            vc.play(data.all[0].url)
+            try {
+                vc.play(play(data.all[0].url));
+            } catch (e) {
+                console.error(e)
+                message.reply('a')
+            }
             embed.addField('Now Playing', data.all[0].title);
             embed.addField('Artist', data.all[0].author.name);
             embed.addField('Length', data.all[0].duration.timestamp);
             embed.setURL(data.all[0].url)
-            bot.musicqueue.set(message.guild.id, `${data.all[0].title}~~${data.all[0].duration.timestamp}`);
+            bot.musicqueue.set(message.guild.id, `${data.all[0].title})(${data.all[0].duration.timestamp}`);
+        }).catch(e => {
+            message.reply(e);
         });
     })
     message.reply(embed);
