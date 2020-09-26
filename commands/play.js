@@ -20,7 +20,7 @@ this.run = async(a, message, args) => {
 
     const embed = new MessageEmbed().setColor('GREEN')
 
-    await message.guild.me.voice.channel.join().then(vc => {
+    await message.guild.me.voice.channel.join().then(async vc => {
         await search(query).then((data, err) => {
             if (err) console.error(err);
     
