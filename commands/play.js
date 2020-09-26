@@ -25,7 +25,7 @@ this.run = async(a, message, args) => {
         if (err) console.error(err);
 
         console.log(data.all[0])
-        vc.play(play(data.all[0].url))
+        vc.play(data.all[0].url)
         embed.addField('Now Playing', data.all[0].title);
         embed.addField('Artist', data.all[0].author.name);
         embed.addField('Length', data.all[0].duration.timestamp);
