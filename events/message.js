@@ -30,6 +30,7 @@ this.run = async (a, message, map) => {
     if (bot.afkmap) {
         if (bot.afkmap.has(message.author.id)) {
             bot.afkmap.delete(message.author.id);
+            message.member.setNickname(message.member.nickname.split('[AFK] ')[1]);
             message.reply(new MessageEmbed().setColor('RANDOM').setDescription(`It's good to have you back, <@${message.author.id}>!`))
         }
     }
