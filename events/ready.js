@@ -11,7 +11,7 @@ this.run = async() => {
     { name: `${bot.commandlength} Commands! | *help`, type: 'LISTENING' }
   ]
 
-  bot.channels.cache.get('714809218024079435')
+  bot.channels.cache.get('730447146079223819').send('<@381024325974622209> I am Online!')
 
   setInterval(() => {
 

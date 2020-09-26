@@ -16,8 +16,9 @@ class BotClient extends Client {
         this.tickets = []
         this.owner = []
         this.commandlength = 0
-        this.helpEmbed = new discord.MessageEmbed()
+        this.helpEmbed = new discord.MessageEmbed();
         this.commands = new Collection();
+        this.musicqueue = new Collection();
     }
     error(message, title) {
         const embed = new MessageEmbed().setTimestamp(Date.now()).setFooter('ERROR').setColor('RED').setDescription(message);
@@ -64,7 +65,8 @@ class BotClient extends Client {
             require('./events/guildMemberAdd').run(member);
         });
         process.on('unhandledRejection', err => {
-            error('UNHANDLED PROMISE REJECTION', err)
+            if(err.message.includes('No video id found')) return;
+            error('UNHANDLED PROMISE REJECTION', err);
         })
     };
 };
