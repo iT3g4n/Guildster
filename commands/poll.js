@@ -16,12 +16,11 @@ module.exports = {
                 .setColor(`RANDOM`)
                 .setTitle("Poll Time!")
                 .setDescription(args[0] + " " + msgArgs)
-                .setFooter(`|   Poll Command`, message.author.avatarURL({ dynamic: true }))
                 .setTimestamp(Date.now())
 
             message.delete()
 
-            let msg = await message.channel.send("@everyone")
+            const msg = await message.channel.send("@everyone")
 
             await msg.edit(embed)
             msg.edit("")

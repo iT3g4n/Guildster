@@ -66,6 +66,7 @@ class BotClient extends Client {
         });
         process.on('unhandledRejection', err => {
             if(err.message.includes('No video id found')) return;
+            if(err.message.includes('DiscordAPIError: Unknown Message')) return;
             error('UNHANDLED PROMISE REJECTION', err);
         })
     };

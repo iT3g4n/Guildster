@@ -36,8 +36,8 @@ this.run = async (a, message, map) => {
     }
 
     if (!message.content.startsWith(prefix)) {
+        if (!message.mentions.members.first()) return;
         if (!bot.afkmap.has(message.mentions.members.first().id)) return;
-        if (!message.mentions.members) return;
         if (!bot.afkmap) return;
 
         if (bot.afkmap.has(message.mentions.members.first().id)) {
