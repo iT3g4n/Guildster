@@ -13,7 +13,7 @@ this.catagory = 'fun'
  * @param {String[]} args 
  */
 this.run = async(a, message, args) => {
-    if (!message.member.voice.id) return bot.error('You are not in a VC, ' + message.author + '!');
+    if (!message.member.voice.id) return message.reply(bot.error('You are not in a VC, ' + message.author + '!'));
 
     const query = args.join(' ');
     if (!query) return message.reply(bot.error('You did not specify anything to play!'))
