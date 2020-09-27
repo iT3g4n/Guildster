@@ -1,4 +1,6 @@
 require('dotenv').config()
+const twitch = require('twitch');
+const webhooks = require('twitch-webhooks');
 const{ Client, Collection, MessageEmbed } = require(`discord.js`);
 const discord = require('discord.js');
 const { error } = require('console');
@@ -36,7 +38,7 @@ class BotClient extends Client {
         this.fs.readdirSync('./events').forEach(file => {
             require('./events/' + file);
             console.log(`Checking ${file.split('.')[0]}`);
-        })
+        });
     }
     start(path) {
         this.commandHandler(path);
@@ -67,7 +69,7 @@ class BotClient extends Client {
         process.on('unhandledRejection', err => {
             if(err.message.includes('DiscordAPIError: Unknown Message')) return;
             error('UNHANDLED PROMISE REJECTION\n\n', err);
-        })
+        });
     };
 };
 

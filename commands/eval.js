@@ -22,10 +22,9 @@ module.exports = {
 
         newembed(message, require('./eval')).then(async embed => {
 
-            let evaled;
+            const evaled = bot._eval(args.join(' '));
 
             try {
-                evaled = eval(args.join(' '))
                 embed.setDescription(`**Result**\n\`\`\`${evaled}\`\`\``);
             } catch (error) {
                 embed.setDescription(`**Result**\n\`\`\`${error}\`\`\``);
