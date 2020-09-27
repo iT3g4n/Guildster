@@ -3,7 +3,7 @@ const newembed = require("../newembed")
 
 module.exports = {
     name: 'Invite',
-    aliases: ['helplinks', 'links', 'link', 'support', 'supportserver'],
+    aliases: ['helplinks', 'links', 'link', 'support', 'supportserver', 'inv'],
     catagory: 'fun',
     usage: '[command]',
     description: 'Want to invite the bot to your own server? Well use this!',
@@ -13,7 +13,7 @@ module.exports = {
      * @param {String[]} args
      */
     run: async(bot, message, args) => {
-        newembed(message, this).then(async embed => {
+        newembed(message, require('./invite')).then(async embed => {
             embed
                 .setTitle(`Helpful Links`)
                 .addField(`Bot Invite`, "[Click Here!](https://discord.com/api/oauth2/authorize?client_id=730440454835011674&permissions=2134207679&scope=bot)", true)
