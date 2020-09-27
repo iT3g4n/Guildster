@@ -6,7 +6,18 @@ const discord = require('discord.js');
  * @param {GuildMember} member 
  */
 this.run = async (member) => {
-    let d = await fetch('https://api.no-api-key.com/api/v2/captcha').then(res => res.json());
+
+    await member.fetch();
+
+if (Date.now() - member.joinedAt <= 1000) {
+    member.guild.channels.cache.find(r => r.name.includes('welcome', 'general')).send(new discord.MessageEmbed({
+        color: 'BLUE',
+        author: { name: 'Welcome to ' + member.guild.name + `, <@${member.id}>!`, icon_url: member.user.avatarURL({ dynamic: true, size: 2048 })},
+        description: `We hope that you enjoy your time here,`
+    }))
+}
+
+    const d = await fetch('https://api.no-api-key.com/api/v2/captcha').then(res => res.json());
     try {
         const dm = await member.send(new discord.MessageEmbed().setColor('RANDOM').setDescription('Welcome to this server! Please type in the message on the picture to verify!'));
         await member.send(d.captcha)
