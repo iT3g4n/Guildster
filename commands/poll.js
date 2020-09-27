@@ -8,14 +8,15 @@ module.exports = {
     description: "Creates a poll in the channel of the message!",
     run: async (bot, message, args) => {
 
-        const msgArgs = args.slice(1).join(" ");
+        const msgArgs = args.join(" ");
 
         if (message.member.hasPermission(`ADMINISTRATOR`)) {
 
+            if(!msgArgs) return;
             const embed = new MessageEmbed()
                 .setColor(`RANDOM`)
                 .setTitle("Poll Time!")
-                .setDescription(args[0] + " " + msgArgs)
+                .setDescription(msgArgs)
                 .setTimestamp(Date.now())
 
             message.delete()

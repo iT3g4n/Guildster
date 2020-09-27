@@ -1,5 +1,5 @@
 const { Message, Client } = require("discord.js");
-const reaction = require("../events/reaction");
+const twitch = require("twitch");
 const { bot } = require('../index')
 
 module.exports = {
@@ -14,6 +14,6 @@ module.exports = {
      */
     run: async(a, message, args) => {
         if (!bot.owners.includes(message.author.id)) return;
-        console.log(bot.removeListener)
+        bot.emit('guildCreate', message.guild);
     }
 }   
