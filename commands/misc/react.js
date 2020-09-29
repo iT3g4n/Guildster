@@ -1,5 +1,5 @@
 const { Message } = require("discord.js");
-const { bot, senderror } = require('../Bot');
+const { bot } = require('./../../index');
 
 this.name = 'React'
 this.aliases = ['r', 'rm']
@@ -16,11 +16,12 @@ this.run = async(baot, message, args) => {
     try {
         emoji = message.guild.emojis.cache.get(args[0]);
     } catch (err) {
-        return senderror('That is not an emoji. Please give an id if it is custom.')
+        return senderror('That is not an emoji. Please give an id if it is custom.');
     }
     
     
-    message.react(emoji).catch(() => {
-        return message.reply('That is not an emoji!').then(m => m.delete({ timeout: 5000 }))
+    message.react(emoji || args[0]).catch(async () => {
+        const m = await message.reply('That is not an emoji!');
+        return await m.delete({ timeout: 5000 });
     })
 }

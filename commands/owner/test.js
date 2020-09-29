@@ -1,6 +1,6 @@
 const { Message, Client } = require("discord.js");
 const twitch = require("twitch");
-const { bot } = require('../index')
+const { bot } = require('./../../index')
 
 module.exports = {
     name: 'Test',

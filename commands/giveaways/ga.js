@@ -10,7 +10,7 @@ module.exports = {
 
     aliases: ['giveaway', 'start', 'g', 'give'],
     description: "Creates a giveaway in the channel of the message!",
-    catagory: 'fun',
+    catagory: 'giveaways',
     usage: "[command] [time] [prize]",
     async run(bot, message, args) {
 

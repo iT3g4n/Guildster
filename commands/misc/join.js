@@ -1,5 +1,5 @@
 const { Message } = require('discord.js');
-const { bot } = require('../index');
+const { bot } = require('./../../index');
 const play = require('ytdl-core')
 
 this.name = 'Join'

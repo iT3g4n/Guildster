@@ -1,5 +1,5 @@
 const { Message, MessageEmbed } = require('discord.js');
-const { bot } = require('../index');
+const { bot } = require('./../../index');
 const play = require('ytdl-core')
 const search = require('yt-search');
 

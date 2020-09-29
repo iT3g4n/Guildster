@@ -4,8 +4,8 @@ module.exports = {
     name: 'End',
     description: 'Ends the giveaway when you provide a messageID',
     aliases: ['reroll', 'again', 'newwinner'],
-    catagory: 'fun',
-    usage: '[command] [messag,eid]',
+    catagory: 'giveaways',
+    usage: '[command] [message id]',
     /**
      * @param {Message} message
      * @param {String[]} args

@@ -1,12 +1,12 @@
 const { Client, Message } = require("discord.js");
-const newembed = require("../newembed");
+const newembed = require("./../../newembed");
 const ms = require(`ms`);
-const { bot } = require('../index');
+const { bot } = require('./../../index');
 
 module.exports = {
     name: 'BotInfo',
     usage: '[command]',
-    catagory: 'fun',
+    catagory: 'info',
     aliases: ['bot'],
     description: 'Get the info on this bot!',
     /**
@@ -21,6 +21,6 @@ module.exports = {
                 .addField(`API Ping`, `${bot.ws.ping} MS`, true)
                 .addField(`Owner`, `<@381024325974622209>`, true)
                 .addField(`Severs`, `${bot.guilds.cache.size}`, true)
-                .addField(`Version`, `${require(`../package.json`).version}`, true))
+                .addField(`Version`, `${require(`../../package.json`).version}`, true))
     }
 }

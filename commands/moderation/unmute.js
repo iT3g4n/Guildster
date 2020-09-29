@@ -1,7 +1,7 @@
 const { Message, MessageEmbed } = require("discord.js");
-const { bot } = require('../index');
-const mongo = require('../mongo');
-const guilds = require('../schemas/guildSchema')
+const { bot } = require('./../../index');
+const mongo = require('./../../mongo');
+const guilds = require('./../../schemas/guildSchema')
 
 module.exports = {
     name: 'Unmute',

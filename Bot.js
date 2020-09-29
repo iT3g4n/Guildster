@@ -27,13 +27,6 @@ class BotClient extends Client {
         if(title) embed.setTitle(title);
         return embed
     }
-    commandHandler(path) {
-        this.fs.readdirSync(this.path.join(__dirname, '.', path)).map((f) => {
-            let File = require(this.path.join(__dirname, `.`, path, f));
-            this.commands.set(File.name.toLowerCase(), File);
-            console.log('Sucessfully Loaded ' + File.name.toLowerCase())
-        })
-    };
     eventLoader() {
         this.fs.readdirSync('./events').forEach(file => {
             require('./events/' + file);
@@ -47,7 +40,6 @@ class BotClient extends Client {
         });
     };
     start(path) {
-        this.commandHandler(path);
         this.eventLoader();
         this.featureLoader();
         this.login(process.env.TOKEN);

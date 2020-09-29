@@ -1,5 +1,5 @@
 const { Message, MessageEmbed } = require('discord.js');
-const { bot } = require('../index');
+const { bot } = require('./../../index');
 
 this.name = 'Guildlist'
 this.aliases = ['guilds', 'servers', 'serverlist'];

@@ -1,9 +1,9 @@
 const { Message, Client, TextChannel } = require(`discord.js`);
-const guild = require(`../schemas/guildSchema`);
-const mongo = require(`../mongo`)
+const guild = require(`./../../schemas/guildSchema`);
+const mongo = require(`./../../mongo`)
 
 module.exports = {
-    name: 'SLC',
+    name: 'Setlogchannel',
     aliases: ['setlogchannel', 'logs'],
     catagory: 'moderation',
     usage: '[command] [channel mention]',
