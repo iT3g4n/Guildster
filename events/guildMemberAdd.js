@@ -9,13 +9,13 @@ this.run = async (member) => {
 
     await member.fetch();
 
-if (Date.now() - member.joinedAt <= 1000) {
-    member.guild.channels.cache.find(r => r.name.includes('welcome', 'general')).send(new discord.MessageEmbed({
-        color: 'BLUE',
-        author: { name: 'Welcome to ' + member.guild.name + `, <@${member.id}>!`, icon_url: member.user.avatarURL({ dynamic: true, size: 2048 })},
-        description: `We hope that you enjoy your time here,`
-    }))
-}
+    if (Date.now() - member.joinedAt <= 5000) {
+        member.guild.channels.cache.find(r => r.name.includes('welcome' || 'general' || 'public')).send(new discord.MessageEmbed({
+            color: 'BLUE',
+            author: { name: 'Welcome to ' + member.guild.name + `, <@${member.id}>!`, icon_url: member.user.avatarURL({ dynamic: true, size: 2048 }) },
+            description: `We hope that you enjoy your time here in \`${member.guild.name}\`!`
+        }));
+    };
 
     const d = await fetch('https://api.no-api-key.com/api/v2/captcha').then(res => res.json());
     try {
@@ -40,7 +40,8 @@ if (Date.now() - member.joinedAt <= 1000) {
             if (reason == 'failed') {
                 dm.channel.send(new discord.MessageEmbed().setColor('RANDOM').setDescription('You have failed. Please type ' + `*verify again in the server.`));
             } else if (reason == 'yes') {
-                member.roles.add(member.guild.roles.cache.find(r => r.name.toLowerCase() === 'member'));
+                const rolenames = ['member', 'verifed'];
+                member.roles.add(member.guild.roles.cache.find(r => rolenames.forEach(role => r.name.toLowerCase().includes(role))).id).catch(e => { console.error(`COULD NOT ADD ROLE:`, e) });
                 member.send(new discord.MessageEmbed().setColor('RANDOM').setDescription('Success! You now have full access to the server!'));
                 return;
             } else if (reason == 'too long') {
@@ -48,6 +49,6 @@ if (Date.now() - member.joinedAt <= 1000) {
             }
         })
     } catch (err) {
-        member.guild.channels.cache.get('716239917751206048').send(`Hey ${member}! Please open your DM's to verify!`).then(m => m.delete({ timeout: 20000 }));
+        member.guild.channels.cache.find(c => c.name.includes('verify')).send(`Hey ${member}! Please open your DM's to verify!`).then(m => m.delete({ timeout: 20000 }));
     };
 };

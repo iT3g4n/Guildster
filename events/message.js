@@ -1,5 +1,7 @@
 const { Message, Client, MessageEmbed } = require('discord.js');
 const { bot } = require('../index');
+const guildSchema = require('../schemas/guildSchema');
+
 /**
  * @param {Client} bot 
  * @param {Message} message 
@@ -7,8 +9,10 @@ const { bot } = require('../index');
  */
 
 this.run = async (a, message, map) => {
+    const { channel } = message
+    if (message.partial) await message.fetch();
 
-    if (message.author.bot && message.channel.id === '716239917751206048') message.delete({ timeout: 20000 }).catch(e => {
+    if (message.author.bot && channel.name.includes('verify')) message.delete({ timeout: 20000 }).catch(e => {
         return;
     });
     if (message.author.bot) return;
