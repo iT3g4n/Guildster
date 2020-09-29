@@ -3,7 +3,6 @@ const { bot } = require('../index');
 const guildSchema = require('../schemas/guildSchema');
 
 /**
- * @param {Client} bot 
  * @param {Message} message 
  * @param {Map} map 
  */
@@ -17,7 +16,7 @@ this.run = async (a, message, map) => {
     });
     if (message.author.bot) return;
 
-    if (message.channel.id === '716239917751206048') message.delete();
+    if (channel.name.includes('verify')) message.delete();
 
     const c = await guildSchema.findOne({ _id: message.guild.id })
     const b = c.prefix
@@ -32,6 +31,7 @@ this.run = async (a, message, map) => {
     const args = message.content.slice(prefix.length).trim().split(" ");
     const command = args.shift().toLowerCase();
 
+    if (command.toLowerCase() !== 'verify' && channel.name.includes('verify')) return message.delete();
     if (message.author.bot || !message.guild) return;
 
     if (bot.afkmap) {
