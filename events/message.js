@@ -19,7 +19,7 @@ this.run = async (a, message, map) => {
     if (channel.name.includes('verify')) message.delete();
 
     const c = await guildSchema.findOne({ _id: message.guild.id })
-    const b = c.prefix
+    const b = c.Prefix
 
     const prefixes = [`<@!${bot.user.id}>`, `<@${bot.user.id}>`, '*', b];
     //in your case can only be var prefixes = ["<@453463055741747200>", "<@!453463055741747200>"]
