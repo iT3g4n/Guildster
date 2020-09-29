@@ -28,7 +28,6 @@ this.run = async(a, message, args) => {
                 vc.play(play(data.all[0].url));
             } catch (e) {
                 console.error(e)
-                message.reply('a')
             }
             embed.addField('Now Playing', data.all[0].title);
             embed.addField('Artist', data.all[0].author.name);
