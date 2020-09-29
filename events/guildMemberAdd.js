@@ -41,7 +41,7 @@ this.run = async (member) => {
                 dm.channel.send(new discord.MessageEmbed().setColor('RANDOM').setDescription('You have failed. Please type ' + `*verify again in the server.`));
             } else if (reason == 'yes') {
                 const rolenames = ['member', 'verifed'];
-                member.roles.add(member.guild.roles.cache.find(r => rolenames.forEach(role => r.name.toLowerCase().includes(role))).id).catch(e => { console.error(`COULD NOT ADD ROLE:`, e) });
+                member.roles.add(member.guild.roles.cache.find(r => rolenames.forEach(role => r.name.toLowerCase().includes(role)))).catch(e => { console.error(`COULD NOT ADD ROLE:`, e) });
                 member.send(new discord.MessageEmbed().setColor('RANDOM').setDescription('Success! You now have full access to the server!'));
                 return;
             } else if (reason == 'too long') {
