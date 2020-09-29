@@ -39,10 +39,17 @@ class BotClient extends Client {
             require('./events/' + file);
             console.log(`Checking ${file.split('.')[0]}`);
         });
-    }
+    };
+    featureLoader() {
+        this.fs.readdirSync('./features').forEach(file => {
+            require('./features/' + file)();
+            console.log(`Loaded ${file.split('.')[0]}`);
+        });
+    };
     start(path) {
         this.commandHandler(path);
         this.eventLoader();
+        this.featureLoader();
         this.login(process.env.TOKEN);
         this.once('ready', async () => {
             require('./events/ready').run(this);

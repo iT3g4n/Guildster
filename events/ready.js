@@ -1,5 +1,6 @@
 const ms = require(`ms`);
 const { bot } = require('../index');
+const { RichPresenceAssets } = bot.discord
 
 this.run = async() => {
     console.log(`logged in as ${bot.user.tag}`);
