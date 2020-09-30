@@ -10,7 +10,7 @@ this.run = async (member) => {
     await member.fetch();
 
 if (Date.now() - member.joinedAt <= 1000) {
-    member.guild.channels.cache.find(r => r.name.includes('welcome', 'general')).send(new discord.MessageEmbed({
+    member.guild.channels.cache.find(r => r.name.includes('welcome' || 'general')).send(new discord.MessageEmbed({
         color: 'BLUE',
         author: { name: 'Welcome to ' + member.guild.name + `, <@${member.id}>!`, icon_url: member.user.avatarURL({ dynamic: true, size: 2048 })},
         description: `We hope that you enjoy your time here,`
@@ -24,6 +24,7 @@ if (Date.now() - member.joinedAt <= 1000) {
         const collector = dm.channel.createMessageCollector((x) => x.author.id == member.id);
 
         setTimeout(() => {
+            if (!collector) return;
             collector.stop('too long');
         }, 1000 * 60 * 2);
 
@@ -48,6 +49,6 @@ if (Date.now() - member.joinedAt <= 1000) {
             }
         })
     } catch (err) {
-        member.guild.channels.cache.get('716239917751206048').send(`Hey ${member}! Please open your DM's to verify!`).then(m => m.delete({ timeout: 20000 }));
+        member.guild.channels.cache.first().send(`Hey ${member}! Please open your DM's to verify!`).then(m => m.delete({ timeout: 20000 }));
     };
 };
