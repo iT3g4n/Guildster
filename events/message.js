@@ -19,7 +19,6 @@ this.run = async (a, message, map) => {
     if (channel.name.includes('verify')) message.delete();
 
     const prefixes = [`<@!${bot.user.id}>`, `<@${bot.user.id}>`, '*'];
-    //in your case can only be var prefixes = ["<@453463055741747200>", "<@!453463055741747200>"]
 
     let prefix = false;
     for (const thisPrefix of prefixes) {
