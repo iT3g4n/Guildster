@@ -24,9 +24,9 @@ module.exports = {
             Prefix: args[0]
         }, {})
 
-        bot.prefixes.set(message.guild.id, args[0]);
+        await bot.prefixes.set(message.guild.id, args[0]);
 
-        message.channel.send(`:white_check_mark: Success! The prefix for ${message.guild.name} is now \`${arga[0]}\``);
+        message.channel.send(`:white_check_mark: Success! The prefix for ${message.guild.name} is now \`${args[0]}\``);
 
 
     }
