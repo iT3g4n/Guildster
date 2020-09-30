@@ -59,7 +59,7 @@ module.exports = {
             }
         }, { upsert: true, new: true });
 
-        const amount = result.recieved;
+        const amount = await result.recieved;
         let thankornot
         if(result.recieved = 1) {
             thankornot = 'thank'

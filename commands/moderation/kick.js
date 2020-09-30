@@ -1,5 +1,5 @@
 const { MessageEmbed, Client, Message } = require("discord.js");
-const {bot} = require('./../../index');
+const { bot } = require('./../../index');
 
 module.exports = {
     name: 'Kick',
