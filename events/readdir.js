@@ -27,7 +27,7 @@ this.run = async(err, files) => {
     }
 
     find_nested('./commands/', '.js').forEach(file => {
-        if(!file) return;
+        if (!file) return;
         if (!file.endsWith(".js")) return;
         const props = require(file);
         console.log(`Attempting to load the command named '${props.name.toLowerCase()}'`);

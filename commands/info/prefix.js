@@ -20,14 +20,15 @@ module.exports = {
 
         if (!message.member.hasPermission(`ADMINISTRATOR`)) return message.channel.send(`You don't have enough permissions to do that!`);
 
+        const set = args[0].toLowerCase()
+
         await guild.findOneAndUpdate({ _id: message.guild.id }, {
-            Prefix: args[0]
-        }, {})
+            Prefix: set
+        }, { upsert: true });
 
-        await bot.prefixes.set(message.guild.id, args[0]);
+        await bot.prefixes.set(message.guild.id, set);
 
-        message.channel.send(`:white_check_mark: Success! The prefix for ${message.guild.name} is now \`${args[0]}\``);
-
+        message.channel.send(bot.embed.setDescription(`:white_check_mark: Success! The prefix for ${message.guild.name} is now \`${set}\``));
 
     }
 };
