@@ -14,13 +14,13 @@ module.exports = {
      * @param {Message} message
      * @param {String[]} args
      */
-    run: async(a, message, args) => {
-            message.channel.send(bot.embed
-                .setTitle(`Bot Info`)
-                .addField(`Uptime`, `${ms(bot.uptime, { long: false })}`, true)
-                .addField(`API Ping`, `${bot.ws.ping} MS`, true)
-                .addField(`Owner`, `<@381024325974622209>`, true)
-                .addField(`Severs`, `${bot.guilds.cache.size}`, true)
-                .addField(`Version`, `${require(`../../package.json`).version}`, true))
+    run: async (a, message, args) => {
+        message.channel.send(bot.embed
+            .setTitle(`Bot Info`)
+            .addField(`Uptime`, `${ms(bot.uptime, { long: false })}`, true)
+            .addField(`API Ping`, `${bot.ws.ping} MS`, true)
+            .addField(`Owner`, `<@381024325974622209>`, true)
+            .addField(`Severs`, `${bot.guilds.cache.size}`, true)
+            .addField(`Version`, `${require(`../../package.json`).version}`, true))
     }
 }
