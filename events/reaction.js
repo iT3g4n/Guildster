@@ -1,5 +1,7 @@
 const discord = require(`discord.js`);
 const db = new Map()
+
+const { bot } = require('../index');
 const guildSchema = require('../schemas/guildSchema');
 const MessageEmbed = require('discord.js').MessageEmbed
 
