@@ -53,10 +53,8 @@ module.exports = {
 
             collector.on('collect', async message => {
 
-                console.log(message.content)
-
                 const ticketembed = new MessageEmbed()
-                    .setDescription(`**Suggestion by <@${message.author.id}>**\n\n**Suggestion**\n${msgArgs}`)
+                    .setDescription(`**Suggestion by <@${message.author.id}>**\n\n**Suggestion**\n${message.content}`)
                     .setColor('RANDOM');
                 const ticketid = "739480654109999185";
 
