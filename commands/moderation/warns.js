@@ -1,5 +1,5 @@
 const { Client, Message, MessageEmbed } = require('discord.js')
-const warns = require(`../../schemas/warnSchema`)
+const warns = require(`./../../schemas/warnSchema`)
 
 module.exports = {
     name: 'Warns',
