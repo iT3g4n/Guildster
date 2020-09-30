@@ -1,10 +1,10 @@
 const { Message, Client } = require(`discord.js`)
-const guildSchema = require("./../../schemas/guildSchema")
-this.name = 'setticketchannel'
-this.aliases = ['setticketchannel', 'tickets']
+const guildSchema = require("../../schemas/guildSchema")
+this.name = 'Setticketchannel'
+this.aliases = ['stc', 'tickets']
 this.description = 'Sets the channel for the tickets to go to.'
-this.usage = '[command] [channel mention]',
-    this.catagory = 'tickets'
+this.usage = '[command] [channel mention]'
+this.catagory = 'tickets'
 /**
  * @param {Client} bot 
  * @param {Message} message 

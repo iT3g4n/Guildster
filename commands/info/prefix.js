@@ -15,36 +15,19 @@ module.exports = {
      */
     run: async (bot, message, args) => {
 
-        let msg = await message.channel.send(`Working...`)
 
-        let prefixa = await guild.findOne({ _id: message.guild.id })
-        let prefix = prefixa.Prefix
+        if (!args[0]) return message.channel.send(`The prefix for ${message.guild.name} is \`${bot.prefixes.get(message.guild.id)}\``);
 
-        if (!args[0]) return msg.edit(`The prefix for ${message.guild.name} is \`${prefix}\``);
+        if (!message.member.hasPermission(`ADMINISTRATOR`) && args[0]) return message.channel.send(`You don't have enough permissions to do that!`);
 
-    if(!args[0]) return;
+        await guild.findOneAndUpdate({ _id: message.guild.id }, {
+            Prefix: args[0]
+        }, { upsert: true })
 
-    await mongo().then(async mongoose => {
+        bot.prefixes.set(message.guild.id, args[0]);
 
-        if (!message.member.hasPermission(`ADMINISTRATOR`)) return message.channel.send(`You don't have enough permissions to do that!`);
+        message.channel.send(`:white_check_mark: Success! The prefix for ${message.guild.name} is now \`${arga[0]}\``);
 
-        try {
 
-            await guild.findOneAndUpdate({ _id: message.guild.id }, {
-                Prefix: args[0]
-            }, { upsert: true })
-
-            let prefixa = await guild.findOne({ _id: message.guild.id })
-            let prefix = prefixa.Prefix
-
-            msg.edit(`:white_check_mark: Success! The prefix for ${message.guild.name} is now \`${prefix}\``);
-
-        } finally {
-
-            mongoose.connection.close();
-
-        };
-    });
-
-}
+    }
 };

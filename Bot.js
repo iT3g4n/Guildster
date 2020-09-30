@@ -11,16 +11,20 @@ class BotClient extends Client {
         this.fs = require('fs');
         this.path = require('path');
         this.discord = require('discord.js');
-        this.afkmap = new Collection()
         this.fun = []
+        this.giveaways = []
         this.moderation = []
+        this.info = []
+        this.misc = []
         this.hitting = []
         this.tickets = []
         this.owner = []
-        this.commandlength = 0
+        this.commandlength = 0;
+        this.afkmap = new Collection()
         this.helpEmbed = new discord.MessageEmbed();
         this.commands = new Collection();
         this.musicqueue = new Collection();
+        this.prefixes = new Collection();
     }
     error(message, title) {
         const embed = new MessageEmbed().setTimestamp(Date.now()).setFooter('ERROR').setColor('RED').setDescription(message);
@@ -40,11 +44,11 @@ class BotClient extends Client {
         });
     };
     start(path) {
-        this.eventLoader();
-        this.featureLoader();
         this.login(process.env.TOKEN);
+        this.eventLoader();
         this.once('ready', async () => {
             require('./events/ready').run(this);
+            this.featureLoader();
             if (!this.guilds.cache.get('714809218024079430')) return;
             this.emoji = this.guilds.cache.get('714809218024079430').emojis.cache.find(e => e.name.toLowerCase() === 'loading')
         });
