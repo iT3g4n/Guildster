@@ -18,11 +18,11 @@ module.exports = {
 
         if (!args[0]) return message.channel.send(`The prefix for ${message.guild.name} is \`${bot.prefixes.get(message.guild.id)}\``);
 
-        if (!message.member.hasPermission(`ADMINISTRATOR`) && args[0]) return message.channel.send(`You don't have enough permissions to do that!`);
+        if (!message.member.hasPermission(`ADMINISTRATOR`)) return message.channel.send(`You don't have enough permissions to do that!`);
 
         await guild.findOneAndUpdate({ _id: message.guild.id }, {
             Prefix: args[0]
-        }, { upsert: true })
+        }, {})
 
         bot.prefixes.set(message.guild.id, args[0]);
 
