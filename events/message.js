@@ -1,30 +1,35 @@
 const { Message, Client, MessageEmbed } = require('discord.js');
 const { bot } = require('../index');
+const guildSchema = require('../schemas/guildSchema');
+
 /**
- * @param {Client} bot 
  * @param {Message} message 
  * @param {Map} map 
  */
 
 this.run = async (a, message, map) => {
+    const { channel } = message
+    if (message.partial) await message.fetch();
 
-    if (message.author.bot && message.channel.id === '716239917751206048') message.delete({ timeout: 20000 }).catch(e => {
+    if (message.author.bot && channel.name.includes('verify')) message.delete({ timeout: 20000 }).catch(e => {
         return;
     });
     if (message.author.bot) return;
 
-    if (message.channel.id === '716239917751206048') message.delete();
+    if (channel.name.includes('verify')) message.delete();
 
-    const prefixes = [`<@!${bot.user.id}>`, `<@${bot.user.id}>`, '*']
+    const prefixes = [`<@!${bot.user.id}>`, `<@${bot.user.id}>`, '*'];
     //in your case can only be var prefixes = ["<@453463055741747200>", "<@!453463055741747200>"]
 
     let prefix = false;
     for (const thisPrefix of prefixes) {
         if (message.content.toLowerCase().startsWith(thisPrefix)) prefix = thisPrefix;
+        if (message.content.toLowerCase().startsWith(bot.prefixes.get(message.guild.id))) prefix = bot.prefixes.get(message.guild.id);
     }
     const args = message.content.slice(prefix.length).trim().split(" ");
     const command = args.shift().toLowerCase();
 
+    if (command.toLowerCase() !== 'verify' && channel.name.includes('verify')) return message.delete();
     if (message.author.bot || !message.guild) return;
 
     if (bot.afkmap) {

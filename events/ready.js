@@ -1,8 +1,8 @@
-const ms = require(`ms`);
 const { bot } = require('../index');
 
-this.run = async() => {
-    console.log(`logged in as ${bot.user.tag}`);
+this.run = async () => {
+  console.log(`logged in as ${bot.user.tag}`);
+  console.log(`${bot.commandlength} commands were loaded in total.`)
 
   activities_list = [
     { name: `over ${bot.guilds.cache.size} guilds! | *help`, type: 'WATCHING', url: 'https://www.youtube.com/T3g4n' },
@@ -19,5 +19,5 @@ this.run = async() => {
 
     bot.user.setActivity(activities_list[index]);
 
-  }, 1000 * 5);
-}
+  }, 1000 * 10);
+};

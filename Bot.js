@@ -11,41 +11,44 @@ class BotClient extends Client {
         this.fs = require('fs');
         this.path = require('path');
         this.discord = require('discord.js');
-        this.afkmap = new Collection()
         this.fun = []
+        this.giveaways = []
         this.moderation = []
+        this.info = []
+        this.misc = []
         this.hitting = []
         this.tickets = []
         this.owner = []
-        this.commandlength = 0
+        this.commandlength = 0;
+        this.afkmap = new Collection()
         this.helpEmbed = new discord.MessageEmbed();
         this.commands = new Collection();
         this.musicqueue = new Collection();
+        this.prefixes = new Collection();
     }
     error(message, title) {
         const embed = new MessageEmbed().setTimestamp(Date.now()).setFooter('ERROR').setColor('RED').setDescription(message);
         if(title) embed.setTitle(title);
         return embed
     }
-    commandHandler(path) {
-        this.fs.readdirSync(this.path.join(__dirname, '.', path)).map((f) => {
-            let File = require(this.path.join(__dirname, `.`, path, f));
-            this.commands.set(File.name.toLowerCase(), File);
-            console.log('Sucessfully Loaded ' + File.name.toLowerCase())
-        })
-    };
     eventLoader() {
         this.fs.readdirSync('./events').forEach(file => {
             require('./events/' + file);
             console.log(`Checking ${file.split('.')[0]}`);
         });
-    }
+    };
+    featureLoader() {
+        this.fs.readdirSync('./features').forEach(file => {
+            require('./features/' + file)();
+            console.log(`Loaded ${file.split('.')[0]}`);
+        });
+    };
     start(path) {
-        this.commandHandler(path);
-        this.eventLoader();
         this.login(process.env.TOKEN);
+        this.eventLoader();
         this.once('ready', async () => {
             require('./events/ready').run(this);
+            this.featureLoader();
             if (!this.guilds.cache.get('714809218024079430')) return;
             this.emoji = this.guilds.cache.get('714809218024079430').emojis.cache.find(e => e.name.toLowerCase() === 'loading')
         });
