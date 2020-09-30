@@ -11,6 +11,7 @@ module.exports = {
 
     run: async(reaction, user) => {
         const { message } = reaction
+        await reaction.fetch();
 
         if (user.bot) return;
 
@@ -22,14 +23,12 @@ module.exports = {
 
             if (db.has(`TICKET: ${user.id}`)) return reaction.message.channel.send(`Sorry <@${user.id}>. You already have a ticket open! Please wait for the time to be over.`).then(m => m.delete({ timeout: 5000 })), reaction.users.remove(user);
 
-            console.log('test')
-
             const embed = new discord.MessageEmbed()
                 .setTitle("Create a Ticket  🎫")
                 .setDescription(`What is your suggestion <@${user.id}>?`)
                 .setColor('RANDOM');
 
-            let m = await reaction.message.guild.channels.create(`${user.id}-ticket`, {
+            const m = await reaction.message.guild.channels.create(`${user.id}-ticket`, {
                 type: "text", parent: reaction.message.channel.parentID,
                 permissionOverwrites: [
                     {
@@ -50,9 +49,7 @@ module.exports = {
 
             const { message } = reaction
 
-            await reaction.fetch();
-
-            const collector = m.createMessageCollector((x) => x.author.id == message.author.id);
+            const collector = m.createMessageCollector((x) => x.author.id === user.id);
 
             collector.on('collect', async message => {
 
