@@ -13,7 +13,7 @@ this.catagory = 'music'
  */
 this.run = async(a, message, args) => {
     if (!message.member.voice.channel.id) return message.reply(bot.embed.setDescription('You are not in a voice channel!')).then(m => m.delete({ timeout: 5000 }));
-    if (message.guild.me.voice.id !== message.member.voice.channel.id && message.guild.me.voice) return message.reply(bot.error(`I am already in a voice channel ${message.author}!`)).then(m => m.delete({ timeout: 5000 }));
+    if (message.guild.me.voice.id !== message.member.voice.channel.id && message.guild.me.voice.id) return message.reply(bot.error(`I am already in a voice channel ${message.author}!`)).then(m => m.delete({ timeout: 5000 }));
     const channel = await message.member.voice.channel.join()
     await message.guild.me.voice.setDeaf(true)
     const msg = await message.reply(bot.embed.setDescription(`I have joined the voice channel called \`${message.member.voice.channel.name}\`!`));
