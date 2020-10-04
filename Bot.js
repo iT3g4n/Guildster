@@ -23,7 +23,6 @@ class BotClient extends Client {
         this.afkmap = new Collection()
         this.helpEmbed = new discord.MessageEmbed();
         this.commands = new Collection();
-        this.musicqueue = new Collection();
         this.prefixes = new Collection();
     }
     error(message, title) {

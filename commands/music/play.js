@@ -35,7 +35,6 @@ this.run = async(a, message, args) => {
             embed.addField('Artist', data.all[0].author.name);
             embed.addField('Length', data.all[0].duration.timestamp);
             embed.setURL(data.all[0].url)
-            bot.musicqueue.set(message.guild.id, `${data.all[0].title})(${data.all[0].duration.timestamp}`);
         }).catch(e => {
             message.reply(e);
         });
