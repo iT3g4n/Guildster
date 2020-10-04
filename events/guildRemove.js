@@ -8,17 +8,10 @@ module.exports = {
      * @param {Guild} guild
      * @param {Client} bot
      */
-    run: async(bot, guild) => {
-        await mongo().then(async mongoose => {
-            try {
-                let data = await guildSchema.findOneAndRemove( {_id: guild.id} ).then()
-                console.log(`Guild Deleted:`, guild.name)
+    run: async (bot, guild) => {
+        console.log(`Guild Deleted:`, guild.name)
+        const data = await guildSchema.findOneAndRemove({ _id: guild.id })
 
-                let moredata = await warnSchema.deleteMany({Guild: guild.id}).then()
-                
-            } finally {
-                mongoose.connection.close()
-            }
-        })
+        const moredata = await warnSchema.deleteMany({ Guild: guild.id });
     }
 }
