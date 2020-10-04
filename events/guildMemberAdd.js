@@ -24,6 +24,7 @@ this.run = async (member) => {
         const collector = dm.channel.createMessageCollector((x) => x.author.id == member.id);
 
         setTimeout(() => {
+            if (!collector) return;
             collector.stop('too long');
         }, 1000 * 60 * 2);
 
