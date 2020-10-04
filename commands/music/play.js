@@ -25,7 +25,9 @@ this.run = async(a, message, args) => {
             if (err) console.error(err);
     
             try {
-                vc.play(play(data.all[0].url));
+                vc.play(play(data.all[0].url), {
+                    bitrate: 'auto'
+                });
             } catch (e) {
                 console.error(e)
             }

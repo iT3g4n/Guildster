@@ -19,7 +19,7 @@ this.run = async(a, message, args) => {
     const msg = await message.reply(bot.embed.setDescription(`I have joined the voice channel called \`${message.member.voice.channel.name}\`!`));
     msg.react('❌');
 
-    channel.play(play('https://www.youtube.com/watch?v=oHg5SJYRHA0'))
+    channel.play(play('https://www.youtube.com/watch?v=oHg5SJYRHA0'), { bitrate: 70000})
 
     bot.on('messageReactionAdd', async (reaction, user) => {
         if (reaction.emoji.name === '❌' && user.id === message.author.id) msg.delete(), message.delete(), message.guild.me.voice.channel.leave()
