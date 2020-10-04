@@ -18,7 +18,7 @@ this.run = async(a, message, args) => {
     const query = args.join(' ');
     if (!query) return message.reply(bot.error('You did not specify anything to play!'))
 
-    const embed = new MessageEmbed().setColor('GREEN')
+    const embed = new MessageEmbed().setColor('GREEN');
 
     await message.member.voice.channel.join().then(async vc => {
         await search(query).then((data, err) => {
