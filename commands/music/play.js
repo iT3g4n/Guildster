@@ -1,5 +1,5 @@
 const { Message, MessageEmbed } = require('discord.js');
-const { bot } = require('./../../index');
+const { bot } = require('../../index');
 const play = require('ytdl-core')
 const search = require('yt-search');
 
@@ -7,7 +7,7 @@ this.name = 'Play'
 this.aliases = ['p']
 this.usage = '[command] [song name or link]'
 this.description = 'Plays a song in the voice channel that you are in!'
-this.catagory = 'fun'
+this.catagory = 'music'
 /**
  * @param {Message} message 
  * @param {String[]} args 

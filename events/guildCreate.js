@@ -10,6 +10,7 @@ module.exports = {
     run: async (a, b) => {
 
         const guild = await b.fetch();
+        bot.prefixes.set(guild.id, '*');
 
         await guildSchema.findOneAndUpdate({ _id: guild.id }, {
             _id: guild.id,

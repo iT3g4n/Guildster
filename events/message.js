@@ -18,13 +18,12 @@ this.run = async (a, message, map) => {
 
     if (channel.name.includes('verify')) message.delete();
 
-    const prefixes = [`<@!${bot.user.id}>`, `<@${bot.user.id}>`, '*'];
+    const prefixes = [`<@!${bot.user.id}>`, `<@${bot.user.id}>`, bot.prefixes.get(message.guild.id)];
     //in your case can only be var prefixes = ["<@453463055741747200>", "<@!453463055741747200>"]
 
     let prefix = false;
     for (const thisPrefix of prefixes) {
         if (message.content.toLowerCase().startsWith(thisPrefix)) prefix = thisPrefix;
-        if (message.content.toLowerCase().startsWith(bot.prefixes.get(message.guild.id))) prefix = bot.prefixes.get(message.guild.id);
     }
     const args = message.content.slice(prefix.length).trim().split(" ");
     const command = args.shift().toLowerCase();
