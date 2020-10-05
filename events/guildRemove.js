@@ -10,8 +10,5 @@ module.exports = {
      */
     run: async (bot, guild) => {
         console.log(`Guild Deleted:`, guild.name)
-        const data = await guildSchema.findOneAndRemove({ _id: guild.id })
-
-        const moredata = await warnSchema.deleteMany({ Guild: guild.id });
     }
 }
