@@ -9,14 +9,15 @@ const guildSchema = require('../schemas/guildSchema');
 
 this.run = async (a, message, map) => {
     const { channel } = message
+
     if (message.partial) await message.fetch();
 
-    if (message.author.bot && channel.name == 'verify') message.delete({ timeout: 20000 }).catch(e => {
+    if (message.author.bot && channel.id == ('716239917751206048' || '760485750805364748')) message.delete({ timeout: 20000 }).catch(e => {
         return;
     });
     if (message.author.bot) return;
 
-    if (channel.name.includes('verify') && !message.member.hasPermission('MANAGE_MESSAGES')) message.delete();
+    if (channel.id == ('716239917751206048' || '760485750805364748') && !message.member.hasPermission('MANAGE_MESSAGES')) message.delete();
     const prefixes = [`<@!${bot.user.id}>`, `<@${bot.user.id}>`, bot.prefixes.get(message.guild.id)?bot.prefixes.get(message.guild.id):'*'];
 
     let prefix = false;
@@ -26,7 +27,7 @@ this.run = async (a, message, map) => {
     const args = message.content.slice(prefix.length).trim().split(" ");
     const command = args.shift().toLowerCase();
 
-    if (command.toLowerCase() !== 'verify' && channel.name.includes('verify')) return message.delete();
+    if (command.toLowerCase() !== 'verify' && channel.id == ('716239917751206048' || '760485750805364748')) return message.delete();
     if (message.author.bot || !message.guild) return;
 
     if (bot.afkmap) {
