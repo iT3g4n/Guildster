@@ -8,8 +8,7 @@ module.exports = async () => {
         if (!c) return;
         if (!c.Prefix) return;
         const b = c.Prefix;
-        bot.prefixes.set(guild.id, b);
-        console.log(`Prefix loaded for ${guild.name} @ ${b}`);
+        bot.prefixes.set(guild.id, b ? b : '*');
+        console.log(`Prefix loaded for ${guild.name} @ ${b ? b : '*'}`);
     });
-
 };

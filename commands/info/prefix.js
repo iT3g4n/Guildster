@@ -1,6 +1,6 @@
 const guild = require(`./../../schemas/guildSchema`)
 const { Client, Message } = require("discord.js");
-const mongo = require("./../../mongo");
+const bot = require('../../bot');
 
 module.exports = {
     name: 'Prefix',
@@ -13,20 +13,20 @@ module.exports = {
      * @param {Message} message
      * @param {String[]} args
      */
-    run: async (bot, message, args) => {
+    run: async (a, message, args) => {
 
 
         if (!args[0]) return message.channel.send(`The prefix for ${message.guild.name} is \`${bot.prefixes.get(message.guild.id)}\``);
 
         if (!message.member.hasPermission(`ADMINISTRATOR`)) return message.channel.send(`You don't have enough permissions to do that!`);
 
-        const set = args[0].toLowerCase()
+        const set = args[0].toLowerCase();
 
         await guild.findOneAndUpdate({ _id: message.guild.id }, {
             Prefix: set
         }, { upsert: true });
 
-        await bot.prefixes.set(message.guild.id, set);
+        bot.prefixes.set(message.guild.id, set);
 
         message.channel.send(bot.embed.setDescription(`:white_check_mark: Success! The prefix for ${message.guild.name} is now \`${set}\``));
 
