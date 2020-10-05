@@ -4,8 +4,7 @@ const { find } = require("../schemas/warnSchema");
 /**
  * @param {String[]} files 
  */
-this.run = async(err, files) => {
-    if (err) console.error(err);
+this.run = async() => {
 
     function find_nested(dir, pattern) {
         let results = [];

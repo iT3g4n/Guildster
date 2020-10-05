@@ -11,15 +11,13 @@ this.run = async (a, message, map) => {
     const { channel } = message
     if (message.partial) await message.fetch();
 
-    if (message.author.bot && channel.name.includes('verify')) message.delete({ timeout: 20000 }).catch(e => {
+    if (message.author.bot && channel.name == 'verify') message.delete({ timeout: 20000 }).catch(e => {
         return;
     });
     if (message.author.bot) return;
 
-    if (channel.name.includes('verify')) message.delete();
-
-    const prefixes = [`<@!${bot.user.id}>`, `<@${bot.user.id}>`, '*', bot.prefixes.get(message.guild.id)];
-    //in your case can only be var prefixes = ["<@453463055741747200>", "<@!453463055741747200>"]
+    if (channel.name.includes('verify') && !message.member.hasPermission('MANAGE_MESSAGES')) message.delete();
+    const prefixes = [`<@!${bot.user.id}>`, `<@${bot.user.id}>`, bot.prefixes.get(message.guild.id)]
 
     let prefix = false;
     for (const thisPrefix of prefixes) {

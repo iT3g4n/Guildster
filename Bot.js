@@ -23,7 +23,6 @@ class BotClient extends Client {
         this.afkmap = new Collection()
         this.helpEmbed = new discord.MessageEmbed();
         this.commands = new Collection();
-        this.musicqueue = new Collection();
         this.prefixes = new Collection();
     }
     error(message, title) {
@@ -37,20 +36,23 @@ class BotClient extends Client {
             console.log(`Checking ${file.split('.')[0]}`);
         });
     };
+    commandHandler() {
+        require('./events/readdir').run();
+    }
     featureLoader() {
         this.fs.readdirSync('./features').forEach(file => {
             require('./features/' + file)();
-            console.log(`Loaded ${file.split('.')[0]}`);
+            console.log(`Loaded the "${file.split('.')[0]}" feature.`);
         });
     };
-    start(path) {
+    start() {
         this.login(process.env.TOKEN);
+        this.commandHandler();
         this.eventLoader();
         this.once('ready', async () => {
             require('./events/ready').run(this);
             this.featureLoader();
-            if (!this.guilds.cache.get('714809218024079430')) return;
-            this.emoji = this.guilds.cache.get('714809218024079430').emojis.cache.find(e => e.name.toLowerCase() === 'loading')
+            this.emoji = this.guilds.cache.get('714809218024079430').emojis.cache.find(e => e.name.toLowerCase() === 'loading');
         });
         let map = new Map()
         this.on('message', message => {
@@ -76,4 +78,4 @@ class BotClient extends Client {
     };
 };
 
-module.exports = BotClient;
+module.exports = new BotClient();
