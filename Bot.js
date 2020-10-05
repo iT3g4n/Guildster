@@ -47,6 +47,7 @@ class BotClient extends Client {
     };
     start() {
         this.login(process.env.TOKEN);
+        this.commandHandler();
         this.eventLoader();
         this.once('ready', async () => {
             require('./events/ready').run(this);
