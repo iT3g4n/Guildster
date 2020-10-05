@@ -4,8 +4,7 @@ const { find } = require("../schemas/warnSchema");
 /**
  * @param {String[]} files 
  */
-this.run = async(err, files) => {
-    if (err) console.error(err);
+this.run = async() => {
 
     function find_nested(dir, pattern) {
         let results = [];
@@ -30,8 +29,8 @@ this.run = async(err, files) => {
         if (!file) return;
         if (!file.endsWith(".js")) return;
         const props = require(file);
-        console.log(`Attempting to load the command named '${props.name?props.name.toLowerCase():file}'`);
-        bot.commands.set(props.name?props.name.toLowerCase():file, props)
+        console.log(`Attempting to load the command named '${props.name.toLowerCase()}'`);
+        bot.commands.set(props.name.toLowerCase(), props)
         if (props.catagory == 'fun') {
             bot.fun.push(`**Name:** ${props.name}\n**Description:** ${props.description}`);
         };

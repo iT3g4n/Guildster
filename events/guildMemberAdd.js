@@ -9,14 +9,6 @@ this.run = async (member) => {
 
     await member.fetch();
 
-    if (Date.now() - member.joinedAt <= 5000) {
-        member.guild.channels.cache.find(r => r.name.includes('welcome' || 'general' || 'public')).send(new discord.MessageEmbed({
-            color: 'BLUE',
-            author: { name: 'Welcome to ' + member.guild.name + `, <@${member.id}>!`, icon_url: member.user.avatarURL({ dynamic: true, size: 2048 }) },
-            description: `We hope that you enjoy your time here in \`${member.guild.name}\`!`
-        }));
-    };
-
     const d = await fetch('https://api.no-api-key.com/api/v2/captcha').then(res => res.json());
     try {
         const dm = await member.send(new discord.MessageEmbed().setColor('RANDOM').setDescription('Welcome to this server! Please type in the message on the picture to verify!'));
@@ -42,7 +34,11 @@ this.run = async (member) => {
                 dm.channel.send(new discord.MessageEmbed().setColor('RANDOM').setDescription('You have failed. Please type ' + `*verify again in the server.`));
             } else if (reason == 'yes') {
                 const rolenames = ['member', 'verifed'];
-                member.roles.add(member.guild.roles.cache.find(r => rolenames.forEach(role => r.name.toLowerCase().includes(role)))).catch(e => { console.error(`COULD NOT ADD ROLE:`, e) });
+                const role = member.guild.roles.cache.find(role => rolenames.forEach(a => {
+                    role.name.includes(a);
+                }))
+                if (!role) return message.reply(new MessageEmbed().setDescription('There is no role to give you in the server. Please contact ' + member.guild.owner));
+                member.roles.add(role.id).catch(e => console.error(`COULD NOT ADD ROLE:`, e));
                 member.send(new discord.MessageEmbed().setColor('RANDOM').setDescription('Success! You now have full access to the server!'));
                 return;
             } else if (reason == 'too long') {
