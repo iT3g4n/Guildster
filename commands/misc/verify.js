@@ -12,6 +12,7 @@ module.exports = {
      * @param {String[0]} args
      */
     run: async(a, message, args) => {
+        message.delete();
         bot.emit('guildMemberAdd', message.member);
     }
 }

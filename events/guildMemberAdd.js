@@ -1,5 +1,5 @@
 const { GuildMember } = require('discord.js');
-const { bot } = require('../Bot');
+const { bot } = require('../index');
 const fetch = require('node-fetch')
 const discord = require('discord.js');
 /**
@@ -11,8 +11,7 @@ this.run = async (member) => {
 
     const d = await fetch('https://api.no-api-key.com/api/v2/captcha').then(res => res.json());
     try {
-        const dm = await member.send(new discord.MessageEmbed().setColor('RANDOM').setDescription('Welcome to this server! Please type in the message on the picture to verify!'));
-        await member.send(d.captcha)
+        const dm = await member.send(new discord.MessageEmbed().setColor('RANDOM').setDescription(`Welcome to this server! Please type in the message on the picture to verify!`).setImage(d.captcha));
         const collector = dm.channel.createMessageCollector((x) => x.author.id == member.id);
 
         setTimeout(() => {
@@ -31,14 +30,16 @@ this.run = async (member) => {
 
         collector.on('end', (collected, reason) => {
             if (reason == 'failed') {
-                dm.channel.send(new discord.MessageEmbed().setColor('RANDOM').setDescription('You have failed. Please type ' + `*verify again in the server.`));
+                dm.channel.send(new discord.MessageEmbed().setColor('RANDOM').setDescription('You have failed. Please type ' + `*${bot.prefixes.get(member.guild.id)}verify again in the server.`));
             } else if (reason == 'yes') {
-                const rolenames = ['member', 'verifed'];
-                const role = member.guild.roles.cache.find(role => rolenames.forEach(a => {
-                    role.name.includes(a);
-                }))
-                if (!role) return message.reply(new MessageEmbed().setDescription('There is no role to give you in the server. Please contact ' + member.guild.owner));
-                member.roles.add(role.id).catch(e => console.error(`COULD NOT ADD ROLE:`, e));
+                const rolenames = ['member', 'verified', 'members', 'melonas', 'melons'];
+                let roleId;
+                rolenames.forEach(rolename => {
+                    member.guild.roles.cache.find(role => {if (role.name.toLowerCase().includes(rolename)) roleId = role.id});
+                });
+                if (!roleId) return member.send(new discord.MessageEmbed().setDescription('There is no role to give you in the server. Please contact ' + `<@${member.guild.owner.id}>`));
+                member.roles.add(roleId).catch(e => console.error(`COULD NOT ADD ROLE:`, e));
+                console.log(`GAVE ROLE TO USER`, member.user.tag, roleId);
                 member.send(new discord.MessageEmbed().setColor('RANDOM').setDescription('Success! You now have full access to the server!'));
                 return;
             } else if (reason == 'too long') {

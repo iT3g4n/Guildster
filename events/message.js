@@ -8,7 +8,10 @@ const guildSchema = require('../schemas/guildSchema');
  */
 
 this.run = async (a, message, map) => {
-    const { channel } = message
+    const { channel, guild } = message
+
+    if (!guild) return;
+    await guild.fetch();
 
     if (message.partial) await message.fetch();
 
@@ -18,7 +21,7 @@ this.run = async (a, message, map) => {
     if (message.author.bot) return;
 
     if (channel.id == ('716239917751206048' || '760485750805364748') && !message.member.hasPermission('MANAGE_MESSAGES')) message.delete();
-    const prefixes = [`<@!${bot.user.id}>`, `<@${bot.user.id}>`, bot.prefixes.get(message.guild.id)?bot.prefixes.get(message.guild.id):'*'];
+    const prefixes = [`<@!${bot.user.id}>`, `<@${bot.user.id}>`, bot.prefixes.get(guild.id)];
 
     let prefix = false;
     for (const thisPrefix of prefixes) {
