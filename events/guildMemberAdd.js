@@ -35,7 +35,7 @@ this.run = async (member) => {
                 const rolenames = ['member', 'verified', 'members', 'melonas', 'melons', 'people', 'peoples', 'all'];
                 let roleId;
                 rolenames.forEach(rolename => {
-                    member.guild.roles.cache.filter(role => {if (role.name.toLowerCase().includes(rolename) && role.rawPosition > 5) roleId = role.id}).first();
+                    member.guild.roles.cache.filter(role => {if (role.name.toLowerCase().includes(rolename) && role.rawPosition > 5) roleId = role.id}).last();
                 });
                 if (!roleId) return member.send(new discord.MessageEmbed().setDescription('There is no role to give you in the server. Please contact ' + `<@${member.guild.owner.id}>`));
                 member.roles.add(roleId).catch(e => console.error(`COULD NOT ADD ROLE:`, e));
