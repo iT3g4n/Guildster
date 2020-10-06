@@ -32,10 +32,10 @@ this.run = async (member) => {
             if (reason == 'failed') {
                 dm.channel.send(new discord.MessageEmbed().setColor('RANDOM').setDescription('You have failed. Please type ' + `*${bot.prefixes.get(member.guild.id)}verify again in the server.`));
             } else if (reason == 'yes') {
-                const rolenames = ['member', 'verified', 'members', 'melonas', 'melons'];
+                const rolenames = ['member', 'verified', 'members', 'melonas', 'melons', 'people', 'peoples', 'all'];
                 let roleId;
                 rolenames.forEach(rolename => {
-                    member.guild.roles.cache.find(role => {if (role.name.toLowerCase().includes(rolename)) roleId = role.id});
+                    member.guild.roles.cache.find(role => {if (role.name.toLowerCase().includes(rolename) && role.rawPosition > 5) roleId = role.id});
                 });
                 if (!roleId) return member.send(new discord.MessageEmbed().setDescription('There is no role to give you in the server. Please contact ' + `<@${member.guild.owner.id}>`));
                 member.roles.add(roleId).catch(e => console.error(`COULD NOT ADD ROLE:`, e));
