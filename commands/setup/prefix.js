@@ -1,4 +1,4 @@
-const guild = require(`./../../schemas/guildSchema`)
+const guild = require(`../../schemas/guildSchema`)
 const { Client, Message } = require("discord.js");
 const { bot } = require('../../index');
 
@@ -14,11 +14,10 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (a, message, args) => {
-
-
+        
         if (!args[0]) return message.channel.send(`The prefix for ${message.guild.name} is \`${bot.prefixes.get(message.guild.id)}\``);
 
-        if (!message.member.hasPermission(`ADMINISTRATOR`)) return message.channel.send(`You don't have enough permissions to do that!`);
+        if (!message.member.hasPermission(`ADMINISTRATOR`) || !bot.owner.includes(message.author.id)) return message.channel.send(`You don't have enough permissions to do that!`);
 
         const set = args[0].toLowerCase();
 
