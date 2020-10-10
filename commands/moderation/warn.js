@@ -18,38 +18,23 @@ module.exports = {
 
     async run(bot, message, args) {
         if (!message.member.hasPermission(`MANAGE_MESSAGES`)) return message.reply(`no`);
-        const mention = message.mentions.users.first();
-        const mrid = message.guild.members.cache.get(args[0]);
-        if (!mention && !mrid) return message.channel.send(bot.embed.setDescription(`You did not mention anyone.`));
-
-        var mi;
-        var mt;
-
-        if (!mention) {
-            var mi = mrid.id
-            var mt = mrid.user.tag
-        } else {
-            var mi = mention.id
-            var mt = mention.tag
-        }
+        const mention = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
+    
+        if (!mention) return message.channel.send(bot.embed.setDescription(`You did not mention anyone.`));
 
         const reason = args.slice(1).join(' ')
         if (!reason) return message.channel.send(`You did not specify a reason.`);
 
-        let msg = await message.channel.send(`Warning ${mt}...`);
-
-        await mongo().then(async mongoose => {
-
-            try {
+        const msg = await message.channel.send(`Warning ${mention.user.tag}...`);
 
                 await warns.findOneAndUpdate({
 
-                    User: mi,
+                    User: mention.id,
                     Guild: message.guild.id
 
                 }, {
 
-                    User: mi,
+                    User: mention.id,
                     Guild: message.guild.id,
                     $push: {
                         Warns: [
@@ -62,18 +47,14 @@ module.exports = {
 
                 }, { upsert: true })
 
-            } finally {
-                mongoose.connection.close()
-            }
-        })
 
-        await msg.edit(`${mt} has been succesfully warned with the reason of \`${reason}\``)
+        await msg.edit(`${mention.user.tag} has been succesfully warned with the reason of \`${reason}\``)
 
         const embed = new MessageEmbed()
-            .setTitle(`User Warned`)
+            .setAuthor(`New Warning`, mention.user.displayAvatarURL({ dynamic: true });
             .addField(`User`, `<@${mi}>`, true)
             .addField(`Moderator`, `<@${message.author.id}>`, true)
-            .addField(`Reason`, `${reason}`, true)
+            .addField(`Reason`, `${reason}`)
             .setColor(`YELLOW`)
 
         const result = await guilds.findOne({ _id: message.guild.id })
