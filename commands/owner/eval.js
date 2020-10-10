@@ -19,7 +19,7 @@ module.exports = {
 
         if (!args.join(' ')) return message.reply(`You did not give any arguments`).then(msg => msg.delete({ timeout: 5000 }))
 
-            const evaled = await eval(args.join(' '));
+            const evaled = await eval(args.join(' ')).then(async evaled => {;
 
             try {
                 bot.embed.setDescription(`**Input**\n\`\`\`js\n${args.join(' ')}\`\`\`\n**Output**\n\`\`\`${evaled}\`\`\``);
@@ -29,6 +29,8 @@ module.exports = {
 
             console.log(inspect(evaled));
             message.channel.send(bot.embed)
+
+)}
 
     }
 }
