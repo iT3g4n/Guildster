@@ -1,4 +1,3 @@
-const newembed = require("./../../newembed");
 const { Message, Client } = require(`discord.js`)
 const { inspect } = require(`util`);
 const { owners } = require("./../../index").bot;
@@ -20,19 +19,16 @@ module.exports = {
 
         if (!args.join(' ')) return message.reply(`You did not give any arguments`).then(msg => msg.delete({ timeout: 5000 }))
 
-        newembed(message, require('./eval')).then(async embed => {
-
             const evaled = eval(args.join(' '));
 
             try {
-                embed.setDescription(`**Result**\n\`\`\`${evaled}\`\`\``);
+                bot.embed.setDescription(`**Input**\n\`\`\`js\n${args.join(' ')}\`\`\`\n**Output**\n\`\`\`${evaled}\`\`\``);
             } catch (error) {
-                embed.setDescription(`**Result**\n\`\`\`${error}\`\`\``);
+                bot.embed.setDescription(`**Result**\n\`\`\`${error}\`\`\``);
             }
 
             console.log(inspect(evaled));
-            let msg = await message.channel.send(embed)
+            message.channel.send(bot.embed)
 
-        })
     }
 }
