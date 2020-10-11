@@ -1,6 +1,5 @@
 const { MessageEmbed } = require("discord.js");
 const { bot } = require('../index');
-const { find } = require("../schemas/warnSchema");
 /**
  * @param {String[]} files 
  */
@@ -32,6 +31,7 @@ this.run = async(err, files) => {
         const props = require(file);
         console.log(`Attempting to load the command named '${props.name.toLowerCase()}'`);
         bot.commands.set(props.name.toLowerCase(), props)
+        const catagory = props.catagory.toString();
         if (props.catagory == 'fun') {
             bot.fun.push(`**Name:** ${props.name}\n**Description:** ${props.description}`);
         };
@@ -45,7 +45,7 @@ this.run = async(err, files) => {
             bot.tickets.push(`**Name:** ${props.name}\n**Description:** ${props.description}`);
         };
         if (props.catagory == 'owner') {
-            bot.owner.push(`**Name:** ${props.name}\n**Description:** ${props.description}`)
+            (bot).props.catagory.push(`**Name:** ${props.name}\n**Description:** ${props.description}`)
         };
 
         if (!props.aliases) console.error(props.name + ' has no aliases');

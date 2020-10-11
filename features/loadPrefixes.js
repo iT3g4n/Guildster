@@ -1,10 +1,8 @@
 const { bot } = require('../index');
 const guildSchema = require('../schemas/guildSchema');
 
-module.exports = async() => {
-    await bot.guilds.cache.forEach(async guild => {
-        await guild.fetch()
-        if (guild.id == '741361663298764883') return;
+module.exports = async () => {
+    bot.guilds.cache.forEach(async (guild) => {
         const c = await guildSchema.findOne({ _id: guild.id });
         if (!c) {
             const asdf = await guild.channels.cache.first().createInvite()

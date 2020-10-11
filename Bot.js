@@ -1,7 +1,5 @@
 require('dotenv').config()
-const twitch = require('twitch');
-const webhooks = require('twitch-webhooks');
-const{ Client, Collection, MessageEmbed } = require(`discord.js`);
+const{ Client, Collection, Intents } = require(`discord.js`);
 const discord = require('discord.js');
 const { error } = require('console');
 class BotClient extends Client {
@@ -20,38 +18,29 @@ class BotClient extends Client {
         this.tickets = []
         this.owner = []
         this.commandlength = 0;
-        this.afkmap = new Collection()
+        this.afkmap = new Collection();
         this.helpEmbed = new discord.MessageEmbed();
         this.commands = new Collection();
         this.prefixes = new Collection();
     }
-    error(message, title) {
-        const embed = new MessageEmbed().setTimestamp(Date.now()).setFooter('ERROR').setColor('RED').setDescription(message);
-        if(title) embed.setTitle(title);
-        return embed
+    commandHandler() {
+        require('./events/readdir').run();
     }
-    eventLoader() {
-        this.fs.readdirSync('./events').forEach(file => {
-            require('./events/' + file);
-            console.log(`Checking ${file.split('.')[0]}`);
-        });
-    };
     featureLoader() {
-        this.fs.readdirSync('./features').forEach(file => {
-            require('./features/' + file)();
-            console.log(`Loaded ${file.split('.')[0]}`);
+        this.fs.readdirSync('./features').forEach(async file => {
+            await require('./features/' + file)();
+            console.log(`Loaded the "${file.split('.')[0]}" feature.`);
         });
     };
-    start(path) {
+    start() {
+        this.commandHandler();
         this.login(process.env.TOKEN);
-        this.eventLoader();
         this.once('ready', async () => {
             require('./events/ready').run(this);
-            this.featureLoader();
-            if (!this.guilds.cache.get('714809218024079430')) return;
-            this.emoji = this.guilds.cache.get('714809218024079430').emojis.cache.find(e => e.name.toLowerCase() === 'loading')
+            await this.featureLoader()
+            this.emoji = this.guilds.cache.get('714809218024079430').emojis.cache.find(e => e.name.toLowerCase() === 'loading');
         });
-        let map = new Map()
+        const map = new Map();
         this.on('message', message => {
             require('./events/message').run(this, message, map);
         });
@@ -70,7 +59,7 @@ class BotClient extends Client {
         });
         process.on('unhandledRejection', err => {
             if(err.message.includes('DiscordAPIError: Unknown Message')) return;
-            error('UNHANDLED PROMISE REJECTION\n\n', err);
+            error('\n\nUNHANDLED PROMISE REJECTION\n\n', err);
         });
     };
 };

@@ -14,6 +14,5 @@ module.exports = {
      */
     run: async(a, message, args) => {
         if (!bot.owners.includes(message.author.id)) return;
-        bot.emit('guildCreate', message.guild);
     }
-}   
+}

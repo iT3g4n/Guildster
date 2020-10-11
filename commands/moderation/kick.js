@@ -24,7 +24,9 @@ module.exports = {
         const reason = args.slice(1).join(' ')
         if (!reason) return message.reply(`Please give a reason.`).then(msg => msg.delete({ timout: 5000 }))
 
-        mention.kick({ reason: reason });
+        await mention.kick({ reason: reason }).then(async user => {
+            await message.channel.send(new MessageEmbed({}))
+        });
 
     }
 }
