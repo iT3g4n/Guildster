@@ -52,7 +52,7 @@ module.exports = {
 
         const embed = new MessageEmbed()
             .setAuthor(`New Warning`, mention.user.displayAvatarURL({ dynamic: true }))
-            .addField(`User`, `<@${mi}>`, true)
+            .addField(`User`, `<@${mention.id}>`, true)
             .addField(`Moderator`, `<@${message.author.id}>`, true)
             .addField(`Reason`, `${reason}`)
             .setColor(`YELLOW`);
