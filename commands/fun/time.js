@@ -6,7 +6,7 @@ module.exports = {
     description: "Sends a random dog to the channel of the message!",
     run: (client, message, args) => {
         const date = Date.now();
-        message.reply(bot.embed.setDescription(`My date:
+        message.reply(client.embed.setDescription(`My date:
         ${date.toLocaleString()}`))
     }
 }
