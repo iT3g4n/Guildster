@@ -5,8 +5,8 @@ module.exports = {
     usage: '[command]',
     description: "Sends a random dog to the channel of the message!",
     run: (client, message, args) => {
-        const date = Date.now();
+        const date = new Date()
         message.reply(client.embed.setDescription(`My date:
-        ${date.toLocaleString()}`))
+        ${date}`))
     }
 }
