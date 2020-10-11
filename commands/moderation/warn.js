@@ -51,14 +51,14 @@ module.exports = {
         await msg.edit(`${mention.user.tag} has been succesfully warned with the reason of \`${reason}\``)
 
         const embed = new MessageEmbed()
-            .setAuthor(`New Warning`, mention.user.displayAvatarURL({ dynamic: true });
+            .setAuthor(`New Warning`, mention.user.displayAvatarURL({ dynamic: true }))
             .addField(`User`, `<@${mi}>`, true)
             .addField(`Moderator`, `<@${message.author.id}>`, true)
             .addField(`Reason`, `${reason}`)
-            .setColor(`YELLOW`)
+            .setColor(`YELLOW`);
 
         const result = await guilds.findOne({ _id: message.guild.id })
         if (!result) return;
         bot.channels.cache.get(result.Logs).send(embed)
     }
-}
+};

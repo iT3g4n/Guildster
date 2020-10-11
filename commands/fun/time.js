@@ -1,9 +1,9 @@
 module.exports = {
-    name: "time",
-    aliases: ['d', 'doggy', 'doggo', 'puppy', 'pup', 'dogs'],
+    name: "Time",
+    aliases: [],
     catagory: 'fun',
     usage: '[command]',
-    description: "Sends a random dog to the channel of the message!",
+    description: "Sends my time in an embed!",
     run: (client, message, args) => {
         const date = new Date()
         message.reply(client.embed.setDescription(`My date:

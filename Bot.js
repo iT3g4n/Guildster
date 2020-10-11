@@ -1,12 +1,10 @@
 require('dotenv').config()
-const twitch = require('twitch');
-const webhooks = require('twitch-webhooks');
-const{ Client, Collection, MessageEmbed } = require(`discord.js`);
+const{ Client, Collection, Intents, MessageEmbed } = require(`discord.js`);
 const discord = require('discord.js');
 const { error } = require('console');
 class BotClient extends Client {
     constructor() {
-        super({ partials: ['REACTION', 'MESSAGE', 'USER', 'GUILD_MEMBER', 'CHANNEL'] });
+        super({ partials: ['REACTION', 'MESSAGE', 'USER', 'GUILD_MEMBER', 'CHANNEL'], ws: { intents: Intents.ALL } });
         this.owners = ['381024325974622209', '589390599740719105'];
         this.fs = require('fs');
         this.path = require('path');
