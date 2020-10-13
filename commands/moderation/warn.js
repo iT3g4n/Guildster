@@ -12,20 +12,20 @@ module.exports = {
     usage: '[command] [mention or id] [reason]',
 
     /**
-     * @param {Client} bot 
+     * @param {Client} _a 
      * @param {Message} message
      * @param {String[]} args 
      */
 
-    async run(a, message, args) {
+    async run(_a, message, args) {
         if (!message.member.hasPermission(`MANAGE_MESSAGES`)) return message.reply(bot.error('You do not have enough permissions!')).then(message => message.delete({ timeout: 5000 }));
         const mention = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
         if (!mention && !mrid) return message.channel.send(bot.error(`You did not mention anyone.`));
 
         const reason = args.slice(1).join(' ')
-        if (!reason) return message.channel.send(`You did not specify a reason.`);
+        if (!reason) return message.channel.send(bot.error(`You did not specify a reason.`));
 
-        const msg = await message.channel.send(`Warning ${mention.user.tag}...`);
+        const msg = await message.channel.send(bot.embed.setDescription(`Warning ${mention.user.tag}...`));
 
         await warns.findOneAndUpdate({
 
@@ -40,7 +40,7 @@ module.exports = {
                 Warns: [
                     {
                         Moderator: message.author.id,
-                        Reason: reason.trim(),
+                        Reason: reason,
                     }
                 ]
             },
@@ -48,7 +48,7 @@ module.exports = {
         }, { upsert: true })
 
 
-        await msg.edit(`${mention.user.tag} has been succesfully warned with the reason of \`${reason.trim()}\``);
+        await msg.edit(`${mention.user.tag} has been succesfully warned with the reason of \`${reason}\``);
 
         mention.send(new MessageEmbed()
             .setColor('TEAL')
@@ -63,9 +63,9 @@ module.exports = {
             .addField(`Moderator`, `<@${message.author.id}>`, true)
             .addField(`Reason`, `${reason}`)
             .setColor(`YELLOW`);
-
-        const result = await guilds.findOne({ _id: message.guild.id })
+;
+        const result = await guilds.findOne({ _id: message.guild.id });
         if (!result) return;
-        bot.channels.cache.get(result.Logs).send(embed)
+        bot.channels.cache.get(result.Logs).send(embed);
     }
 };

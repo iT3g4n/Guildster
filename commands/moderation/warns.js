@@ -17,42 +17,27 @@ module.exports = {
     async run(bot, message, args) {
 
         if (!message.member.hasPermission(`MANAGE_MESSAGES`)) return message.reply(`no`);
-        const mention = message.mentions.users.first();
-        const mrid = message.guild.members.cache.get(args[0]);
-        if (!mention && !mrid) return message.channel.send(`You did not mention anyone.`);
+        const mention = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
+        if (!mention) return message.channel.send(`You did not mention anyone.`);
 
-        var mi;
-        var mt;
+        const embed = new MessageEmbed().setColor('RANDOM').setAuthor(`Warnings for ${mention.user.tag}`, mention.user.displayAvatarURL({ dynamic: true }));
 
-        if (!mention) {
-            var mi = mrid.id
-            var mt = mrid.user.tag
-        } else {
-            var mi = mention.id
-            var mt = mention.tag
-        }
-
-        const embed = new MessageEmbed().setColor('RANDOM').setTitle(`Warnings for ${mt}`);
-
-        let msg = await message.channel.send(`Getting warnings for ${mt}...`)
-
+        const msg = await message.channel.send(`Getting warnings for ${mention.user.tag}...`);
 
         const results = await warns.findOne({
-            User: mi,
+            User: mention.id,
             Guild: message.guild.id
-        })
+        });
 
         let i = 1;
 
-        if (!results) return msg.edit(`${mt} has no warnings`);
+        if (!results) return msg.edit(bot.embed.setDescription(`${mention.user.tag} has no warnings`));
 
         for (const warning of results.Warns) {
-            embed.addField(`Warning ${i++}`, `Moderator: <@${warning.Moderator}>\nReason: ${warning.Reason}`, true)
+            embed.addField(`Warning ${i++}`, `Moderator: <@${warning.Moderator}>\nReason: ${warning.Reason}`);
         }
 
-        await msg.edit(embed)
-        msg.edit("")
+        msg.delete().catch(e => { console.error(e) });
+        message.channel.send(embed);
     }
-
-
 }
