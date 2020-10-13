@@ -1,5 +1,6 @@
 const { Client, Message, MessageEmbed } = require('discord.js')
 const mongo = require(`./../../mongo`)
+const bot = require('./../../Bot');
 const warns = require(`./../../schemas/warnSchema`);
 const guilds = require(`./../../schemas/guildSchema`);
 
@@ -16,11 +17,10 @@ module.exports = {
      * @param {String[]} args 
      */
 
-    async run(bot, message, args) {
-        if (!message.member.hasPermission(`MANAGE_MESSAGES`)) return message.reply(`no`);
+    async run(a, message, args) {
+        if (!message.member.hasPermission(`MANAGE_MESSAGES`)) return message.reply(bot.error);
         const mention = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-    
-        if (!mention) return message.channel.send(bot.embed.setDescription(`You did not mention anyone.`));
+        if (!mention && !mrid) return message.channel.send(bot.error(`You did not mention anyone.`));
 
         const reason = args.slice(1).join(' ')
         if (!reason) return message.channel.send(`You did not specify a reason.`);

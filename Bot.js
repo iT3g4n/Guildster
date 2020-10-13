@@ -1,5 +1,4 @@
-require('dotenv').config()
-const{ Client, Collection, Intents, MessageEmbed } = require(`discord.js`);
+const{ Client, Collection, Intents } = require(`discord.js`);
 const discord = require('discord.js');
 const { error } = require('console');
 class BotClient extends Client {
@@ -28,12 +27,6 @@ class BotClient extends Client {
         if(title) embed.setTitle(title);
         return embed
     }
-    eventLoader() {
-        this.fs.readdirSync('./events').forEach(file => {
-            require('./events/' + file);
-            console.log(`Checking ${file.split('.')[0]}`);
-        });
-    };
     commandHandler() {
         require('./events/readdir').run();
     }
@@ -43,13 +36,12 @@ class BotClient extends Client {
             console.log(`Loaded the "${file.split('.')[0]}" feature.`);
         });
     };
-    start() {
-        this.login(process.env.TOKEN);
+    start(token) {
         this.commandHandler();
-        this.eventLoader();
+        this.login(token);
         this.once('ready', async () => {
             require('./events/ready').run(this);
-            this.featureLoader();
+            this.featureLoader()
             this.emoji = this.guilds.cache.get('714809218024079430').emojis.cache.find(e => e.name.toLowerCase() === 'loading');
         });
         let map = new Map()
