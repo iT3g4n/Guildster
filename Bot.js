@@ -1,4 +1,4 @@
-const{ Client, Collection, Intents } = require(`discord.js`);
+const{ Client, Collection, Intents, MessageEmbed } = require(`discord.js`);
 const discord = require('discord.js');
 const { error } = require('console');
 class BotClient extends Client {
