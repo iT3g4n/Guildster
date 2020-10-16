@@ -7,6 +7,7 @@ class BotClient extends Client {
         this.owners = ['381024325974622209', '589390599740719105'];
         this.fs = require('fs');
         this.path = require('path');
+        this.ms = require('ms');
         this.discord = require('discord.js');
         this.fun = []
         this.giveaways = []

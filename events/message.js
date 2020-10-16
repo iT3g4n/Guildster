@@ -11,7 +11,7 @@ this.run = async (a, message, map) => {
     const { channel, guild } = message
 
     if (!guild) return;
-    await guild.fetch();
+    guild.fetch();
 
     if (message.partial) await message.fetch();
 
@@ -68,6 +68,14 @@ this.run = async (a, message, map) => {
     }
     
     try {
+        bot.e = function (description, send) {
+            const embed = new MessageEmbed().setFooter(`|   ${cmd.name} Command`, message.author.avatarURL({ dynamic: true, format: 'png' })).setColor('RANDOM').setTimestamp(Date.now()).setDescription(description);
+            if (send == null)
+                send = true;
+            if (send === true)
+                message.channel.send(embed);
+            return embed;
+        }
         bot.embed = new MessageEmbed().setFooter(`|   ${cmd.name} Command`, message.author.avatarURL({ dynamic: true, format: 'png' })).setColor('RANDOM').setTimestamp(Date.now())
         cmd.run(bot, message, args);
         console.log(`${cmd.name.toLowerCase()} command used`);
