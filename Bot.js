@@ -64,4 +64,4 @@ class BotClient extends Client {
     };
 };
 
-module.exports = BotClient;
+module.exports = new BotClient();
