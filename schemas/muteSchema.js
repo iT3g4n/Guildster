@@ -9,5 +9,8 @@ const muteSchema = new mongoose.Schema({
     _id: reqString,
     userId: reqString,
     modId: reqString,
+    roleId: reqString,
     expires: Date
 })
+
+module.exports = mongoose.model('mutes', muteSchema);
