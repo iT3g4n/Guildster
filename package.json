@@ -3,6 +3,7 @@
   "version": "2.5.0",
   "description": "",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "start": "nodemon",
     "test": "this is a test",

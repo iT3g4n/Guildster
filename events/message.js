@@ -23,7 +23,6 @@ this.run = async (a, message, map) => {
     let prefix = false;
     for (const thisPrefix of prefixes) {
         if (message.content.toLowerCase().startsWith(thisPrefix)) prefix = thisPrefix;
-        if (message.content.toLowerCase().startsWith(bot.prefixes.get(message.guild.id))) prefix = bot.prefixes.get(message.guild.id);
     }
     const args = message.content.slice(prefix.length).trim().split(" ");
     const command = args.shift().toLowerCase();
