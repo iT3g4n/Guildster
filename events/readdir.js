@@ -45,7 +45,7 @@ this.run = async(err, files) => {
             bot.tickets.push(`**Name:** ${props.name}\n**Description:** ${props.description}`);
         };
         if (props.catagory == 'owner') {
-            (bot).props.catagory.push(`**Name:** ${props.name}\n**Description:** ${props.description}`)
+            bot.owner.push(`**Name:** ${props.name}\n**Description:** ${props.description}`)
         };
 
         if (!props.aliases) console.error(props.name + ' has no aliases');

@@ -1,7 +1,8 @@
-const newembed = require("./../../newembed");
 const { Message, Client } = require(`discord.js`)
 const { inspect } = require(`util`);
-const { owners } = require("./../../index").bot;
+const { bot } = require('./../../index');
+const { owners } = bot;
+require('dotenv').config();
 
 module.exports = {
     name: 'Eval',
@@ -14,25 +15,34 @@ module.exports = {
      * @param {Message} message
      * @param {String[]} args
      */
-    run: async (bot, message, args) => {
+    run: async (a, message, args) => {
+        if (message.author.partial) await message.author.fetch();
 
-        if (!owners.includes(message.author.id)) return message.reply(`You cannot do that!`).then(msg => msg.delete({ timeout: 5000 }));
+        if (!owners.includes(message.author.id)) return message.reply(bot.error(`You cannot do that!`)).then(msg => msg.delete({ timeout: 5000 }));
 
-        if (!args.join(' ')) return message.reply(`You did not give any arguments`).then(msg => msg.delete({ timeout: 5000 }))
+        const embed = bot.embed
 
-        newembed(message, require('./eval')).then(async embed => {
+        const query = args.join(' ')
+        const code = (lang, code) => (`\`\`\`${lang}\n${String(code).slice(0, 1000) + (code.length >= 1000 ? '...' : '')}\n\`\`\``).replace(process.env.TOKEN, '*'.repeat(process.env.TOKEN.toString().length))
 
-            const evaled = bot._eval(args.join(' '));
-
+        if (!query) message.channel.send(bot.error('Please, write something so I can evaluate!'))
+        else {
+            bot.embed.addField('**Input 📥**', `\`\`\`css\n${query}\`\`\``)
             try {
-                embed.setDescription(`**Result**\n\`\`\`${evaled}\`\`\``);
+                const evald = eval(query)
+                const res = typeof evald === 'string' ? evald : inspect(evald, { depth: 0 });
+
+                bot.embed.addField('**Result ✔️**', code('js', res)).setColor('GREEN');
             } catch (error) {
-                embed.setDescription(`**Result**\n\`\`\`${error}\`\`\``);
+                bot.embed
+                    .addField('Error ❌', code('js', error))
+                    .setColor('RED')
+            } finally {
+                message.channel.send(bot.embed).catch(error => {
+                    message.channel.send(bot.error(`There was an error while displaying the eval result! ${error.message}`))
+                })
             }
+        }
 
-            console.log(inspect(evaled));
-            let msg = await message.channel.send(embed)
-
-        })
     }
 }

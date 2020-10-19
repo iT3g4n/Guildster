@@ -26,20 +26,20 @@ this.run = async (_p, message, args) => {
         return message.channel.send(bot.e(`This server does not have a \'Muted\' role! Please create a role with the exact name \`Muted\`. You may change it after you have muted someone then you may change the name.`)).then(m => m.delete({ timeout: 20000 }))
 
     const time = ms(args[1]);
-    const date = new Date(Date.now() + time)
+    const date = (Date.now() + (time))
+    console.log(date, time, Date.now())
     if (!time)
         return message.reply(bot.embed.setDescription(`You did not specify a time! Usage: ${this.usage}`))
     if (isNaN(args[1][0]))
         return message.reply(bot.embed.setDescription(`That is not a time. Usage: ${this.usage}`))
 
-    const reason = args.slice(2).join(' ')
+    let reason = args.slice(2).join(' ')
 
-    mention.roles.add(muterole)
+    mention.roles.add(muterole, reason)
 
     if (!reason) reason = 'No Reason Specified';
 
-
-    message.reply(bot.embed.setDescription(`Successfully Muted <@${mention.id}>`))
+    message.reply(bot.embed.setDescription(`Successfully Muted <@${mention.id}>`));
 
     await muteSchema.findOneAndUpdate({
         _id: message.guild.id,
@@ -65,5 +65,5 @@ this.run = async (_p, message, args) => {
         .addField(`Moderator`, `<@${message.author.id}>`, true)
         .addField(`Reason`, `${reason}`, true)
         .setColor(`GREY`)
-    bot.channels.cache.get(sendchannel).send(embed)
+    bot.channels.cache.get(sendchannel).send(embed);
 }

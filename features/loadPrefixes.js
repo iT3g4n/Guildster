@@ -4,12 +4,9 @@ const guildSchema = require('../schemas/guildSchema');
 module.exports = async () => {
     bot.guilds.cache.forEach(async (guild) => {
         const c = await guildSchema.findOne({ _id: guild.id });
-        if (!c) {
-            const asdf = await guild.channels.cache.first().createInvite()
-            console.log(`${guild.name} has no Prefix @ ${asdf}`);
-            return;
-    }
-        const b = c.Prefix;
+        if (!c) return bot.prefixes.set(guild.id, '*')
+        if (!c.Prefix) return bot.prefixes.set(guild.id, '*')
+        const b = c.Prefix
         bot.prefixes.set(guild.id, b);
         console.log(`Prefix loaded for ${guild.name} @ ${b}`)
     });

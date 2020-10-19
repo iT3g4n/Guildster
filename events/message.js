@@ -8,17 +8,20 @@ const guildSchema = require('../schemas/guildSchema');
  */
 
 this.run = async (a, message, map) => {
-    const { channel } = message
+    const { channel, guild } = message
+
+    if (!guild) return;
+    guild.fetch();
+
     if (message.partial) await message.fetch();
 
-    if (message.author.bot && channel.name.includes('verify')) message.delete({ timeout: 20000 }).catch(e => {
+    if (message.author.bot && channel.id == ('716239917751206048' || '760485750805364748')) message.delete({ timeout: 20000 }).catch(e => {
         return;
     });
     if (message.author.bot) return;
 
-    if (channel.name.includes('verify')) message.delete();
-
-    const prefixes = [`<@!${bot.user.id}>`, `<@${bot.user.id}>`, '*'];
+    if (channel.id == ('716239917751206048' || '760485750805364748') && !message.member.hasPermission('MANAGE_MESSAGES')) message.delete();
+    const prefixes = [`<@!${bot.user.id}>`, `<@${bot.user.id}>`, bot.prefixes.get(guild.id)];
 
     let prefix = false;
     for (const thisPrefix of prefixes) {
@@ -27,7 +30,7 @@ this.run = async (a, message, map) => {
     const args = message.content.slice(prefix.length).trim().split(" ");
     const command = args.shift().toLowerCase();
 
-    if (command.toLowerCase() !== 'verify' && channel.name.includes('verify')) return message.delete();
+    if (command.toLowerCase() !== 'verify' && channel.id == ('716239917751206048' || '760485750805364748')) return message.delete();
     if (message.author.bot || !message.guild) return;
 
     if (bot.afkmap) {
@@ -65,6 +68,14 @@ this.run = async (a, message, map) => {
     }
     
     try {
+        bot.e = function (description, send) {
+            const embed = new MessageEmbed().setFooter(`|   ${cmd.name} Command`, message.author.avatarURL({ dynamic: true, format: 'png' })).setColor('RANDOM').setTimestamp(Date.now()).setDescription(description);
+            if (send == null)
+                send = true;
+            if (send === true)
+                message.channel.send(embed);
+            return embed;
+        }
         bot.embed = new MessageEmbed().setFooter(`|   ${cmd.name} Command`, message.author.avatarURL({ dynamic: true, format: 'png' })).setColor('RANDOM').setTimestamp(Date.now())
         cmd.run(bot, message, args);
         console.log(`${cmd.name.toLowerCase()} command used`);
