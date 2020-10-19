@@ -4,7 +4,7 @@ const { error } = require('console');
 class BotClient extends Client {
     constructor() {
         super({ partials: ['REACTION', 'MESSAGE', 'USER', 'GUILD_MEMBER', 'CHANNEL'], ws: { intents: Intents.ALL } });
-        this.owners = ['381024325974622209', '589390599740719105'];
+        this.owners = ['381024325974622209'];
         this.fs = require('fs');
         this.path = require('path');
         this.ms = require('ms');
