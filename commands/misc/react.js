@@ -3,7 +3,7 @@ const { bot } = require('./../../index');
 
 this.name = 'React'
 this.aliases = ['r', 'rm']
-this.catagory = 'fun',
+this.catagory = 'misc',
 this.description = 'Reacts to any message!'
 this.usage = '[command] [reaction] [rest of your message]'
 /**

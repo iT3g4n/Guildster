@@ -6,7 +6,7 @@ const randomcolour = "#" + Math.floor(Math.random() * 16777215).toString(16);
 module.exports = {
     name: "Uptime",
     aliases: ['time', 'long'],
-    catagory: 'fun',
+    catagory: 'info',
     description: "Tells you how long the bot has been online!",
     usage: '[command]',
     async run(bot, message, args) {

@@ -4,7 +4,7 @@ const newembed = require('./../../newembed')
 this.name = 'Info'
 this.aliases = ['whois']
 this.description = 'Gets information on a user!'
-this.catagory = 'fun',
+this.catagory = 'info',
 this.usage = '[command] [mention]',
 /**
  * @param {Client} bot 

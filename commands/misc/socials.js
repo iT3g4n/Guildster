@@ -3,7 +3,7 @@ const { MessageEmbed } = require("discord.js")
 module.exports = {
     name: 'socials',
     aliases: ['media'],
-    catagory: 'fun',
+    catagory: 'misc',
     usage: '[command]',
     description: "This gives you my socials!",
     async run(bot, message, args) {

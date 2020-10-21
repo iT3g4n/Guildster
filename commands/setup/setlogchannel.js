@@ -5,7 +5,7 @@ const mongo = require(`../../mongo`)
 module.exports = {
     name: 'Setlogchannel',
     aliases: ['setlogchannel', 'logs'],
-    catagory: 'moderation',
+    catagory: 'setup',
     usage: '[command] [channel mention]',
     description: 'Sets the channel for logs to go to!',
     /**

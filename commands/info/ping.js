@@ -3,7 +3,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
     name: 'Ping',
     aliases: [],
-    catagory: 'fun',
+    catagory: 'info',
     usage: '[command]',
     description: "Check your ping to the bot!",
     async run(bot, message, args) {

@@ -4,7 +4,7 @@ const newembed = require("./../../newembed")
 module.exports = {
     name: 'Invite',
     aliases: ['helplinks', 'links', 'link', 'support', 'supportserver', 'inv'],
-    catagory: 'fun',
+    catagory: 'info',
     usage: '[command]',
     description: 'Want to invite the bot to your own server? Well use this!',
     /**

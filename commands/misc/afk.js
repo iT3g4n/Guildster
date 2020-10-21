@@ -6,7 +6,7 @@ module.exports = {
     description: 'Sets your AFK status!',
     aliases: [],
     usage: '[command] [optional reason]',
-    catagory: 'fun',
+    catagory: 'misc',
     /**
      * @param {Message} message
      * @param {String[]} args

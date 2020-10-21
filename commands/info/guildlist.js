@@ -5,7 +5,7 @@ this.name = 'Guildlist'
 this.aliases = ['guilds', 'servers', 'serverlist'];
 this.usage = '[command]'
 this.description = 'Names all of the guilds the bot is in!'
-this.catagory = 'fun'
+this.catagory = 'info'
 /**
  * @param {Message} message 
  * @param {String[]} args 

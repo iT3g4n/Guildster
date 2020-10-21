@@ -5,7 +5,7 @@ const { bot } = require('../../index');
 module.exports = {
     name: 'Prefix',
     aliases: ['pre', 'startofmessage'],
-    catagory: 'moderation',
+    catagory: 'setup',
     usage: '[command] [optional setprefix]',
     description: `Sets the prefix for this guild!`,
     /**
