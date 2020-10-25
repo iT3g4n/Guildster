@@ -20,7 +20,9 @@ module.exports = {
       🤖: Moderation
       🤬: Hitting
       🎫: Tickets
-      🌎: All
+      🌎: All (DM'S)
+
+      I have ${bot.commandlength} commands for you to try, so you never get bored!
       
       **Don't forget!**
       You can **also** use \`*help [command / catagory]\` to get help on a specific command / catagory!\n`);
@@ -42,35 +44,58 @@ module.exports = {
       });
 
       bot.on("messageReactionAdd", async (reaction, user) => {
-        if (reaction.emoji.name === "😃" && user.id === message.author.id)
+        if (
+          reaction.emoji.name === "😃" &&
+          user.id === message.author.id &&
+          reaction.message.id === msg.id
+        )
           reaction.users.remove(user.id) +
             msg.edit(
               bot.embed
                 .setTitle("Catagory: Fun")
-                .setDescription(bot.fun.join("\n\n"))
+                .setDescription(bot.catagorys["fun"].join("\n\n"))
             );
-        if (reaction.emoji.name === "🤖" && user.id === message.author.id)
+        if (
+          reaction.emoji.name === "🤖" &&
+          user.id === message.author.id &&
+          reaction.message.id === msg.id
+        ) {
           reaction.users.remove(user.id) +
             msg.edit(
               bot.embed
                 .setTitle("Catagory: Moderation")
-                .setDescription(bot.moderation.join("\n\n"))
+                .setDescription(bot.catagorys["moderation"].join("\n\n"))
             );
-        if (reaction.emoji.name === "🤬" && user.id === message.author.id)
+        }
+        if (
+          reaction.emoji.name === "🤬" &&
+          user.id === message.author.id &&
+          reaction.message.id === msg.id
+        ) {
           reaction.users.remove(user.id) +
             msg.edit(
               bot.embed
                 .setTitle("Catagory: Hitting")
-                .setDescription(bot.catagorys.hitting.join("\n\n"))
+                .setDescription(bot.catagorys["hitting"].join("\n\n"))
             );
-        if (reaction.emoji.name === "🎫" && user.id === message.author.id)
+        }
+        if (
+          reaction.emoji.name === "🎫" &&
+          user.id === message.author.id &&
+          reaction.message.id === msg.id
+        ) {
           reaction.users.remove(user.id) +
             msg.edit(
               bot.embed
                 .setTitle("Catagory: Tickets")
-                .setDescription(bot.tickets.join("\n\n"))
+                .setDescription(bot.catagorys["tickets"].join("\n\n"))
             );
-        if (reaction.emoji.name === "🌎" && user.id === message.author.id) {
+        }
+        if (
+          reaction.emoji.name === "🌎" &&
+          user.id === message.author.id &&
+          reaction.message.id === msg.id
+        ) {
           try {
             reaction.users.remove(user);
             user.send(bot.helpEmbed.setTitle("Catagory: All"));
@@ -90,16 +115,17 @@ module.exports = {
           }
         }
         if (
-          reaction.emoji.id === ("716330113670578257" || "🌞") &&
-          message.author.id === user.id
-        )
+          reaction.emoji.id === ("🌞") &&
+          message.author.id === user.id &&
+          reaction.message.id === msg.id
+        ) {
           reaction.users.remove(user.id) +
             msg.edit(
               bot.embed
                 .setTitle(`Catagory: Owner`)
                 .setDescription(bot.owner.join("\n\n"))
             );
-        return;
+        }
       });
     }
 
@@ -123,12 +149,14 @@ module.exports = {
         return;
       }
 
-      let data = [];
+      const data = [];
       if (command.name) data.push("Name: `" + command.name + "`");
-      if (command.description)
+      if (command.description) {
         data.push("Description: `" + command.description + "`");
-      if (command.aliases)
+      }
+      if (command.aliases) {
         data.push("Aliases: `" + command.aliases.join(", ") + "`");
+      }
       if (command.usage) data.push("Usage: `" + command.usage + "`");
       if (command.catagory) data.push("Catagory: `" + command.catagory + "`");
 
@@ -136,6 +164,7 @@ module.exports = {
         bot.embed
           .setDescription(data)
           .setTitle('Help for "' + command.name + '"')
+          .setTimestamp(Date.now())
       );
     }
   },

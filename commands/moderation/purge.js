@@ -7,7 +7,6 @@ module.exports = {
     usage: '[command] amount',
     description: "Deletes the specified amount of messages from the channel of the message!",
     /**
-     * 
      * @param {Client} bot 
      * @param {Message} message 
      * @param {String[]} args 
@@ -17,8 +16,16 @@ module.exports = {
         if (!message.member.hasPermission(`MANAGE_MESSAGES`)) return;
 
         if (!args[0]) return message.channel.send("Please mention an amount to purge.")
+        if (args[0].toLowerCase() == 'all') {
+            await message.channel.messages.fetch(null, false, true).then(messages => {
+                messages.forEach(msg => {
+                    msg.delete()
+                })
+            });
+            return;
+        }
         if (isNaN(args[0][0])) return message.channel.send("That is not a number!")
         if (parseInt(args[0]) > 99) return bot.e('The best i can do is 99 messages, sorry.', true);
-        message.channel.bulkDelete(parseInt(args[0]) + 1);
+            message.channel.bulkDelete(parseInt(args[0]) + 1);
     }
 }

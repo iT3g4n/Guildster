@@ -13,7 +13,7 @@ class BotClient extends Client {
     this.ms = require("ms");
     this.discord = require("discord.js");
     this.commandlength = 0;
-    this.catagorys = {}
+    this.catagorys = {};
     this.afkmap = new Collection();
     this.helpEmbed = new MessageEmbed();
     this.commands = new Collection();
@@ -27,6 +27,13 @@ class BotClient extends Client {
       .setDescription(message);
     if (title) embed.setTitle(title);
     return embed;
+  }
+  capitalize(string = String()) {
+    const capitalized =
+      string.toLowerCase().charAt(0).toUpperCase() +
+      string.toLowerCase().slice(1);
+
+    return capitalized;
   }
   commandHandler() {
     require("./events/readdir").run();

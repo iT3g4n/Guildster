@@ -13,9 +13,9 @@ this.run = async(a, message, args) => {
     const command = bot.commands.get(cmd.toLowerCase()) || bot.commands.find(a => a.aliases && a.aliases.includes(cmd.toLowerCase()));
     if(!command) return message.reply(bot.error('There is no command called `' + `${cmd.toUpperCase()}\`. Please try again`));
 
-    delete require.cache[require.resolve(`./${command.name.toLowerCase()}`)];
+    delete require.cache[require.resolve(`../${command.catagory}/${command.name.toLowerCase()}`)];
     try {
-        const newCommand = require(`./${command.name.toLowerCase()}`)
+        const newCommand = require(`../${command.catagory}/${command.name.toLowerCase()}`)
         bot.commands.set(command.name.toLowerCase(), newCommand)
         message.reply(bot.embed.setDescription('Sucessfully reloaded the command `' + `${cmd.toLowerCase()}\``));
     } catch (err) {

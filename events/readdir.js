@@ -35,7 +35,7 @@ this.run = async () => {
     if (!bot.catagorys[props.catagory]) bot.catagorys[props.catagory] = [];
 
     bot.catagorys[props.catagory].push(
-      `**Name:** ${props.name}\n**Description:** ${props.description}`
+      `**Name:** ${bot.capitalize(props.name)}\n**Description:** ${props.description}`
     );
 
     if (!props.aliases) console.error(props.name + " has no aliases");
@@ -44,7 +44,7 @@ this.run = async () => {
     if (!props.description) console.error(props.name + " has no description");
     if (!props.catagory) console.error(props.name + " has no catagory");
 
-    bot.helpEmbed.addField(props.name, props.description);
+    bot.helpEmbed.addField(bot.capitalize(props.name), props.description);
     bot.commandlength++;
   });
 };
