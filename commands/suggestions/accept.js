@@ -12,6 +12,9 @@ this.usage = "[command] [message id]";
  * @param {Array} args
  */
 this.run = async function (a, message, args) {
+
+  message.delete()
+  
   if (!message.member.hasPermission("MANAGE_MESSAGES"))
     return message.reply(bot.error("You do not have enough permissions!"));
   const msg = await message.channel.messages.fetch(args[0]);
