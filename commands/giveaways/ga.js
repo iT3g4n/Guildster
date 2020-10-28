@@ -12,7 +12,7 @@ module.exports = {
    * @param {String[]} args
    */
   async run(bot, message, args) {
-    if (!message.member.hasPermission("MANAGE_ROLES")) return;
+    if (!message.member.permissionsIn(message.channel).has('MANAGE_MESSAGES')) return message.reply(bot.e('You do not have enough permissions to run this command!'));
 
     if (!args[0])
       return message.channel.send(this.usage).then((msg) => {
@@ -25,7 +25,10 @@ module.exports = {
       !args[0].endsWith("s")
     )
       return message.channel
-        .send("Please specify the amount of time before the giveaway ends.")
+        .send(
+          "Please specify the amount of time before the giveaway ends. " +
+            require("./ga").usage
+        )
         .then((msg) => {
           msg.delete({ timeout: 6000 });
         });
@@ -42,17 +45,14 @@ module.exports = {
           msg.delete({ timeout: 5000 });
         });
 
-    const msg = await message.channel.send("@everyone");
-
     const embed = new MessageEmbed()
       .setColor("RANDOM")
       .setTitle("🎁  GIVEAWAY TIME  🎁")
       .setDescription(`Prize: **${prize}**`)
-      .setFooter(`Giveaway Started By: ${message.author.username}. ends`)
+      .setFooter(`Giveaway Started By ${message.author.tag}. ends`)
       .setTimestamp(Date.now() + ms(args[0]));
 
-    await msg.edit(embed);
-    await msg.edit("");
+    const msg = await message.channel.send(embed);
     await msg.react("🎁");
     setTimeout(() => {
       const thing = msg.reactions.cache.get("🎁");
@@ -60,7 +60,7 @@ module.exports = {
       if (!winner)
         return message.channel.send("Nobody won the giveaway. How sad.");
       message.channel.send(
-        `**CONGRATULATIONS** ${winner}**!** You have won the \`${prize}\`!`
+        `**CONGRATULATIONS** ${winner}**!** You have won \`${prize}\`!`
       );
     }, ms(args[0]));
   },
