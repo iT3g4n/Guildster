@@ -19,19 +19,20 @@ const run = (a, message, args) => {
       bot.error("You did not mention a channel! " + module.exports.usage)
     );
 
-  const message = args.slice(1)
-    ? args.slice(1).join(" ")
-    : `Welcome to ${message.guild.name}, <@>|`;
+  const msg =
+    args.slice(1)
+      ? args.slice(1).join(" ")
+      : `Welcome to ${message.guild.name}, <@>|`;
 
-    await welcomeSchema.findOneAndUpdate({ _id: message.guild.id }, {
-        _id: message.guild.id,
-        channelId: channel.id,
-        message,
-    }, {
-        upsert: true,
-    });
+  await welcomeSchema.findOneAndUpdate({ _id: message.guild.id }, {
+    _id: message.guild.id,
+    channelId: channel.id,
+    message: msg,
+  }, {
+    upsert: true,
+  });
 
-    message.channel.send(bot.embed(`I have set the welcome channel to ${channel} with the message of \`${message}\``));
+  message.channel.send(bot.embed(`I have set the welcome channel to ${channel} with the message of \`${message}\``));
 };
 
 module.exports = {
