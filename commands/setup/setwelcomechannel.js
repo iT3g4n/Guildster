@@ -6,7 +6,7 @@ const welcomeSchema = require("../../schemas/welcomeSchema");
  * @param {Message} message
  * @param {Array} args
  */
-const run = (a, message, args) => {
+const run = async (a, message, args) => {
   message.channel.send(
     "Just a reminder, if you want the bot to mention the new user, put `<@>` where you want to mention them!"
   ).then(m => m.delete({ timeout: 10000 }).catch(e => console.error(e)));
@@ -32,7 +32,7 @@ const run = (a, message, args) => {
     upsert: true,
   });
 
-  message.channel.send(bot.embed(`I have set the welcome channel to ${channel} with the message of \`${message}\``));
+  message.channel.send(bot.e(`I have set the welcome channel to ${channel} with the message of \`${message}\``));
 };
 
 module.exports = {
