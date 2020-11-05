@@ -4,7 +4,7 @@ const guilds = require("../../schemas/guildSchema");
 
 this.name = "Setsuggestions";
 this.catagory = "suggestions";
-this.aliases = ["ss", "suggestions", "suggestchannel"];
+this.aliases = ["ss", "suggestions", "suggestchannel", "setsuggestionchannel"];
 this.description = "Sets the suggestions channel for this server!";
 this.usage = "[command] [channel mention or id]";
 
