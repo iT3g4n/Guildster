@@ -20,41 +20,20 @@ module.exports = async () => {
 
         const channel = guild.channels.cache.get(channelId);
         if (!channel)
-          return await giveawaySchema.deleteMany({
+          return await giveawaySchema.deleteOne({
             guildId,
             messageId,
           });
-        if (!channel.messages)
-          return await giveawaySchema.deleteMany({
-            guildId,
-            messageId,
-          });
-        if (!channel.messages.fetch(messageId))
-          return await giveawaySchema.deleteMany({
-            guildId,
-            messageId,
-          });
-        const message = channel.messages.fetch(messageId);
+        const message = await channel.messages.fetch(messageId);
         if (!message)
-          return await giveawaySchema.deleteMany({
+          return await giveawaySchema.deleteOne({
             guildId,
             messageId,
           });
 
-        if (time < Date.now() === false) return;
-
-        if (!message.reactions)
-          return await giveawaySchema.deleteMany({
-            guildId,
-            messageId,
-          });
+        if ((time < Date.now()) === false) return;
 
         const getReaction = message.reactions.cache.get("🎉");
-        if (!getReaction)
-          return await giveawaySchema.deleteMany({
-            guildId,
-            messageId,
-          });
         const winner = getReaction.users.cache.filter((x) => !x.bot).random();
         if (!winner)
           return (
