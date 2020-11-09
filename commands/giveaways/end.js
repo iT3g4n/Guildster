@@ -34,7 +34,7 @@ module.exports = {
     const winner = thing.users.cache.filter((u) => !u.bot).random();
 
     if (!winner)
-      return msg.edit(
+      return msg.edit(":tada: GIVEAWAY :tada:",
         new MessageEmbed()
           .addField("Prize", msg.embeds[0].fields[0].value)
           .addField("Winner", "Nobody has won this giveaway.")
@@ -54,7 +54,7 @@ module.exports = {
         })
       );
 
-    msg.edit(
+    msg.edit(":tada: GIVEAWAY :tada:",
       new MessageEmbed()
         .addField("Prize", msg.embeds[0].fields[0].value)
         .addField("Winner", `<@${winner.id}>`)

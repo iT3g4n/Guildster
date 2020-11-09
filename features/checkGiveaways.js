@@ -37,7 +37,7 @@ module.exports = async () => {
         const winner = getReaction.users.cache.filter((x) => !x.bot).random();
         if (!winner)
           return (
-            message.edit(
+            message.edit(":tada: GIVEAWAY :tada:",
               new MessageEmbed()
                 .addField("Prize", message.embeds[0].fields[0].value)
                 .addField("Winner", "Nobody has won this giveaway.")
@@ -58,7 +58,7 @@ module.exports = async () => {
             })
           );
 
-        message.edit(
+        message.edit(":tada: GIVEAWAY :tada:",
           new MessageEmbed()
             .addField("Prize", message.embeds[0].fields[0].value)
             .addField("Winner", `<@${winner.id}>`)
