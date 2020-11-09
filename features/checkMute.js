@@ -2,7 +2,7 @@ const { bot } = require('../index');
 const guildSchema = require('../schemas/guildSchema');
 const muteSchema = require('../schemas/muteSchema');
 
-module.exports = async () => {
+module.exports = () => {
 
     bot.guilds.cache.forEach(guild => {
         setInterval(async () => {

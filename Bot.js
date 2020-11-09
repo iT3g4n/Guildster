@@ -78,7 +78,7 @@ class BotClient extends Client {
       require("./events/guildMemberAdd").run(member);
     });
     process.on("unhandledRejection", (err) => {
-      if (err.message.includes("DiscordAPIError: Unknown Message")) return;
+      if (err.code === 10008) return;
       error(
         "__________________________\nUNHANDLED PROMISE REJECTION\n\n",
         err,
