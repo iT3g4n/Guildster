@@ -12,7 +12,6 @@ module.exports = async () => {
       if (!docs) return;
 
       docs.forEach(async (doc) => {
-        console.log(doc)
         const guildId = doc.guildId;
         const channelId = doc.channelId;
         const messageId = doc.messageId;
