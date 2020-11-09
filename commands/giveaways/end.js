@@ -56,7 +56,7 @@ module.exports = {
 
     msg.edit(
       new MessageEmbed()
-        .addField("Prize", message.embeds[0].fields[0].value)
+        .addField("Prize", msg.embeds[0].fields[0].value)
         .addField("Winner", `<@${winner.id}>`)
         .setFooter(
           "Hosted by " +
