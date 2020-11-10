@@ -8,6 +8,8 @@ class BotClient extends Client {
       ws: { intents: Intents.ALL },
     });
     this.owners = ["381024325974622209"];
+    this.e = function (description = String(), send = Boolean()) {}
+    this.embed = new MessageEmbed()
     this.fs = require("fs");
     this.path = require("path");
     this.ms = require("ms");
