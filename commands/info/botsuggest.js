@@ -38,7 +38,7 @@ module.exports = {
           );
         } else {
           bot.e(
-            `The suggestion has been added to Trello. You can check it out on Trello [here].(${trelloCard.url})`,
+            `The suggestion has been added to Trello. You can check it out on Trello [here.](${trelloCard.url})`,
             true
           );
         }
