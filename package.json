@@ -24,6 +24,7 @@
     "novelcovid": "^3.0.0",
     "pm2": "^4.5.0",
     "random-puppy": "^1.1.0",
+    "trello": "^0.10.0",
     "twitch": "^4.2.4",
     "twitch-webhooks": "^4.2.4",
     "yt-search": "^2.3.1",

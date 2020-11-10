@@ -46,7 +46,7 @@ module.exports = async () => {
                       "Hosted by ".length,
                       -". | End".length
                     ) +
-                    "| Ended"
+                    " | Ended"
                 )
                 .setTimestamp(Date.now())
             ),
@@ -67,7 +67,7 @@ module.exports = async () => {
                   "Hosted by ".length,
                   -". | End".length
                 ) +
-                "| Ended"
+                " | Ended"
             )
             .setTimestamp(Date.now())
         );

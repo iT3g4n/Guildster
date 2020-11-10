@@ -44,7 +44,7 @@ module.exports = {
                 "Hosted by ".length,
                 -". | End".length
               ) +
-              "| Ended"
+              " | Ended"
           )
           .setTimestamp(Date.now()),
         await giveawaySchema.deleteOne({
@@ -64,7 +64,7 @@ module.exports = {
               "Hosted by ".length,
               -". | End".length
             ) +
-            "| Ended"
+            " | Ended"
         )
         .setTimestamp(Date.now()),
       await giveawaySchema.deleteOne({
