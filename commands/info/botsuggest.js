@@ -6,7 +6,7 @@ const params = require("../../index").bot;
 
 module.exports = {
   name: "Botsuggest",
-  aliases: ["error", "suggesterror", "reporterror"],
+  aliases: ["error", "suggesterror", "reporterror", "botreport"],
   usage: "[command] [suggestion]",
   description:
     "Suggest a new command or an error for this bot! It also posts it to Trello!",
@@ -38,7 +38,7 @@ module.exports = {
           );
         } else {
           bot.e(
-            `The suggestion has been added to Trello. You can check it out on Trello [here].(${trelloCard.url})`,
+            `The suggestion has been added to Trello. You can check it out on Trello [here.](${trelloCard.url})`,
             true
           );
         }
