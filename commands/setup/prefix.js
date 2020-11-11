@@ -17,7 +17,7 @@ module.exports = {
         
         if (!args[0]) return message.channel.send(`The prefix for ${message.guild.name} is \`${bot.prefixes.get(message.guild.id)}\``);
 
-        if (!message.member.hasPermission(`ADMINISTRATOR`) || !bot.owner.includes(message.author.id)) return message.channel.send(`You don't have enough permissions to do that!`);
+        if (!message.member.hasPermission(`ADMINISTRATOR`)) return message.channel.send(`You don't have enough permissions to do that!`);
 
         const set = args[0].toLowerCase();
 
@@ -25,6 +25,7 @@ module.exports = {
             Prefix: set
         }, { upsert: true });
 
+        bot.prefixes.delete(message.guild.id)
         bot.prefixes.set(message.guild.id, set);
 
         message.channel.send(bot.embed.setDescription(`:white_check_mark: Success! The prefix for ${message.guild.name} is now \`${set}\``));
