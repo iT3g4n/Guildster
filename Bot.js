@@ -1,6 +1,13 @@
-const { Client, Collection, Intents, MessageEmbed } = require(`discord.js`);
-const discord = require("discord.js");
-const { error } = require("console");
+const {
+  Client,
+  Collection,
+  Intents,
+  MessageEmbed,
+  Message,
+} = require(`discord.js`);
+
+require("dotenv").config();
+
 class BotClient extends Client {
   constructor() {
     super({
@@ -8,8 +15,8 @@ class BotClient extends Client {
       ws: { intents: Intents.ALL },
     });
     this.owners = ["381024325974622209"];
-    this.e = function (description = String(), send = Boolean()) {}
-    this.embed = new MessageEmbed()
+    this.allCatagorys = [];
+    this.embed = new MessageEmbed();
     this.fs = require("fs");
     this.path = require("path");
     this.ms = require("ms");
@@ -21,15 +28,22 @@ class BotClient extends Client {
     this.commands = new Collection();
     this.prefixes = new Collection();
   }
-  error(message, title) {
+  /* Embed */
+  e(description = String(), send = Boolean()) {
+    return new MessageEmbed();
+  }
+
+  /* Error Embed */
+  error(description) {
     const embed = new MessageEmbed()
       .setTimestamp(Date.now())
       .setFooter("ERROR")
       .setColor("RED")
-      .setDescription(message);
-    if (title) embed.setTitle(title);
+      .setDescription(description);
     return embed;
   }
+
+  /* Capitalize */
   capitalize(string = String()) {
     const capitalized =
       string.toLowerCase().charAt(0).toUpperCase() +
@@ -37,20 +51,33 @@ class BotClient extends Client {
 
     return capitalized;
   }
+
+  /* Command Handler */
   commandHandler() {
     require("./events/readdir").run();
   }
+
+  /* Test Whatever */
+  test(whatever, i, want, to, test) {
+    return whatever, i, want, to, test;
+  }
+
+  /* Feature Loader */
   featureLoader() {
     this.fs.readdirSync("./features").forEach((file) => {
       require("./features/" + file)();
       console.log(`Loaded the "${file.split(".")[0]}" feature.`);
     });
   }
+
+  /* Mongo Loader */
   mongoLoader() {
     require("./mongo")().then(() => console.log("MongoDB Ready!"));
   }
-  start(token) {
-    this.login(token);
+
+  /* Start */
+  start() {
+    this.login(process.env.TOKEN);
     this.commandHandler();
     this.mongoLoader();
     this.once("ready", async () => {
@@ -66,9 +93,6 @@ class BotClient extends Client {
     this.on("message", (message) => {
       require("./events/message").run(this, message, map);
     });
-    this.on("messageReactionAdd", (reaction, user) => {
-      require(`./events/reaction`).run(reaction, user);
-    });
     this.on("guildCreate", async (guild) => {
       require(`./events/guildCreate`).run(this, guild);
     });
@@ -81,14 +105,12 @@ class BotClient extends Client {
     });
     process.on("unhandledRejection", (err) => {
       if (err.code === 10008) return;
-      error(
+      console.error(
         "__________________________\nUNHANDLED PROMISE REJECTION\n\n",
         err,
         "\n__________________________\n"
       );
     });
-
-    return this;
   }
 }
 

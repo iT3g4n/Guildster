@@ -1,6 +1,5 @@
 const { Message, Client, MessageEmbed } = require("discord.js");
 const { bot } = require("../index");
-const guildSchema = require("../schemas/guildSchema");
 
 /**
  * @param {Message} message
@@ -107,7 +106,7 @@ this.run = async (a, message, map) => {
       .setColor("RANDOM")
       .setTimestamp(Date.now())
       .setDescription(description);
-    if (send === null) send = true;
+    if (send === null) send = false;
     if (send === true) message.channel.send(embed);
     return embed;
   };

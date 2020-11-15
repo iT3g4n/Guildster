@@ -1,5 +1,4 @@
 const { MessageEmbed, Message, Collection } = require("discord.js");
-const reaction = require("../../events/reaction");
 const { bot: params } = require("../../index");
 const giveawaySchema = require("../../schemas/giveawaySchema");
 const ms = params.ms;

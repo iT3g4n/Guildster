@@ -19,7 +19,7 @@ module.exports = {
 
         if (!message.member.hasPermission(`ADMINISTRATOR`)) return message.channel.send(`You don't have enough permissions to do that!`);
 
-        const set = args[0].toLowerCase();
+        const set = args[0].toLowerCase().replace(" ", "");
 
         await guild.findOneAndUpdate({ _id: message.guild.id }, {
             Prefix: set

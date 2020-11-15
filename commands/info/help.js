@@ -13,120 +13,50 @@ module.exports = {
    */
   run: async (baot, message, args) => {
     if (!args[0]) {
-      const sendmessage = bot.embed
-        .setDescription(`Hello ${message.author}! This is what I can do!
+      const prefix = bot.prefixes.get(message.guild.id);
+      const sendmessage = bot.embed.setDescription(`Hello ${
+        message.author
+      }! This is what I can do (type them)!
       
-      😃: Fun
-      🤖: Moderation
-      🤬: Hitting
-      🎫: Tickets
-      🌎: All (DM'S)
+      \`\`\`${prefix}help ${bot.allCatagorys.join(`\n${prefix}help `).toString()}\`\`\`
+      or you can use the 🌎 reaction to see all the commands (dm's)!
 
-      I have ${bot.commandlength} commands for you to try, so you never get bored!
-      
-      **Don't forget!**
-      You can **also** use \`*help [command / catagory]\` to get help on a specific command / catagory!\n`);
+      To get help on a specific command, use \`${prefix}help [command / catagory]\`!
 
-      const msg = await message.reply(sendmessage);
+      I also have ${
+        bot.commandlength
+      } commands for you to try, so you never get bored!`);
 
-      await msg.react("😃").then(() => {
-        msg.react("🤖").then(() => {
-          msg.react("🤬").then(() => {
-            msg.react("🎫").then(() => {
-              msg.react("🌎").then(() => {
-                if (bot.owners.includes(message.author.id)) {
-                  msg.react("🌞");
-                }
-              });
-            });
-          });
+      message.reply(sendmessage).then((msg) => {
+        msg.react("🌎");
+        const filter = (reaction, user) =>
+          reaction.emoji.name === "🌎" && user.id === message.author.id;
+        const reactions = msg.createReactionCollector(filter, {
+          max: 1,
+          time: 60 * 1000,
         });
-      });
-
-      bot.on("messageReactionAdd", async (reaction, user) => {
-        if (
-          reaction.emoji.name === "😃" &&
-          user.id === message.author.id &&
-          reaction.message.id === msg.id
-        )
-          reaction.users.remove(user.id) +
-            msg.edit(
-              bot.embed
-                .setTitle("Catagory: Fun")
-                .setDescription(bot.catagorys["fun"].join("\n\n"))
-            );
-        if (
-          reaction.emoji.name === "🤖" &&
-          user.id === message.author.id &&
-          reaction.message.id === msg.id
-        ) {
-          reaction.users.remove(user.id) +
-            msg.edit(
-              bot.embed
-                .setTitle("Catagory: Moderation")
-                .setDescription(bot.catagorys["moderation"].join("\n\n"))
-            );
-        }
-        if (
-          reaction.emoji.name === "🤬" &&
-          user.id === message.author.id &&
-          reaction.message.id === msg.id
-        ) {
-          reaction.users.remove(user.id) +
-            msg.edit(
-              bot.embed
-                .setTitle("Catagory: Hitting")
-                .setDescription(bot.catagorys["hitting"].join("\n\n"))
-            );
-        }
-        if (
-          reaction.emoji.name === "🎫" &&
-          user.id === message.author.id &&
-          reaction.message.id === msg.id
-        ) {
-          reaction.users.remove(user.id) +
-            msg.edit(
-              bot.embed
-                .setTitle("Catagory: Tickets")
-                .setDescription(bot.catagorys["tickets"].join("\n\n"))
-            );
-        }
-        if (
-          reaction.emoji.name === "🌎" &&
-          user.id === message.author.id &&
-          reaction.message.id === msg.id
-        ) {
+        reactions.on("collect", (reaction, user) => {
           try {
-            reaction.users.remove(user);
-            user.send(bot.helpEmbed.setTitle("Catagory: All"));
+            message.author.send(
+              bot.helpEmbed.setTitle(`All commands for ${bot.user.username}`)
+            );
             msg.edit(
               bot.embed.setDescription(
-                `I have sent you a DM, ${message.author}!`
+                `I have sent you a DM, <@${message.author.id}>`
               )
             );
-          } catch (err) {
+          } catch (e) {
             msg.edit(
-              bot.error(
-                `Please open your DM's first, ${
-                  message.author
-                }! The commands list is ${bot.commandlength.toString()} commands long.`
+              bot.embed.setDescription(
+                "I can't send you a DM, <@" +
+                  message.author.id +
+                  ">. Please try opening your DM's and running this command again!"
               )
             );
           }
-        }
-        if (
-          reaction.emoji.id === ("🌞") &&
-          message.author.id === user.id &&
-          reaction.message.id === msg.id
-        ) {
-          reaction.users.remove(user.id) +
-            msg.edit(
-              bot.embed
-                .setTitle(`Catagory: Owner`)
-                .setDescription(bot.owner.join("\n\n"))
-            );
-        }
+        });
       });
+      return;
     }
 
     if (args[0]) {
@@ -145,7 +75,11 @@ module.exports = {
 
         // ________________________
 
-        bot.e(bot.catagorys[args[0]], true);
+        message.reply(
+          bot
+            .e(`\`\`\`${bot.catagorys[args[0]]}\`\`\``)
+            .setTitle(`${bot.capitalize(args[0])} Catagory`)
+        );
         return;
       }
 

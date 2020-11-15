@@ -1,5 +1,4 @@
 const guildSchema = require(`../schemas/guildSchema`);
-const mongo = require("../mongo");
 const { Guild, MessageEmbed, Client, TextChannel } = require("discord.js");
 const { bot } = require(`../index`);
 

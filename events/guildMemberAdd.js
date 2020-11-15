@@ -121,7 +121,7 @@ this.run = (member) => {
     const results = await welcomeSchema.findOne({ _id: member.guild.id });
     if (!results) return;
 
-    member.guild.fetch();
+    await member.fetch();
     const channel = member.guild.channels.cache.get(results.channelId);
     if (!channel) return;
 
