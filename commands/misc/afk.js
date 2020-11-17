@@ -1,5 +1,5 @@
-const { bot } = require('./../../index');
-const { Message, Collection } = require('discord.js');
+const { bot } = require('../../index');
+const { Message } = require('discord.js');
 
 module.exports = {
     name: 'AFK',
@@ -22,7 +22,7 @@ module.exports = {
 
         message.reply(bot.embed.setDescription('I set your AFK to `' + reason + '`!'));
 
-        message.member.setNickname('[AFK] ' + message.member.displayName).catch((_e) => {
+        message.member.setNickname('[AFK] ' + message.member.displayName).catch(() => {
             return message.reply(bot.embed.setDescription('I do not have permission to change your nickname, <@' + message.author.id + '>'));
         });
     },

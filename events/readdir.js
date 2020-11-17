@@ -1,4 +1,4 @@
-const bot = require("../Bot");
+const { bot } = require("../index");
 const fs = require("fs");
 const path = require("path");
 

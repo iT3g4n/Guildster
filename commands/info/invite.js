@@ -1,5 +1,5 @@
 const { Message, Client } = require(`discord.js`)
-const newembed = require("./../../newembed")
+const newembed = require("../../newembed")
 
 module.exports = {
     name: 'Invite',

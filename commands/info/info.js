@@ -1,5 +1,5 @@
 const { Message, Client, Role } = require('discord.js')
-const newembed = require('./../../newembed')
+const newembed = require('../../newembed')
 
 this.name = 'Info'
 this.aliases = ['whois']

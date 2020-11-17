@@ -28,6 +28,7 @@ class BotClient extends Client {
     this.commands = new Collection();
     this.prefixes = new Collection();
   }
+
   /* Embed */
   e(description = String(), send = Boolean()) {
     return new MessageEmbed();
@@ -114,4 +115,5 @@ class BotClient extends Client {
   }
 }
 
-module.exports = new BotClient();
+module.exports.BotClient = BotClient;
+module.exports.bot = require("./index");
