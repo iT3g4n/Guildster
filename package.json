@@ -1,14 +1,15 @@
 {
-  "name": "discord-bot",
+  "name": "guildster",
   "version": "4.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon",
-    "test": "this is a test",
-    "dev": "clear\nnodemon"
+    "start": "node index.js",
+    "dev": "nodemon index.js && cls"
   },
-  "engines": {},
+  "engines": {
+    "node": "15.2.1"
+  },
   "author": "T3g4n",
   "license": "ONLY ME",
   "dependencies": {
