@@ -29,7 +29,7 @@ module.exports = {
         else {
             bot.embed.addField('**Input 📥**', `\`\`\`css\n${query}\`\`\``)
             try {
-                const evald = eval(query)
+                const evald = await eval(query)
                 const res = typeof evald === 'string' ? evald : inspect(evald, { depth: 0 });
 
                 bot.embed.addField('**Result ✔️**', code('js', res)).setColor('GREEN');
