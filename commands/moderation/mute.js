@@ -5,7 +5,7 @@ const muteSchema = require("./../../schemas/muteSchema");
 const ms = bot.ms;
 
 this.name = "Mute";
-this.aliases = ["silence", "shut", "sh", "stop"];
+this.aliases = ["silence", "shut", "sh"];
 this.catagory = "moderation";
 this.usage = "[command] [mention or id] [time (s, m, h, d, y, m)] [reason]";
 this.description = "Mutes the mentioned person!";

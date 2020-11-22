@@ -23,8 +23,9 @@ class BotClient extends Client {
     this.discord = require("discord.js");
     this.commandlength = 0;
     this.catagorys = {};
-    this.afkmap = new Collection();
+    this.queue = {};
     this.helpEmbed = new MessageEmbed();
+    this.afkmap = new Collection();
     this.commands = new Collection();
     this.prefixes = new Collection();
   }
