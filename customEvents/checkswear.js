@@ -27,6 +27,7 @@ module.exports = async function (jeff) {
   };
 
   const on = await schema.findOne({ _id: message.guild.id });
+  if (!on) return;
 
   const yes = new String(on.enabled).toString();
   if (yes === "true") {
