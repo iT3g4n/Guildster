@@ -11,6 +11,9 @@ module.exports = async function (jeff) {
   const message = jeff;
   const args = message.content.trim().split(/ +/g);
 
+  if(!args) return;
+  if (!message) return;
+
   const check = () => {
     let statment = false;
 
