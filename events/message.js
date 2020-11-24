@@ -31,12 +31,9 @@ this.run = async (a, message, map) => {
 
   const command = args.shift().toLowerCase();
 
-
-  // It Broke I'm Fixing It
-
-  // if (!message.content.startsWith(prefix)) {
-  //   require("../customEvents/checkswear")(message);
-  // }
+  if (!message.content.startsWith(prefix)) {
+    require("../customEvents/checkswear")(message);
+  }
 
   if (
     command.toLowerCase() !== "verify" &&

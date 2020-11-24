@@ -12,64 +12,72 @@ module.exports = async () => {
       if (!docs) return;
 
       docs.forEach(async (doc) => {
-        const guildId = doc.guildId;
-        const channelId = doc.channelId;
-        const messageId = doc.messageId;
-        const time = doc.time;
-        const tag = doc.tag;
+        try {
+          if (!doc) return;
 
-        const channel = guild.channels.cache.get(channelId);
-        if (!channel)
-          return await giveawaySchema.deleteOne({
-            guildId,
-            messageId,
-          });
-        const message = await channel.messages.fetch(messageId);
-        if (!message)
-          return await giveawaySchema.deleteOne({
-            guildId,
-            messageId,
-          });
+          const guildId = doc.guildId;
+          const channelId = doc.channelId;
+          const messageId = doc.messageId;
+          const time = doc.time;
+          const tag = doc.tag;
 
-        if (time < Date.now() === false) return;
-
-        const getReaction = message.reactions.cache.get("🎉");
-        const winner = getReaction.users.cache.filter((x) => !x.bot).random();
-        if (!winner)
-          return (
-            message.edit(
-              ":tada: **GIVEAWAY** :tada:",
-              new MessageEmbed()
-                .addField("Prize", message.embeds[0].fields[0].value)
-                .addField("Winner", "Nobody has won this giveaway.")
-                .setFooter(doc)
-                .setTimestamp(Date.now())
-            ),
-            await giveawaySchema.deleteOne({
-              guildId,
-              channelId,
+          const channel = guild.channels.cache.get(channelId);
+          if (!channel) {
+            await giveawaySchema.deleteMany({
               messageId,
-            })
+            });
+            return;
+          }
+          const message = await channel.messages.fetch(messageId);
+          if (!message) {
+            await giveawaySchema.deleteMany({
+              messageId,
+            });
+            return;
+          }
+
+          if (time < Date.now() === false) return;
+
+          const getReaction = message.reactions.cache.get("🎉");
+          const winner = getReaction.users.cache.filter((x) => !x.bot).random();
+          if (!winner)
+            return (
+              message.edit(
+                ":tada: **GIVEAWAY** :tada:",
+                new MessageEmbed()
+                  .addField("Prize", message.embeds[0].fields[0].value)
+                  .addField("Winner", "Nobody has won this giveaway.")
+                  .setFooter(doc)
+                  .setTimestamp(Date.now())
+              ),
+              await giveawaySchema.deleteOne({
+                guildId,
+                channelId,
+                messageId,
+              })
+            );
+
+          message.edit(
+            ":tada: **GIVEAWAY** :tada:",
+            new MessageEmbed()
+              .addField("Prize", message.embeds[0].fields[0].value)
+              .addField("Winner", `<@${winner.id}>`)
+              .setFooter(tag)
+              .setTimestamp(Date.now())
           );
 
-        message.edit(
-          ":tada: **GIVEAWAY** :tada:",
-          new MessageEmbed()
-            .addField("Prize", message.embeds[0].fields[0].value)
-            .addField("Winner", `<@${winner.id}>`)
-            .setFooter(tag)
-            .setTimestamp(Date.now())
-        );
+          message.channel
+            .send(`<@${winner.id}>`)
+            .then((msg) => msg.delete({ timeout: 1000 }));
 
-        message.channel
-          .send(`<@${winner.id}>`)
-          .then((msg) => msg.delete({ timeout: 1000 }));
-
-        await giveawaySchema.deleteOne({
-          guildId,
-          channelId,
-          messageId,
-        });
+          await giveawaySchema.deleteMany({
+            messageId,
+          });
+        } catch (e) {
+          await giveawaySchema.deleteMany({
+            messageId: doc.messageId
+          });
+        }
       });
     });
   }, 1000 * 5);
