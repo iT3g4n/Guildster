@@ -17,11 +17,13 @@ module.exports = {
     const msg = await message.channel.messages.fetch(args[0], true, false);
 
     if (!msg.editable)
-      return message.reply(
-        bot.error(
-          "That does not seem to be my message. Please select a giveaway message that I have sent."
+      return message
+        .reply(
+          bot.error(
+            "That does not seem to be my message. Please select a giveaway message that I have sent."
+          )
         )
-      );
+        .then((msg) => msg.delete({ timeout: 5000 }));
 
     if (!msg)
       return message.reply(
@@ -30,22 +32,24 @@ module.exports = {
         )
       );
 
+    const doc = await giveawaySchema.findOne({
+      guildId: message.guild.id,
+      channelId: message.channel.id,
+      messageId: msg.id,
+    });
+
+    const { tag } = doc;
+
     const thing = msg.reactions.cache.get("🎉");
     const winner = thing.users.cache.filter((u) => !u.bot).random();
 
     if (!winner)
-      return msg.edit(":tada: **GIVEAWAY** :tada:",
+      return msg.edit(
+        ":tada: **GIVEAWAY** :tada:",
         new MessageEmbed()
           .addField("Prize", msg.embeds[0].fields[0].value)
           .addField("Winner", "Nobody has won this giveaway.")
-          .setFooter(
-            "Hosted by " +
-              msg.embeds[0].footer.text.slice(
-                "Hosted by ".length,
-                -". | End".length
-              ) +
-              " | Ended"
-          )
+          .setFooter("Hosted by " + tag)
           .setTimestamp(Date.now()),
         await giveawaySchema.deleteOne({
           guildId: message.guild.id,
@@ -54,27 +58,24 @@ module.exports = {
         })
       );
 
-    msg.edit(":tada: **GIVEAWAY** :tada:",
+    msg.edit(
+      ":tada: **GIVEAWAY** :tada:",
       new MessageEmbed()
         .addField("Prize", msg.embeds[0].fields[0].value)
         .addField("Winner", `<@${winner.id}>`)
-        .setFooter(
-          "Hosted by " +
-            msg.embeds[0].footer.text.slice(
-              "Hosted by ".length,
-              -". | End".length
-            ) +
-            " | Ended"
-        )
-        .setTimestamp(Date.now()),
-      await giveawaySchema.deleteOne({
-        guildId: message.guild.id,
-        channelId: message.channel.id,
-        messageId: msg.id,
-      })
+        .setFooter("Hosted by " + tag)
+        .setTimestamp(Date.now())
     );
+    
+    await giveawaySchema.deleteOne({
+      guildId: message.guild.id,
+      channelId: message.channel.id,
+      messageId: msg.id,
+    });
     message.channel
-      .send(`<@${winner.id}>`)
+      .send(
+        `<@${winner.id}> You have won the prize of \`${msg.embeds[0].fields[0].value}\``
+      )
       .then((msg) => msg.delete({ timeout: 1000 }));
   },
 };

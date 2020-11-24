@@ -10,6 +10,7 @@ const giveawaySchema = new mongoose.Schema({
   guildId: reqANDunString,
   channelId: reqANDunString,
   messageId: reqANDunString,
+  tag: reqANDunString,
   time: {
     type: Number,
     required: true,

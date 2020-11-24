@@ -1,6 +1,6 @@
 {
   "name": "guildster",
-  "version": "4.1.5",
+  "version": "4.5.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,20 +8,23 @@
     "dev": "nodemon index.js && cls"
   },
   "engines": {
-    "node": "15.2.1"
+    "node": "15.2.1",
+    "npm": "6.14.9"
   },
   "author": "T3g4n",
-  "license": "ONLY ME",
+  "license": "MIT",
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
     "discord.js": "^12.3.1",
     "dotenv": "^8.2.0",
     "enmap": "^5.7.0",
     "ffmpeg": "0.0.4",
+    "ffmpeg-static": "^4.2.7",
     "fortnite": "^4.3.2",
     "mongoose": "^5.10.1",
     "ms": "^2.1.2",
     "node-fetch": "^2.6.1",
+    "node-opus": "^0.3.3",
     "nodemon": "^2.0.6",
     "novelcovid": "^3.0.0",
     "pm2": "^4.5.0",
