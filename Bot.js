@@ -121,7 +121,6 @@ class BotClient extends Client {
           })
         );
       });
-      if (err.code === 10008) return;
       console.error(
         "__________________________\nUNHANDLED PROMISE REJECTION\n\n",
         err,
