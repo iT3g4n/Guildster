@@ -7,26 +7,29 @@ const schema = require("../schemas/automodschema");
  * @param {Message} jeff
  * @param {String[]} jeff2
  */
-module.exports = async function (jeff, jeff2) {
+module.exports = async function (jeff) {
   const message = jeff;
-  const args = jeff2;
+  const args = message.content.trim().split(/ +/g);
 
   const check = () => {
     let statment = false;
-    args.forEach((arg) => {
-      words.forEach((word) => {
-        if (statment == true) return;
-        arg.toLowerCase().includes(word.toLowerCase())
-          ? (statment = true)
-          : (statment = false);
-      });
+
+    const arg = args.join(" ");
+    words.forEach((word) => {
+      if (
+        arg.toLowerCase().toString().includes(word.toString().toLowerCase())
+      ) {
+        statment = true;
+      }
     });
+
     return statment;
-  }
+  };
 
   const on = await schema.findOne({ _id: message.guild.id });
 
-  if (on.enabled === "true") {
+  const yes = new String(on.enabled).toString();
+  if (yes === "true") {
     if (!check() === true) return;
     message.delete();
     message.channel

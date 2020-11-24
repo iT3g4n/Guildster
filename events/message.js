@@ -36,11 +36,10 @@ this.run = async (a, message, map) => {
     if (message.content.toLowerCase().startsWith(thisPrefix))
       prefix = thisPrefix;
   }
-
   const args = message.content.slice(prefix.length).trim().split(" ");
 
   if (!message.content.startsWith(prefix)) {
-    require("../customEvents/checkswear")(message, args);
+    require("../customEvents/checkswear")(message);
   }
 
   const command = args.shift().toLowerCase();
