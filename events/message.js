@@ -7,24 +7,15 @@ const { bot } = require("../index");
  */
 
 this.run = async (a, message, map) => {
+  if (!message) return;
+  if (!message.guild) return;
+  if (!message.channel) return;
   const { channel, guild } = message;
 
   if (!guild) return;
-
-  if (
-    message.author.bot &&
-    channel.id == ("716239917751206048" || "760485750805364748")
-  )
-    message.delete({ timeout: 20000 }).catch((e) => {
-      return;
-    });
+  if (!channel) return;
   if (message.author.bot) return;
 
-  if (
-    channel.id == ("716239917751206048" || "760485750805364748") &&
-    !message.member.hasPermission("MANAGE_MESSAGES")
-  )
-    message.delete();
   const prefixes = [
     `<@!${bot.user.id}>`,
     `<@${bot.user.id}>`,
@@ -38,11 +29,11 @@ this.run = async (a, message, map) => {
   }
   const args = message.content.slice(prefix.length).trim().split(" ");
 
+  const command = args.shift().toLowerCase();
+
   if (!message.content.startsWith(prefix)) {
     require("../customEvents/checkswear")(message);
   }
-
-  const command = args.shift().toLowerCase();
 
   if (
     command.toLowerCase() !== "verify" &&
