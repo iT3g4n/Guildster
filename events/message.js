@@ -38,6 +38,11 @@ this.run = async (a, message, map) => {
   }
 
   const args = message.content.slice(prefix.length).trim().split(" ");
+
+  if (!message.content.startsWith(prefix)) {
+    require("../customEvents/checkswear")(message, args);
+  }
+
   const command = args.shift().toLowerCase();
 
   if (
@@ -134,4 +139,3 @@ this.run = async (a, message, map) => {
     map.delete(message.author.id);
   }, 1000 * 5);
 };
-  

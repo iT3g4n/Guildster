@@ -14,6 +14,7 @@ class BotClient extends Client {
       partials: ["REACTION", "MESSAGE", "USER", "GUILD_MEMBER", "CHANNEL"],
       ws: { intents: Intents.ALL },
     });
+    this.blacklistedWords = require("./blacklistedWords");
     this.owners = ["381024325974622209"];
     this.allCatagorys = [];
     this.embed = new MessageEmbed();
@@ -106,6 +107,20 @@ class BotClient extends Client {
       require("./events/guildMemberAdd").run(member);
     });
     process.on("unhandledRejection", (err) => {
+      this.owners.forEach((owner) => {
+        const user = this.users.cache.get(owner);
+        user.send(
+          new MessageEmbed({
+            description: err.toString(),
+            color: "RED",
+            timestamp: Date.now(),
+            author: {
+              name: "ERROR",
+              iconURL: user.displayAvatarURL({ dynamic: true, format: "png" }),
+            },
+          })
+        );
+      });
       if (err.code === 10008) return;
       console.error(
         "__________________________\nUNHANDLED PROMISE REJECTION\n\n",
@@ -117,4 +132,4 @@ class BotClient extends Client {
 }
 
 module.exports.BotClient = BotClient;
-module.exports.bot = require("./index");
+module.exports.bot = require("./index").bot;

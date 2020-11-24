@@ -16,6 +16,7 @@ module.exports = async () => {
         const channelId = doc.channelId;
         const messageId = doc.messageId;
         const time = doc.time;
+        const tag = doc.tag;
 
         const channel = guild.channels.cache.get(channelId);
         if (!channel)
@@ -30,24 +31,18 @@ module.exports = async () => {
             messageId,
           });
 
-        if ((time < Date.now()) === false) return;
+        if (time < Date.now() === false) return;
 
         const getReaction = message.reactions.cache.get("🎉");
         const winner = getReaction.users.cache.filter((x) => !x.bot).random();
         if (!winner)
           return (
-            message.edit(":tada: **GIVEAWAY** :tada:",
+            message.edit(
+              ":tada: **GIVEAWAY** :tada:",
               new MessageEmbed()
                 .addField("Prize", message.embeds[0].fields[0].value)
                 .addField("Winner", "Nobody has won this giveaway.")
-                .setFooter(
-                  "Hosted by " +
-                    message.embeds[0].footer.text.slice(
-                      "Hosted by ".length,
-                      -". | End".length
-                    ) +
-                    " | Ended"
-                )
+                .setFooter(doc)
                 .setTimestamp(Date.now())
             ),
             await giveawaySchema.deleteOne({
@@ -57,18 +52,12 @@ module.exports = async () => {
             })
           );
 
-        message.edit(":tada: **GIVEAWAY** :tada:",
+        message.edit(
+          ":tada: **GIVEAWAY** :tada:",
           new MessageEmbed()
             .addField("Prize", message.embeds[0].fields[0].value)
             .addField("Winner", `<@${winner.id}>`)
-            .setFooter(
-              "Hosted by " +
-                message.embeds[0].footer.text.slice(
-                  "Hosted by ".length,
-                  -". | End".length
-                ) +
-                " | Ended"
-            )
+            .setFooter(tag)
             .setTimestamp(Date.now())
         );
 
