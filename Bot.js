@@ -109,6 +109,7 @@ class BotClient extends Client {
     process.on("unhandledRejection", (err) => {
       this.owners.forEach((owner) => {
         const user = this.users.cache.get(owner);
+        if (!user) return;
         user.send(
           new MessageEmbed({
             description: err.toString(),

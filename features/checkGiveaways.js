@@ -38,7 +38,7 @@ module.exports = async () => {
 
           if (time < Date.now() === false) return;
 
-          const getReaction = message.reactions.cache.get("🎉");
+          const getReaction = message.reactions.resolve("🎉");
           const winner = getReaction.users.cache.filter((x) => !x.bot).random();
           if (!winner)
             return (
@@ -47,7 +47,7 @@ module.exports = async () => {
                 new MessageEmbed()
                   .addField("Prize", message.embeds[0].fields[0].value)
                   .addField("Winner", "Nobody has won this giveaway.")
-                  .setFooter(doc)
+                  .setFooter("Hosted by " + tag)
                   .setTimestamp(Date.now())
               ),
               await giveawaySchema.deleteOne({
@@ -62,7 +62,7 @@ module.exports = async () => {
             new MessageEmbed()
               .addField("Prize", message.embeds[0].fields[0].value)
               .addField("Winner", `<@${winner.id}>`)
-              .setFooter(tag)
+              .setFooter("Hosted by " + tag)
               .setTimestamp(Date.now())
           );
 
@@ -75,7 +75,7 @@ module.exports = async () => {
           });
         } catch (e) {
           await giveawaySchema.deleteMany({
-            messageId: doc.messageId
+            messageId: doc.messageId,
           });
         }
       });

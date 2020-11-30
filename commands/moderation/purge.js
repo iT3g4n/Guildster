@@ -47,6 +47,7 @@ module.exports = {
 
     if (args[0].toLowerCase() == "all") {
       all(bot, message, args);
+      return;
     }
 
     if (isNaN(args[0][0])) return message.channel.send("That is not a number!");

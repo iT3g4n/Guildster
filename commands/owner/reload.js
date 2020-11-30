@@ -5,7 +5,7 @@ this.aliases = []
 this.catagory = 'owner'
 this.usage = '[command] [command to reload]'
 this.run = async(a, message, args) => {
-
+    if (!bot.owners.includes(message.author.id)) return;
 
     const cmd = args[0]
     if(!cmd) return message.channel.send(bot.error('You did not specify a command to reload!'));

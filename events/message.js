@@ -27,8 +27,7 @@ this.run = async (a, message, map) => {
     if (message.content.toLowerCase().startsWith(thisPrefix))
       prefix = thisPrefix;
   }
-  const args = message.content.slice(prefix.length).trim().split(" ");
-
+  const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
 
   if (!message.content.startsWith(prefix)) {
@@ -42,7 +41,10 @@ this.run = async (a, message, map) => {
     message.delete();
   if (message.author.bot || !message.guild) return;
 
-  if (bot.afkmap) {
+  if (!message.content.startsWith(prefix)) {
+    if (!message.mentions.members.first()) return;
+    if (bot.afkmap && !bot.afkmap.has(message.mentions.members.first())) return;
+
     if (bot.afkmap.has(message.author.id)) {
       bot.afkmap.delete(message.author.id);
       message.member
@@ -56,12 +58,6 @@ this.run = async (a, message, map) => {
           )
       );
     }
-  }
-
-  if (!message.content.startsWith(prefix)) {
-    if (!message.mentions.members.first()) return;
-    if (bot.afkmap && !bot.afkmap.has(message.mentions.members.first())) return;
-    if (!bot.afkmap) return;
 
     if (bot.afkmap.has(message.mentions.members.first().id)) {
       message.reply(
@@ -92,7 +88,7 @@ this.run = async (a, message, map) => {
     }
   }
 
-  bot.e = function (description = String, send = Boolean) {
+  bot.e = function (description, send) {
     const embed = new MessageEmbed()
       .setFooter(
         `|   ${cmd.name} Command`,

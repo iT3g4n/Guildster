@@ -38,9 +38,11 @@ module.exports = {
       messageId: msg.id,
     });
 
+    if(!doc) return;
+
     const { tag } = doc;
 
-    const thing = msg.reactions.cache.get("🎉");
+    const thing = msg.reactions.resolve("🎉");
     const winner = thing.users.cache.filter((u) => !u.bot).random();
 
     if (!winner)

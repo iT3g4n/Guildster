@@ -23,6 +23,7 @@ module.exports = {
         guildId: message.guild.id,
         channelId: channel.id,
         messageId: msg.id,
+        tag: message.author.tag,
         time: (importantStuff.get("time") + Date.now()),
       }).save();
     };
@@ -77,7 +78,7 @@ module.exports = {
       pmsg1.stop();
     });
 
-    const pmsg1function = async function () {
+    const pmsg1EndFunction = async function () {
       const msg2 = await message.channel.send(
         bot.e(
           'How long would you like the giveaway to last? Example: "2h" or "15m"'
@@ -139,7 +140,7 @@ module.exports = {
     };
 
     pmsg1.on("end", () => {
-      pmsg1function();
+      pmsg1EndFunction();
     });
   },
 };
