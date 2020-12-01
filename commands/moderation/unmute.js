@@ -1,4 +1,4 @@
-const { Message } = require("discord.js");
+const { MessageEmbed, Message } = require("discord.js");
 const { bot: params } = require("../../index");
 const guildSchema = require("../../schemas/guildSchema");
 const muteSchema = require("../../schemas/muteSchema");
