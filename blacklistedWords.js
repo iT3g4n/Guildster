@@ -200,7 +200,6 @@ const array = [
   "fudgepacker",
   "flange",
   "goddamn",
-  "hell",
   "homo",
   "jerk",
   "jizz",
@@ -211,7 +210,6 @@ const array = [
   "muff",
   "nigger",
   "nigga",
-  "omg",
   "penis",
   "piss",
   "poop",
@@ -233,7 +231,6 @@ const array = [
   "vagina",
   "wank",
   "whore",
-  "wtf",
 ];
 
 module.exports = array;

@@ -30,7 +30,7 @@ async function run(bot, message, args) {
 
   // ___________________________________________________________________________________________________________________________________________________________________________________________________________________
 
-  const { member, guild, channel } = message;
+  const { member, guild } = message;
   let reason = args.slice(1).join(" ");
   if (!reason) reason = "No Reason Specified";
 
