@@ -3,6 +3,7 @@ const { bot } = require("../index");
 this.run = async () => {
   console.log(`logged in as ${bot.user.tag}`);
   console.log(`${bot.commandlength} commands were loaded in total.`);
+  console.log("Running on Shard", bot.shard)
 
   activities_list = [
     {

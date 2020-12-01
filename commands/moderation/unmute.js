@@ -1,6 +1,6 @@
 const { Message } = require("discord.js");
 const { bot: params } = require("../../index");
-const guilds = require("../../schemas/guildSchema");
+const guildSchema = require("../../schemas/guildSchema");
 const muteSchema = require("../../schemas/muteSchema");
 
 function send(sendchannel, mention, reason, time, message) {

@@ -3,7 +3,6 @@ const {
   Collection,
   Intents,
   MessageEmbed,
-  Message,
 } = require(`discord.js`);
 
 require("dotenv").config();
@@ -13,6 +12,7 @@ class BotClient extends Client {
     super({
       partials: ["REACTION", "MESSAGE", "USER", "GUILD_MEMBER", "CHANNEL"],
       ws: { intents: Intents.ALL },
+      shardCount: 2
     });
     this.blacklistedWords = require("./blacklistedWords");
     this.owners = ["381024325974622209"];
