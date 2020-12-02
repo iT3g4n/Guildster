@@ -52,8 +52,25 @@ async function makeMuteRole(message, args) {
       },
     });
 
-    guild.channels.cache.forEach((channel) => {
-      console.log(channel.permissionOverwrites);
+    guild.channels.cache.forEach(async (channel) => {
+      console.log(channel.name);
+      if (channel.type == "voice") {
+        await channel
+          .updateOverwrite(muteRole, {
+            SPEAK: false,
+          })
+          .catch((e) => {
+            return e;
+          });
+      }
+      // -------------------------
+      await channel
+        .updateOverwrite(muteRole, {
+          SEND_MESSAGES: false,
+        })
+        .catch((e) => {
+          return e;
+        });
     });
 
     return role;
@@ -63,7 +80,7 @@ async function makeMuteRole(message, args) {
         "This server does not have a `Muted` role and I don't have the permissions to make one!"
       )
     );
-    return;
+    return console.error(e);
   }
 }
 
@@ -88,6 +105,11 @@ this.run = async ({}, message, args) => {
   const user =
     message.guild.members.cache.get(args[0]) ||
     message.mentions.members.first();
+  if (!user) return error("You don't seem to have mentioned anyone!");
+  if (!args[1])
+    return error(
+      'Please give a time ending in, for example, "s" for seconds, or "m" for minutes etc, etc.'
+    );
   const time = ms(args[1].toLowerCase()) + Date.now();
   let reason = args.slice(2).join(/ +/g);
 
@@ -112,13 +134,32 @@ this.run = async ({}, message, args) => {
   if (!muteRole)
     await makeMuteRole(message, args).then((role) => (muteRole = role));
 
-  try {
-    user.roles.add(muteRole.id, reason);
-  } catch (e) {
-    return error(
+  message.guild.channels.cache.forEach(async (channel) => {
+    if (channel.type == "voice") {
+      await channel
+        .updateOverwrite(muteRole, {
+          SPEAK: false,
+        })
+        .catch((e) => {
+          return e;
+        });
+    }
+    await channel
+      .updateOverwrite(muteRole, {
+        SEND_MESSAGES: false,
+      })
+      .catch((e) => {
+        return e;
+      });
+  });
+
+
+  user.roles.add(muteRole, reason).catch(e => {
+    error(
       "I cannot give that user a role! I do not have enough permissions!"
     );
-  }
+    return e;
+  });
 
   await muteSchema.findOneAndUpdate(
     {
@@ -137,7 +178,10 @@ this.run = async ({}, message, args) => {
     }
   );
 
-  bot.e(`I have successfully muted ${user.user.tag} with the reason of "${reason}"`, true);
+  bot.e(
+    `I have successfully muted ${user.user.tag} with the reason of "${reason}"`,
+    true
+  );
 
   const channel = await guildSchema.findOne({ _id: message.guild.id });
   if (!channel.Logs) return;
