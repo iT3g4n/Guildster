@@ -3,6 +3,7 @@ const {
   Collection,
   Intents,
   MessageEmbed,
+  ShardingManager,
 } = require(`discord.js`);
 
 require("dotenv").config();
@@ -12,7 +13,6 @@ class BotClient extends Client {
     super({
       partials: ["REACTION", "MESSAGE", "USER", "GUILD_MEMBER", "CHANNEL"],
       ws: { intents: Intents.ALL },
-      shardCount: 2
     });
     this.blacklistedWords = require("./blacklistedWords");
     this.owners = ["381024325974622209"];
@@ -22,6 +22,7 @@ class BotClient extends Client {
     this.path = require("path");
     this.ms = require("ms");
     this.discord = require("discord.js");
+    this.sharding();
     this.commandlength = 0;
     this.catagorys = {};
     this.queue = {};
@@ -34,6 +35,14 @@ class BotClient extends Client {
   /* Embed */
   e(description = String(), send = Boolean()) {
     return new MessageEmbed();
+  }
+
+  /* Shard Manager */
+  sharding() {
+    const shardManager = new ShardingManager("./index.js");
+
+    shardManager.spawn(2);
+    return shardManager;
   }
 
   /* Error Embed */

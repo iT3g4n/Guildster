@@ -2,10 +2,10 @@
   "name": "guildster",
   "version": "5.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "sharding.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js && cls"
+    "start": "node sharding.js",
+    "dev": "npx nodemon sharding.js"
   },
   "engines": {
     "node": "15.2.1",
