@@ -5,13 +5,12 @@ const schema = require("../schemas/automodschema");
 
 /**
  * @param {Message} jeff
- * @param {String[]} jeff2
  */
 module.exports = async function (jeff) {
   const message = jeff;
-  const args = message.content.trim().split(/ +/g);
+  const args = message.content.trim().split(" ");
 
-  if(!args) return;
+  if (!args) return;
   if (!message) return;
 
   const check = () => {
@@ -46,6 +45,8 @@ module.exports = async function (jeff) {
           .setFooter("Deleting in 10 seconds...")
       )
       .then((msg) => msg.delete({ timeout: 10000 }))
-      .catch();
+      .catch((e) => {
+        return e;
+      });
   }
 };

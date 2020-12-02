@@ -1,37 +1,61 @@
 const { Message } = require("discord.js");
 const { bot: params } = require("../../index");
 
-const all = function (bot, message, args) {
-  try {
-    if (!message.guild.me.hasPermission("MANAGE_CHANNELS")) {
-      message.channel.send(
-        bot.error("I do not have enough permissions to do that!")
-      );
-      return;
-    }
+/**
+ * @param {params} bot
+ * @param {Message} message
+ * @param {String[]} args
+ */
+const all = async function (bot, message, args) {
+  const { channel } = message;
 
-    message.channel.clone();
-
-    if (!message.channel.deletable) {
-      message.channel.send(
-        bot.error("I do not have enough permissions to do that!")
-      );
-      return;
-    }
-    message.channel.delete();
-  } catch (e) {
-    console.error;
-    message.channel.send("");
+  if (!message.guild.me.hasPermission("MANAGE_CHANNELS")) {
+    message.channel.send(
+      bot.error("I do not have enough permissions to do that!")
+    );
     return;
   }
-  return module.exports;
+
+  if (!message.channel.deletable) {
+    message.channel.send(
+      bot.error("I do not have enough permissions to do that!")
+    );
+    return;
+  }
+  const ch = await channel.clone().catch((e) => {
+    message.channel.send(
+      bot.error(
+        "I cannot seem to create this channel again! I don't have enough permissions!"
+      )
+    );
+
+    return e;
+  });
+  channel.delete().catch((e) => {
+    message.channel.send(
+      bot.error(
+        "I cannot seem to delete this channel! I don't have enough permissions!"
+      )
+    );
+
+    return e;
+  });
+  ch.setPosition(channel.position).catch((e) => {
+    message.channel.send(
+      bot.error(
+        "I cannot seem to set the position of this channel! I don't have enough permissions!"
+      )
+    );
+
+    return e;
+  });
 };
 
 module.exports = {
   name: "purge",
   aliases: ["delete", "del"],
   catagory: "moderation",
-  usage: "[command] amount",
+  usage: '[command] [number or "all"]',
   description:
     "Deletes the specified amount of messages from the channel of the message!",
   /**

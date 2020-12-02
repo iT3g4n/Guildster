@@ -18,8 +18,10 @@ module.exports = {
         message.author
       }! This is what I can do (type them)!
       
-      \`\`\`${prefix}help ${bot.allCatagorys.join(`\n${prefix}help `).toString()}\`\`\`
-      or you can use the 🌎 reaction to see all the commands (dm's)!
+      \`\`\`${prefix}help ${bot.allCatagorys
+        .join(`\n${prefix}help `)
+        .toString()}\`\`\`
+      or you can use the 🌎 reaction to see all the commands (in dm's)!
 
       To get help on a specific command, use \`${prefix}help [command / catagory]\`!
 
@@ -84,15 +86,16 @@ module.exports = {
       }
 
       const data = [];
-      if (command.name) data.push("Name: `" + command.name + "`");
+      if (command.name) data.push("Name: `" + command.name.toString() + "`");
       if (command.description) {
-        data.push("Description: `" + command.description + "`");
+        data.push("Description: `" + command.description.toString() + "`");
       }
-      if (command.aliases) {
-        data.push("Aliases: `" + command.aliases.join(", ") + "`");
+      if (command.aliases[0]) {
+        data.push("Aliases: `" + command.aliases.join(", ").toString() + "`");
       }
-      if (command.usage) data.push("Usage: `" + command.usage + "`");
-      if (command.catagory) data.push("Catagory: `" + command.catagory + "`");
+      if (command.usage) data.push("Usage: `" + command.usage.toString() + "`");
+      if (command.catagory)
+        data.push("Catagory: `" + command.catagory.toString() + "`");
 
       message.reply(
         bot.embed

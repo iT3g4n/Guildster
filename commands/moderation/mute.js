@@ -111,7 +111,7 @@ this.run = async ({}, message, args) => {
       'Please give a time ending in, for example, "s" for seconds, or "m" for minutes etc, etc.'
     );
   const time = ms(args[1].toLowerCase()) + Date.now();
-  let reason = args.slice(2).join(/ +/g);
+  let reason = args.slice(2).join(" ");
 
   if (!user) return error("You don't seem to have mentioned anyone!");
   if (!time)
@@ -153,11 +153,8 @@ this.run = async ({}, message, args) => {
       });
   });
 
-
-  user.roles.add(muteRole, reason).catch(e => {
-    error(
-      "I cannot give that user a role! I do not have enough permissions!"
-    );
+  user.roles.add(muteRole, reason).catch((e) => {
+    error("I cannot give that user a role! I do not have enough permissions!");
     return e;
   });
 

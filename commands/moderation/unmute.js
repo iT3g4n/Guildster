@@ -3,7 +3,7 @@ const { bot: params } = require("../../index");
 const guildSchema = require("../../schemas/guildSchema");
 const muteSchema = require("../../schemas/muteSchema");
 
-function send(sendchannel, mention, reason, time, message) {
+function send(sendchannel, mention, reason, message) {
   const embed = new MessageEmbed()
     .setTitle(`User Unmuted`)
     .addField(`User`, `<@${mention.id}>`, true)
@@ -42,10 +42,14 @@ async function run(bot, message, args) {
   const mention =
     guild.members.cache.get(args[0]) || message.mentions.members.first();
 
-  const { roleId } = await muteSchema.findOne({
+  const doc = await muteSchema.findOne({
     _id: guild.id,
     userId: mention.id,
   });
+
+  if (!doc) return error("This person is not muted!");
+
+  const { roleId } = doc;
 
   if (!guild.roles.cache.has(roleId))
     return error(
