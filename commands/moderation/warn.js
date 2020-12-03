@@ -56,7 +56,7 @@ module.exports = {
     );
 
     await msg.edit(
-      bot.embed(
+      bot.embed.setDescription(
         `${mention.user.tag} has been succesfully warned with the reason of \`${reason}\``
       )
     );
