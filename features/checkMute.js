@@ -15,13 +15,13 @@ module.exports = () => {
         if (result.expires < date == false) return;
 
         const member = guild.members.cache.get(result.userId);
+
         const doc = await muteSchema.findOne({
           _id: guild.id,
-          userId: member.id,
+          userId: result.userId,
         });
 
-        let role = guild.roles.cache.get(result.roleId);
-        if (!role) {
+        if (!member) {
           doc.deleteOne();
           return;
         }
@@ -30,6 +30,13 @@ module.exports = () => {
           doc.deleteOne();
           return;
         }
+
+        let role = guild.roles.cache.get(result.roleId);
+        if (!role) {
+          doc.deleteOne();
+          return;
+        }
+
         member.roles.remove(role, "Mute time up").catch((e) => {
           doc.deleteOne();
           return e;
