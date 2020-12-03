@@ -1,8 +1,7 @@
 const { Client, Message, MessageEmbed } = require("discord.js");
-const mongo = require(`./../../mongo`);
-const { bot } = require("./../../Bot");
-const warns = require(`./../../schemas/warnSchema`);
-const guilds = require(`./../../schemas/guildSchema`);
+const { bot } = require("../../index");
+const warns = require(`../../schemas/warnSchema`);
+const guilds = require(`../../schemas/guildSchema`);
 
 module.exports = {
   name: "Warn",
