@@ -17,7 +17,7 @@ module.exports = () => {
         const member = guild.members.cache.get(result.userId);
         const doc = await muteSchema.findOne({
           _id: guild.id,
-          uswerId: member.id,
+          userId: member.id,
         });
 
         let role = guild.roles.cache.get(result.roleId);
@@ -30,9 +30,10 @@ module.exports = () => {
           doc.deleteOne();
           return;
         }
-        member.roles
-          .remove(role, "Mute time up")
-          .catch((e) => console.error(e));
+        member.roles.remove(role, "Mute time up").catch((e) => {
+          doc.deleteOne();
+          return e;
+        });
         doc.deleteOne();
       });
     }, 1000 * 5);
