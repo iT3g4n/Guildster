@@ -29,7 +29,7 @@ module.exports = {
         mention.user.displayAvatarURL({ dynamic: true })
       );
 
-    const msg = await message.channel.send( 
+    const msg = await message.channel.send(
       bot.embed.setDescription(`Getting warnings for ${mention.user.tag}...`)
     );
 
