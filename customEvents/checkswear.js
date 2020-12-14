@@ -1,12 +1,10 @@
 const { Message, MessageEmbed } = require("discord.js");
-const { bot } = require("../index");
-const { blacklistedWords: words } = bot;
 const schema = require("../schemas/automodschema");
 
 /**
  * @param {Message} jeff
  */
-module.exports = async function (jeff) {
+module.exports = async (jeff) => {
   const message = jeff;
   const args = message.content.trim().split(" ");
 
@@ -19,8 +17,7 @@ module.exports = async function (jeff) {
   if (!on) return;
 
   const yes = new String(on.enabled).toString();
-  if (yes === "true") {
-    if (!check() === true) return;
+  if (yes === "true" && check(args) !== true) {
     message.delete();
     message.channel
       .send(

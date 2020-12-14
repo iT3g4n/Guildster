@@ -1,5 +1,4 @@
 const { bot } = require("../index");
-const guildSchema = require("../schemas/guildSchema");
 const muteSchema = require("../schemas/muteSchema");
 
 module.exports = () => {
@@ -7,7 +6,7 @@ module.exports = () => {
     setInterval(async () => {
       let date = Date.now();
 
-      const results = await muteSchema.find({ _id: guild.id });
+      const results = await muteSchema.find({ guildId: guild.id });
 
       if (!results) return;
 
@@ -17,7 +16,7 @@ module.exports = () => {
         const member = guild.members.cache.get(result.userId);
 
         const doc = await muteSchema.findOne({
-          _id: guild.id,
+          guildId: guild.id,
           userId: result.userId,
         });
 

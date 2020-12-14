@@ -43,7 +43,7 @@ async function run(bot, message, args) {
     guild.members.cache.get(args[0]) || message.mentions.members.first();
 
   const doc = await muteSchema.findOne({
-    _id: guild.id,
+    guildId: guild.id,
     userId: mention.id,
   });
 
@@ -69,12 +69,12 @@ async function run(bot, message, args) {
   try {
     await mention.roles.remove(role);
     await muteSchema.findOneAndDelete({
-      _id: guild.id,
+      guildId: guild.id,
       userId: mention.id,
     });
   } catch (e) {
     error("I could not take that role away from " + mention.user.tag);
-    return;
+    return e;
   }
 
   bot.e(`I have unmuted <@${mention.id}> with the reason of "${reason}"`, true);

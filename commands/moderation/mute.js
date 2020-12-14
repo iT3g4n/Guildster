@@ -160,11 +160,11 @@ this.run = async ({}, message, args) => {
 
   await muteSchema.findOneAndUpdate(
     {
-      _id: message.guild.id,
+      guildId: message.guild.id,
       userId: user.id,
     },
     {
-      _id: message.guild.id,
+      guildId: message.guild.id,
       userId: user.id,
       modId: message.author.id,
       roleId: muteRole.id,
