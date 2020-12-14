@@ -24,7 +24,7 @@ module.exports = {
     const mention =
       message.mentions.members.first() ||
       message.guild.members.cache.get(args[0]);
-    if (!mention && !mrid)
+    if (!mention)
       return message.channel.send(bot.error(`You did not mention anyone.`));
 
     const reason = args.slice(1).join(" ");

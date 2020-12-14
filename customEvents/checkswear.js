@@ -13,20 +13,7 @@ module.exports = async function (jeff) {
   if (!args) return;
   if (!message) return;
 
-  const check = () => {
-    let statment = false;
-
-    const arg = args.join(" ");
-    words.forEach((word) => {
-      if (
-        arg.toLowerCase().toString().includes(word.toString().toLowerCase())
-      ) {
-        statment = true;
-      }
-    });
-
-    return statment;
-  };
+  const check = require("check-swear");
 
   const on = await schema.findOne({ _id: message.guild.id });
   if (!on) return;
