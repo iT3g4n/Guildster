@@ -1,4 +1,4 @@
-const { Message, MessageEmbed } = require("discord.js");
+const { Message, MessageEmbed, Role } = require("discord.js");
 const { bot } = require("../../index");
 const guildSchema = require("../../schemas/guildSchema");
 const muteSchema = require("../../schemas/muteSchema");
@@ -30,15 +30,53 @@ function send(sendchannel, mention, reason, time, message) {
   }
 }
 
+/**
+ * @param {Message} message
+ * @param {Role} muteRole
+ */
+async function setChannelOverwrites(message, muteRole) {
+  const { guild } = message;
+
+  guild.channels.cache.forEach(async (channel) => {
+    if (channel.type == "voice") {
+      await channel
+        .updateOverwrite(muteRole, {
+          SPEAK: false,
+        })
+        .catch((e) => {
+          return e;
+        });
+    }
+
+    if (channel.type == "category") {
+      await channel
+        .updateOverwrite(muteRole, {
+          SPEAK: false,
+          SEND_MESSAGES: false,
+        })
+        .catch((e) => {
+          return e;
+        });
+    }
+    // -------------------------
+    await channel
+      .updateOverwrite(muteRole, {
+        SEND_MESSAGES: false,
+      })
+      .catch((e) => {
+        return e;
+      });
+  });
+}
+
 // ____________________________________________________________________________________________________________________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________________________________________________________________________________________________________________
 
 /**
  * @param {Message} message
- * @param {String[]} args
  */
-async function makeMuteRole(message, args) {
+async function makeMuteRole(message) {
   const { guild } = message;
 
   try {
@@ -50,27 +88,6 @@ async function makeMuteRole(message, args) {
         position: guild.me.roles.highest.position,
         permissions: ["VIEW_CHANNEL"],
       },
-    });
-
-    guild.channels.cache.forEach(async (channel) => {
-      console.log(channel.name);
-      if (channel.type == "voice") {
-        await channel
-          .updateOverwrite(muteRole, {
-            SPEAK: false,
-          })
-          .catch((e) => {
-            return e;
-          });
-      }
-      // -------------------------
-      await channel
-        .updateOverwrite(muteRole, {
-          SEND_MESSAGES: false,
-        })
-        .catch((e) => {
-          return e;
-        });
     });
 
     return role;
@@ -106,6 +123,7 @@ this.run = async ({}, message, args) => {
     message.guild.members.cache.get(args[0]) ||
     message.mentions.members.first();
   if (!user) return error("You don't seem to have mentioned anyone!");
+
   if (!args[1])
     return error(
       'Please give a time ending in, for example, "s" for seconds, or "m" for minutes etc, etc.'
@@ -122,17 +140,21 @@ this.run = async ({}, message, args) => {
 
   if (isNaN(args[1][0]))
     return error(
-      "That doesn't seem to be a number!" +
-        "\n" +
-        'Please give a time ending in, for example, "s" for seconds, or "m" for minutes etc, etc.'
+      `That doesn't seem to be a number!
+Please give a time ending in, for example, "s" for seconds, or "m" for minutes etc, etc.`
     );
 
   let muteRole = message.guild.roles.cache.find(
     (role) => role.name.toLowerCase() === "muted"
   );
 
-  if (!muteRole)
-    await makeMuteRole(message, args).then((role) => (muteRole = role));
+  if (!muteRole) {
+    muteRole = await makeMuteRole(message);
+  }
+
+  if (!muteRole) return;
+
+  await setChannelOverwrites(message, muteRole);
 
   message.guild.channels.cache.forEach(async (channel) => {
     if (channel.type == "voice") {
