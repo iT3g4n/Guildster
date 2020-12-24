@@ -8,7 +8,9 @@ module.exports = {
   description: "Tells you how long the bot has been online!",
   usage: "[command]",
   async run(bot, message, args) {
-    const m = await message.channel.send("Checking Uptime...");
+    const m = await message.channel.send(
+      bot.embed.setDescription("Checking Uptime...")
+    );
 
     const uptime = ms(bot.uptime, { long: true });
 
@@ -18,7 +20,5 @@ module.exports = {
         .setDescription(`I have been online for:\n\`${uptime}\``);
       await m.edit(embed);
     });
-
-    m.edit("");
   },
 };
