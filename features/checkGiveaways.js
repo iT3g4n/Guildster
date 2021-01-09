@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, Message, MessageReaction } = require("discord.js");
 const { bot } = require(".././index");
 const giveawaySchema = require("../schemas/giveawaySchema");
 
@@ -13,13 +13,7 @@ module.exports = async () => {
 
       docs.forEach(async (doc) => {
         try {
-          if (!doc) return;
-
-          const guildId = doc.guildId;
-          const channelId = doc.channelId;
-          const messageId = doc.messageId;
-          const time = doc.time;
-          const tag = doc.tag;
+          const { guildId, channelId, messageId, time, tag } = doc;
 
           const channel = guild.channels.cache.get(channelId);
           if (!channel) {
@@ -37,13 +31,14 @@ module.exports = async () => {
           }
 
           if (time < Date.now() === false) return;
-
-          const getReaction = message.reactions.resolve("🎉");
-          const winner = getReaction.users.cache.filter((x) => !x.bot).random();
+          const getReaction = await message.reactions.cache
+            .get("🎉")
+            .users.fetch();
+          const winner = getReaction.filter((x) => !x.bot).random();
           if (!winner)
             return (
               message.edit(
-                ":tada: **GIVEAWAY** :tada:",
+                "🎉 **GIVEAWAY** 🎉",
                 new MessageEmbed()
                   .addField("Prize", message.embeds[0].fields[0].value)
                   .addField("Winner", "Nobody has won this giveaway.")
@@ -51,14 +46,12 @@ module.exports = async () => {
                   .setTimestamp(Date.now())
               ),
               await giveawaySchema.deleteOne({
-                guildId,
-                channelId,
                 messageId,
               })
             );
 
           message.edit(
-            ":tada: **GIVEAWAY** :tada:",
+            "🎉 **GIVEAWAY** 🎉",
             new MessageEmbed()
               .addField("Prize", message.embeds[0].fields[0].value)
               .addField("Winner", `<@${winner.id}>`)

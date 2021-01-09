@@ -3,8 +3,8 @@ const giveawaySchema = require("../../schemas/giveawaySchema");
 
 module.exports = {
   name: "End",
-  description: "Ends the giveaway when you provide a messageID",
-  aliases: ["reroll", "again", "newwinner"],
+  description: "Ends the giveaway when you provide a message ID",
+  aliases: [],
   catagory: "giveaways",
   usage: "[command] [message id]",
   /**
@@ -12,9 +12,22 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (bot, message, args) => {
+    if (message.member.hasPermission("MANAGE_MESSAGES"))
+      return message.channel.send(
+        bot.error("You do not have enough permissions!")
+      );
+
     message.delete();
 
-    const msg = await message.channel.messages.fetch(args[0], true, false);
+    if (!args.length)
+      return message.channel.send(bot.error("Please specify a message ID"));
+
+    const msg = await message.channel.messages.fetch(args[0]);
+
+    if (!msg)
+      return message.channel.send(
+        bot.error("I could not find that message in this channel.")
+      );
 
     if (!msg.editable)
       return message
@@ -28,17 +41,18 @@ module.exports = {
     if (!msg)
       return message.reply(
         bot.error(
-          `You did not specify any message, or I can't find it in this channel, ${message.author}`
+          `You did not specify any message, or I can't find it in this channel.`
         )
       );
 
     const doc = await giveawaySchema.findOne({
-      guildId: message.guild.id,
-      channelId: message.channel.id,
       messageId: msg.id,
     });
 
-    if(!doc) return;
+    if (!doc)
+      return message.channel.send(
+        bot.error("I could not find that giveaway in my database.")
+      );
 
     const { tag } = doc;
 
@@ -68,7 +82,7 @@ module.exports = {
         .setFooter("Hosted by " + tag)
         .setTimestamp(Date.now())
     );
-    
+
     await giveawaySchema.deleteOne({
       guildId: message.guild.id,
       channelId: message.channel.id,

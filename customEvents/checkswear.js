@@ -17,7 +17,7 @@ module.exports = async (jeff) => {
   if (!on) return;
 
   const yes = new String(on.enabled).toString();
-  if (yes === "true" && check(args) !== true) {
+  if (yes === "true" && check(args, "String[]") == true) {
     message.delete();
     message.channel
       .send(
