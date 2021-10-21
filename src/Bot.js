@@ -8,7 +8,7 @@ class BotClient extends Client {
       partials: ["REACTION", "MESSAGE", "USER", "GUILD_MEMBER", "CHANNEL"],
       ws: { intents: Intents.ALL },
     });
-    this.blacklistedWords = require("./blacklistedWords");
+    this.blacklistedWords = require("./src/blacklistedWords");
     this.owners = ["381024325974622209"];
     this.allCatagorys = [];
     this.embed = new MessageEmbed();

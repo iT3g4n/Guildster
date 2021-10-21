@@ -1,4 +1,4 @@
-const { bot } = require('./../../index');
+const { bot } = require('../../index');
 this.name = 'Reload'
 this.description = 'Reloads a specific command!'
 this.aliases = []
