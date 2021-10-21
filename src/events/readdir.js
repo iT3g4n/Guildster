@@ -21,7 +21,7 @@ this.run = async () => {
     return results;
   }
 
-  find_nested("./commands/", ".js").forEach(async (file) => {
+  find_nested("src/commands", ".js").forEach(async (file) => {
     if (!file) return;
     if (!file.endsWith(".js")) return;
     const props = require(file);

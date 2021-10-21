@@ -36,12 +36,12 @@ module.exports = () => {
           return;
         }
 
-        member.roles.remove(role, "Mute time up").catch((e) => {
+        member.roles.remove(role, "Mute time over.").catch((e) => {
           doc.deleteOne();
           return e;
         });
         doc.deleteOne();
       });
-    }, 1000 * 5);
+    }, 1000 * 10);
   });
 };

@@ -1,4 +1,4 @@
-const { Schema, model, SchemaTypes } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const reqString = {
     type: String,

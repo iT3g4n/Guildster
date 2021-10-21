@@ -6,9 +6,8 @@ class BotClient extends Client {
   constructor() {
     super({
       partials: ["REACTION", "MESSAGE", "USER", "GUILD_MEMBER", "CHANNEL"],
-      ws: { intents: Intents.ALL },
+      intents: Intents.FLAGS.GUILDS,
     });
-    this.blacklistedWords = require("./src/blacklistedWords");
     this.owners = ["381024325974622209"];
     this.allCatagorys = [];
     this.embed = new MessageEmbed();
@@ -16,7 +15,6 @@ class BotClient extends Client {
     this.path = require("path");
     this.ms = require("ms");
     this.discord = require("discord.js");
-    this.bufferUtil = require("bufferutil");
     this.crypto = require("crypto");
     this.commandlength = 0;
     this.catagorys = {};
@@ -56,14 +54,9 @@ class BotClient extends Client {
     require("./events/readdir").run();
   }
 
-  /* Test Whatever */
-  test(whatever, i, want, to, test) {
-    return whatever, i, want, to, test;
-  }
-
   /* Feature Loader */
   featureLoader() {
-    this.fs.readdirSync("./features").forEach((file) => {
+    this.fs.readdirSync("src/features").forEach((file) => {
       require("./features/" + file)();
       console.log(`Loaded the "${file.split(".")[0]}" feature.`);
     });
@@ -71,7 +64,12 @@ class BotClient extends Client {
 
   /* Mongo Loader */
   mongoLoader() {
-    require("./mongo")().then(() => console.log("MongoDB Ready!"));
+    require("./mongo")()
+      .then(() => console.log("MongoDB Ready!"))
+      .catch((e) => {
+        console.log("MONGO DB ERROR\n\n", e);
+        process.exit();
+      });
   }
 
   /* Start */
@@ -88,11 +86,6 @@ class BotClient extends Client {
             .emojis.cache.find((e) => e.name.toLowerCase() === "loading")
         : "";
     });
-
-    const buffer = this.crypto.randomBytes(10);
-    const mask = this.crypto.randomBytes(4);
-
-    this.bufferUtil.unmask(buffer, mask);
 
     let map = new Map();
     this.on("message", (message) => {
