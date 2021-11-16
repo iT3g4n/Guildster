@@ -14,7 +14,7 @@ this.catagory = 'suggestions'
  */
 this.run = async function(a, message, args) {
 
-    if (!args[2]) return message.reply(bot.error('Please make your suggestion longer.'))
+    if (!args[5]) return message.reply(bot.error('Please make your suggestion longer.'))
 
     const result = await guildSchema.findOne({
         _id: message.guild.id
